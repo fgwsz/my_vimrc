@@ -11,7 +11,7 @@
 "自动更新
 "======================================
 
-source $VIM/_vimrc "当_vimrc文件修改成功时自动适用
+"source $VIM/_vimrc "当_vimrc文件修改成功时自动适用(有bug)
 set autoread "文件改动时重新读取
 
 "======================================
@@ -74,25 +74,32 @@ set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&fileencoding}\
 "======================================
 
 "打开gvim时最大化窗口
-if has('win32')
-    au GUIEnter * simalt ~x
-else
-    au GUIEnter * call MaximizeWindow()
+if has("gui_running")
+    if has('win32')
+        au GUIEnter * simalt ~x
+    else
+        au GUIEnter * call MaximizeWindow()
+    endif
 endif
+
 function! MaximizeWindow()
     silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
 
 "gvim字体相关
-set guifont=Consolas:h14 "设置gvim显示字体为Consolas,字号为14号
+if has("gui_running")
+    set guifont=Consolas:h14 "设置gvim显示字体为Consolas,字号为14号
+endif
 
 "gvim gui菜单显示相关
-set guioptions-=m "隐藏菜单栏
-set guioptions-=T "隐藏工具栏
-set guioptions-=L "隐藏左侧滚动条
-set guioptions-=r "隐藏右侧滚动条
-set guioptions-=b "隐藏底部滚动条
-set guioptions-=0 "隐藏Tab栏
+if has("gui_running")
+    set guioptions-=m "隐藏菜单栏
+    set guioptions-=T "隐藏工具栏
+    set guioptions-=L "隐藏左侧滚动条
+    set guioptions-=r "隐藏右侧滚动条
+    set guioptions-=b "隐藏底部滚动条
+    set guioptions-=0 "隐藏Tab栏
+endif
 
 "======================================
 "兼容性
