@@ -49,7 +49,7 @@ set listchars=eol:$,tab:>~,space:. "设置换行显示为$,tab键显示为>~~~,s
 
 "状态栏显示相关
 set laststatus=2 "在页面的倒数第二行显示状态栏
-set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&fileencoding}\ %c:%l/%L%)\ [%p%%]\  "路径 [编辑器] 系统 编码 光标位置 [显示进度]
+set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&fileencoding}\ %c:%l/%L%)\ [%p%%]\  "路径 [文件类型] 系统 编码 光标当前行字符数:当前行号/总行数 [显示进度]
 
 "======================================
 "gvim外观
