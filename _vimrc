@@ -63,7 +63,7 @@ set expandtab "键入tab时自动给替换为空格
 
 "特殊字符显示相关
 set list "显示不可见字符
-set listchars=eol:$,tab:>~,space:. "设置换行显示为$,tab键显示为>~~~,space键显示为.
+set listchars=eol:$,tab:>~,space:· "设置换行显示为$,tab键显示为>~~~,space键显示为.
 
 "状态栏显示相关
 set laststatus=2 "显示状态栏
@@ -72,6 +72,15 @@ set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&fileencoding}\
 "标签栏显示相关
 set showtabline=2 "总是显示标签栏
 set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
+
+"======================================
+"vim外观
+"======================================
+
+"为了解决vim下特殊字符tab和space显示不明显的问题
+"将tab和space的背景色设置为深灰色
+highlight MyTabSpace ctermbg=darkgrey
+match MyTabSpace /\t\| / 
 
 "======================================
 "gvim外观
