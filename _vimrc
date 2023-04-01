@@ -77,10 +77,11 @@ set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
 "vim外观
 "======================================
 
-"为了解决某些配色方案下vim下特殊字符tab和space显示不明显的问题
-"将tab和space的背景色设置为深灰色
-"highlight MyTabSpace ctermbg=darkgrey
-"match MyTabSpace /\t\| / 
+"为了解决某些配色方案下vim下特殊字符tab/space/enter显示不明显的问题
+"将tab/space/enter的前景色设置为灰色
+"将tab/space/enter的背景色设置为深灰色
+highlight MyTabSpace ctermfg=grey ctermbg=darkgrey
+match MyTabSpace /\t\| \|\n/
 
 "光标形状(平台相关)
 "效果：普通模式下块状，插入模式下条状
