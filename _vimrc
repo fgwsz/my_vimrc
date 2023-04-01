@@ -69,6 +69,10 @@ set listchars=eol:$,tab:>~,space:. "设置换行显示为$,tab键显示为>~~~,s
 set laststatus=2 "显示状态栏
 set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&fileencoding}\ %c:%l/%L%)\ [%p%%]\  "路径 [文件类型] 系统 编码 光标当前行字符数:当前行号/总行数 [显示进度]
 
+"标签栏显示相关
+set showtabline=2 "总是显示标签栏
+set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
+
 "======================================
 "gvim外观
 "======================================
