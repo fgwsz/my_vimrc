@@ -105,7 +105,7 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序
 
 "设置默认显示模式
 "0:thin 1:long 2:wide 3:tree4种显示模式
-let g:netrw_liststyle=1 "设置显示模式为wide
+let g:netrw_liststyle=1 "设置显示模式为long
 
 "显示/隐藏Netrw顶端的横幅(Banner)
 "let g:netrw_banner=0 "隐藏横幅
