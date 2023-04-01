@@ -82,6 +82,38 @@ set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&fileencoding}\
 set showtabline=2 "总是显示标签栏
 set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
 
+"自带文件浏览器(Netrw)相关
+
+""自动打开文件浏览器
+"augroup ProjectDrawer
+"    autocmd!
+"    autocmd VimEnter * :Vexplore
+"augroup END
+
+"设置目录/文件默认排序方式
+"let g:netrw_sort_by='time' "设置文件排序方式为按照时间排序
+"let g:netrw_sort_direction='reverse' "设置安排方式为降序
+let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序
+
+"默认情况下，Netrw打开文件时将在当前窗口中打开文件
+"使用下面数值可以配置Netrw打开文件的方式
+"1.用水平拆分窗口打开文件
+"2.用垂直拆分窗口打开文件
+"3.用新建标签页打开文件
+"4.用之前一个窗口打开文件
+"let g:netrw_browse_split=4
+
+"设置默认显示模式
+"0:thin 1:long 2:wide 3:tree4种显示模式
+let g:netrw_liststyle=1 "设置显示模式为wide
+
+"显示/隐藏Netrw顶端的横幅(Banner)
+"let g:netrw_banner=0 "隐藏横幅
+let g:netrw_banner=1 "显示横幅
+
+"设置文件浏览器的宽度
+"let g:netrw_winsize=25 "设置文件浏览器的宽度为窗口的25%
+
 "======================================
 "vim外观
 "======================================
