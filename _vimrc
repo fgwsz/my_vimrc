@@ -53,17 +53,26 @@ set showmatch "光标移动到括号时显示当前括号的匹配括号
 
 "配色方案相关
 set background=dark "设置深色背景颜色美化
-colorscheme evening "设置配色方案为evening
+colorscheme desert "设置配色方案为desert
+
+"特殊字符显示相关
+set list "显示不可见字符
+set listchars=eol:$,tab:>~,space:· "设置换行显示为$,tab键显示为>~~~,space键显示为.
+
+"为了解决某些配色方案下vim下特殊字符tab/space/enter显示不明显的问题
+"将tab/space/enter的前景色设置为深灰色
+if has("gui_running")
+    highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
+else
+    highlight MyTabSpaceEol ctermfg=darkgrey
+endif
+match MyTabSpaceEol /\t\|\s\|\n/
 
 "缩进相关
 set tabstop=4 "设置tab键的宽度为4
 set softtabstop=4 "按下tab键时显示宽度为4，按下backspace键删除tab时删除宽度为4
 set shiftwidth=4 "缩进字符宽度为4
 set expandtab "键入tab时自动给替换为空格
-
-"特殊字符显示相关
-set list "显示不可见字符
-set listchars=eol:$,tab:>~,space:· "设置换行显示为$,tab键显示为>~~~,space键显示为.
 
 "状态栏显示相关
 set laststatus=2 "显示状态栏
@@ -76,12 +85,6 @@ set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
 "======================================
 "vim外观
 "======================================
-
-"为了解决某些配色方案下vim下特殊字符tab/space/enter显示不明显的问题
-"将tab/space/enter的前景色设置为灰色
-"将tab/space/enter的背景色设置为深灰色
-highlight MyTabSpace ctermfg=grey ctermbg=darkgrey
-match MyTabSpace /\t\| \|\n/
 
 "光标形状(平台相关)
 "效果：普通模式下块状，插入模式下条状
