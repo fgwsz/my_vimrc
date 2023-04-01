@@ -53,7 +53,7 @@ set showmatch "光标移动到括号时显示当前括号的匹配括号
 
 "配色方案相关
 set background=dark "设置深色背景颜色美化
-colorscheme evening "设置配色为evening
+colorscheme evening "设置配色方案为evening
 
 "缩进相关
 set tabstop=4 "设置tab键的宽度为4
@@ -77,10 +77,23 @@ set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
 "vim外观
 "======================================
 
-"为了解决vim下特殊字符tab和space显示不明显的问题
+"为了解决某些配色方案下vim下特殊字符tab和space显示不明显的问题
 "将tab和space的背景色设置为深灰色
-highlight MyTabSpace ctermbg=darkgrey
-match MyTabSpace /\t\| / 
+"highlight MyTabSpace ctermbg=darkgrey
+"match MyTabSpace /\t\| / 
+
+"光标形状(平台相关)
+"效果：普通模式下块状，插入模式下条状
+"For VTE compatible terminals (urxvt, st, xterm, gnome-terminal 3.x, Konsole KDE5 and others), wsltty and Windows Terminal
+"&t_SI 表示插入模式
+"&t_SR 表示替换模式
+"&t_EI 表示普通模式
+""\<Esc>[6 q" 用来配置光标的形状。其中 6 的取值可以是 1 - 6，分别指代不同的光标样式
+if has('win32')
+    let &t_SI = "\<Esc>[6 q"
+    let &t_SR = "\<Esc>[4 q"
+    let &t_EI = "\<Esc>[2 q"
+endif
 
 "======================================
 "gvim外观
