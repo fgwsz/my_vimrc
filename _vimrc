@@ -170,13 +170,13 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认
 "======================================
 
 "终端外观设置
-"光标形状 实心块状
-"背景色       RGB#0C0C0C
-"前景色       RGB#CCCCCC
-"光标颜色     RGB#95D6D4
-"选中背景色   RGB#13A10E
-"字体         Consolas
-"字号         14
+"光标形状       实心块状
+"背景色         RGB#0C0C0C
+"前景色         RGB#CCCCCC
+"光标颜色       RGB#95D6D4
+"选中背景色     RGB#13A10E
+"字体           Consolas
+"字号           14
 
 "终端快捷键设置
 "终端粘贴<ctrl-v>和vim进入列选可视模式<ctrl-v>冲突，应替换为<ctrl-alt-v>
