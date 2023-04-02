@@ -15,9 +15,9 @@
 set autoread "文件改动时重新读取
 
 "临时文件相关
-set nobackup "表示不需要备份文件 
-set noswapfile "表示不创建临时交换文件 
-set nowritebackup "表示编辑的时候不需要备份文件 
+set nobackup "表示不需要备份文件
+set noswapfile "表示不创建临时交换文件
+set nowritebackup "表示编辑的时候不需要备份文件
 set noundofile "表示不创建撤销文件
 
 "vi兼容相关
@@ -150,7 +150,7 @@ endif
 "let g:netrw_browse_split=4
 
 "Netrw顶端的横幅可见性
-"0:隐藏 1:显示(默认)
+"0:隐藏 1(默认):显示
 let g:netrw_banner=1 "显示横幅
 
 "Netrw目录/文件显示模式
@@ -186,7 +186,7 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认
 "&t_SI 表示插入模式
 "&t_SR 表示替换模式
 "&t_EI 表示普通模式
-""\<Esc>[6 q" 用来配置光标的形状。其中 6 的取值可以是 1 - 6，分别指代不同的光标样式
+""\<Esc>[6 q"用来配置光标的形状，其中6的取值可以是1~6，分别指代不同的光标样式
 if has('win32')
     let &t_SI = "\<Esc>[6 q"
     let &t_SR = "\<Esc>[4 q"
@@ -196,7 +196,7 @@ endif
 "vim/gvim命令模式打开终端相关
 "设置:term[inal]命令默认打开的终端窗口为powershell(默认值为cmd)
 if has('win32')
-    set shell=powershell 
+    set shell=powershell
 endif
 
 "中文输入相关
@@ -206,5 +206,5 @@ endif
 "剪切板相关
 "设置vim/gvim和系统的剪切板互通
 if has('win32')
-    set clipboard=unnamed 
+    set clipboard=unnamed
 endif
