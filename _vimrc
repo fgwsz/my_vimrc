@@ -52,22 +52,28 @@ syntax on "开启语法高亮
 set hlsearch "查找结果高亮显示
 set showmatch "光标移动到括号时高亮显示匹配括号
 "高亮显示光标所在行/列
-""highlght 主要是用来配色的，包括语法高亮等个性化的配置。可以通过:h highlight，查看详细信息
-""CursorLine 和 CursorColumn 分别表示当前所在的行列
-""cterm 表示为原生vim设置样式，设置为NONE表示可以自定义设置。
-""ctermbg 设置终端vim的背景色
-""ctermfg 设置终端vim的前景色
-""guibg 和 guifg 分别是设置gvim的背景色和前景色，本人平时都是使用终端打开vim，所以只是设置终端下的样式
 "set cursorline "高亮显示光标当前行
 "set cursorcolumn "高亮显示光标当前列
+"设置光标所在行列高亮显示的颜色
+""highlght:用来配色的命令，包括语法高亮等个性化的配置
+""CursorLine/CursorColumn:当前所在的行列
+""cterm:为vim设置样式，设置为NONE表示可以自定义设置
+""ctermbg:vim的背景色
+""ctermfg:vim的前景色
+""guibg:vim的背景色
+""guifg:vim的前景色
 "highlight CursorLine cterm=NONE ctermbg=black ctermfg=NONE guibg=black guifg=NONE
 "highlight CursorColumn cterm=NONE ctermbg=black ctermfg=NONE guibg=black guifg=NONE
+
+"特殊字符显示相关
+set list "显示不可见字符
+set listchars=eol:$,tab:>~,space:· "设置换行显示为$,tab键显示为>~~~,space键显示为.
 
 "配色方案相关
 set background=dark "设置深色背景颜色美化
 colorscheme desert "设置配色方案为desert
-"为了解决某些配色方案下特殊字符tab/space/enter显示不明显的问题
-"将tab/space/enter的前景色设置为深灰色
+"某些配色方案下特殊字符tab/space/eol(enter)显示不明显
+"将tab/space/eol(enter)的前景色统一设置为深灰色
 if has("gui_running")
     highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
 else
@@ -75,15 +81,11 @@ else
 endif
 match MyTabSpaceEol /\t\|\s\|\n/
 
-"特殊字符显示相关
-set list "显示不可见字符
-set listchars=eol:$,tab:>~,space:· "设置换行显示为$,tab键显示为>~~~,space键显示为.
-
 "缩进相关
 set tabstop=4 "设置tab键的宽度为4
 set softtabstop=4 "按下tab键时显示宽度为4，按下backspace键删除tab时删除宽度为4
 set shiftwidth=4 "缩进字符宽度为4
-set expandtab "键入tab时自动给替换为空格
+set expandtab "键入tab时自动替换为空格
 
 "状态栏显示相关
 set laststatus=2 "显示状态栏
@@ -95,39 +97,6 @@ set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&fileencoding}\
 "标签栏显示相关
 set showtabline=2 "总是显示标签栏
 set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
-
-"自带文件浏览器(Netrw)相关
-"Netrw是vim安装之后自带的插件
-
-""自动打开文件浏览器
-"augroup ProjectDrawer
-"    autocmd!
-"    autocmd VimEnter * :Vexplore
-"augroup END
-
-"设置目录/文件默认排序方式
-"let g:netrw_sort_by='time' "设置文件排序方式为按照时间排序
-"let g:netrw_sort_direction='reverse' "设置安排方式为降序
-let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序
-
-"默认情况下，Netrw打开文件时将在当前窗口中打开文件
-"使用下面数值可以配置Netrw打开文件的方式
-"1.用水平拆分窗口打开文件
-"2.用垂直拆分窗口打开文件
-"3.用新建标签页打开文件
-"4.用之前一个窗口打开文件
-"let g:netrw_browse_split=4
-
-"设置默认显示模式
-"0:thin 1:long 2:wide 3:tree4种显示模式
-let g:netrw_liststyle=1 "设置显示模式为long
-
-"显示/隐藏Netrw顶端的横幅(Banner)
-"let g:netrw_banner=0 "隐藏横幅
-let g:netrw_banner=1 "显示横幅
-
-"设置文件浏览器的宽度
-"let g:netrw_winsize=25 "设置文件浏览器的宽度为窗口的25%
 
 "======================================
 "gvim独有设置
@@ -158,8 +127,44 @@ if has("gui_running")
     set guioptions-=L "隐藏左侧滚动条
     set guioptions-=r "隐藏右侧滚动条
     set guioptions-=b "隐藏底部滚动条
-    set guioptions-=0 "隐藏Tab栏
+    "set guioptions-=0 "隐藏标签栏
 endif
+
+"======================================
+"插件设置
+"======================================
+"
+"Netrw是vim/gvim自带的文件浏览器插件
+
+""vim/gvim启动时自动打开Netrw
+"augroup ProjectDrawer
+"    autocmd!
+"    autocmd VimEnter * :Vexplore "自动运行命令:Vex[plore]
+"augroup END
+"
+"Netrw打开文件时的窗口操作
+"0(默认):在当前窗口中打开文件
+"1:用水平拆分窗口打开文件
+"2:用垂直拆分窗口打开文件
+"3:用新建标签页打开文件
+"4:用之前一个窗口打开文件
+"let g:netrw_browse_split=4
+
+"Netrw顶端的横幅可见性
+"0:隐藏 1:显示(默认)
+let g:netrw_banner=1 "显示横幅
+
+"Netrw目录/文件显示模式
+"0(默认):thin 1:long 2:wide 3:tree
+let g:netrw_liststyle=1 "设置显示模式为long
+
+"Netrw目录/文件排序方式
+"let g:netrw_sort_by='time' "设置文件排序方式为按照时间排序
+"let g:netrw_sort_direction='reverse' "设置安排方式为降序
+let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认)
+
+"Netrw分屏窗口最大宽度(百分比)
+"let g:netrw_winsize=25 "设置为整个vim/gvim窗口宽度的25%
 
 "======================================
 "操作系统兼容性
