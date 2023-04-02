@@ -8,25 +8,42 @@
 "gvim:vim的gui版本
 
 "======================================
-"自动更新
+"通用功能设置
 "======================================
 
+"文件载入相关
 "source $VIM/_vimrc "当_vimrc文件修改成功时自动适用(有bug)
 set autoread "文件改动时重新读取
 
+"临时文件相关
+set nobackup "表示不需要备份文件 
+set noswapfile "表示不创建临时交换文件 
+set nowritebackup "表示编辑的时候不需要备份文件 
+set noundofile "表示不创建撤销文件
+
+"vi兼容相关
+set nocompatible "不兼容vi模式，避免bug
+
+"按键可用性
+set backspace=indent,eol,start "让backspace在insert模式下可用
+
+"文件类型相关
+filetype on "检测文件类型
+
+"插件设置相关
+filetype plugin on "允许插件
+
+"编码相关
+set encoding=utf-8 "设置vim/gvim打开文件的默认编码格式
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1 "设置vim/gvim按照从左到右的顺序自动推断文件的编码类型
+
 "======================================
-"通用外观
+"通用外观设置
 "======================================
 
 "行号相关
 set number "显示绝对行号
 "set relativenumber "显示相对行号
-
-"光标位置标尺相关(无效果)
-set ruler "显示光标所在位置
-
-"显示状态(无效果)
-set showmode "在状态栏显示当前模式
 
 "折行相关
 "set wrap "自动折行：将超出屏幕范围的文本打断并显示在下一行
@@ -54,12 +71,7 @@ set showmatch "光标移动到括号时显示当前括号的匹配括号
 "配色方案相关
 set background=dark "设置深色背景颜色美化
 colorscheme desert "设置配色方案为desert
-
-"特殊字符显示相关
-set list "显示不可见字符
-set listchars=eol:$,tab:>~,space:· "设置换行显示为$,tab键显示为>~~~,space键显示为.
-
-"为了解决某些配色方案下vim下特殊字符tab/space/enter显示不明显的问题
+"为了解决某些配色方案下特殊字符tab/space/enter显示不明显的问题
 "将tab/space/enter的前景色设置为深灰色
 if has("gui_running")
     highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
@@ -67,6 +79,10 @@ else
     highlight MyTabSpaceEol ctermfg=darkgrey
 endif
 match MyTabSpaceEol /\t\|\s\|\n/
+
+"特殊字符显示相关
+set list "显示不可见字符
+set listchars=eol:$,tab:>~,space:· "设置换行显示为$,tab键显示为>~~~,space键显示为.
 
 "缩进相关
 set tabstop=4 "设置tab键的宽度为4
@@ -76,6 +92,9 @@ set expandtab "键入tab时自动给替换为空格
 
 "状态栏显示相关
 set laststatus=2 "显示状态栏
+set ruler "显示光标所在位置
+set showmode "显示当前模式
+set showcmd "显示键入按键信息
 set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&fileencoding}\ %c:%l/%L%)\ [%p%%]\  "路径 [文件类型] 系统 编码 光标当前行字符数:当前行号/总行数 [显示进度]
 
 "标签栏显示相关
@@ -83,6 +102,7 @@ set showtabline=2 "总是显示标签栏
 set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
 
 "自带文件浏览器(Netrw)相关
+"Netrw是vim安装之后自带的插件
 
 ""自动打开文件浏览器
 "augroup ProjectDrawer
@@ -115,24 +135,7 @@ let g:netrw_banner=1 "显示横幅
 "let g:netrw_winsize=25 "设置文件浏览器的宽度为窗口的25%
 
 "======================================
-"vim外观
-"======================================
-
-"光标形状(平台相关)
-"效果：普通模式下块状，插入模式下条状
-"For VTE compatible terminals (urxvt, st, xterm, gnome-terminal 3.x, Konsole KDE5 and others), wsltty and Windows Terminal
-"&t_SI 表示插入模式
-"&t_SR 表示替换模式
-"&t_EI 表示普通模式
-""\<Esc>[6 q" 用来配置光标的形状。其中 6 的取值可以是 1 - 6，分别指代不同的光标样式
-if has('win32')
-    let &t_SI = "\<Esc>[6 q"
-    let &t_SR = "\<Esc>[4 q"
-    let &t_EI = "\<Esc>[2 q"
-endif
-
-"======================================
-"gvim外观
+"gvim独有设置
 "======================================
 
 "打开gvim时最大化窗口
@@ -164,31 +167,34 @@ if has("gui_running")
 endif
 
 "======================================
-"兼容性
+"操作系统兼容性
 "======================================
 
+"vim光标形状
+"效果：普通模式下块状，插入模式下条状
+"For VTE compatible terminals (urxvt, st, xterm, gnome-terminal 3.x, Konsole KDE5 and others), wsltty and Windows Terminal
+"&t_SI 表示插入模式
+"&t_SR 表示替换模式
+"&t_EI 表示普通模式
+""\<Esc>[6 q" 用来配置光标的形状。其中 6 的取值可以是 1 - 6，分别指代不同的光标样式
+if has('win32')
+    let &t_SI = "\<Esc>[6 q"
+    let &t_SR = "\<Esc>[4 q"
+    let &t_EI = "\<Esc>[2 q"
+endif
+
 "终端相关
-set shell=powershell "设置:term[inal]命令默认打开的终端窗口为powershell(默认值为cmd)
+"设置:term[inal]命令默认打开的终端窗口为powershell(默认值为cmd)
+if has('win32')
+    set shell=powershell 
+endif
 
 "中文输入法相关
 "在gvim中请使用微软自带输入法，使用其他输入法不一定能切换中英文并输入中文
 "在vim中可以使用任何控制台支持的输入法来输入中文
 
-"vi兼容相关
-set nocompatible "不兼容vi模式，避免bug
-
-"按键可用性
-set backspace=indent,eol,start "让backspace在insert模式下可用
-
 "剪切板相关
-set clipboard=unnamed "设置vim/gvim和系统的剪切板互通
-
-"编码相关
-set encoding=utf-8 "设置vim/gvim打开文件的默认编码格式
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1 "设置vim/gvim按照从左到右的顺序自动推断文件的编码类型
-
-"临时文件相关
-set nobackup "表示不需要备份文件 
-set noswapfile "表示不创建临时交换文件 
-set nowritebackup "表示编辑的时候不需要备份文件 
-set noundofile "表示不创建撤销文件
+"设置vim/gvim和系统的剪切板互通
+if has('win32')
+    set clipboard=unnamed 
+endif
