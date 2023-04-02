@@ -115,8 +115,13 @@ function! MaximizeWindow()
 endfunction
 
 "gvim字体相关
+"设置gvim显示字体为Consolas,字号为14号
 if has("gui_running")
-    set guifont=Consolas:h14 "设置gvim显示字体为Consolas,字号为14号
+    if has("win32")
+        set guifont=Consolas:h14
+    else
+        set guifont=Consolas\ 14
+    endif
 endif
 
 "gvim gui菜单显示相关
