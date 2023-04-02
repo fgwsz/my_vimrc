@@ -41,22 +41,17 @@ set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1 "设置v
 "通用外观设置
 "======================================
 
-"行号相关
+"行相关
 set number "显示绝对行号
 "set relativenumber "显示相对行号
-
-"折行相关
 "set wrap "自动折行：将超出屏幕范围的文本打断并显示在下一行
 set nowrap "取消自动折行
 
 "高亮相关
 syntax on "开启语法高亮
 set hlsearch "查找结果高亮显示
-
-"括号匹配相关
-set showmatch "光标移动到括号时显示当前括号的匹配括号
-
-"高亮显示当前光标位置
+set showmatch "光标移动到括号时高亮显示匹配括号
+"高亮显示光标所在行/列
 ""highlght 主要是用来配色的，包括语法高亮等个性化的配置。可以通过:h highlight，查看详细信息
 ""CursorLine 和 CursorColumn 分别表示当前所在的行列
 ""cterm 表示为原生vim设置样式，设置为NONE表示可以自定义设置。
@@ -170,9 +165,20 @@ endif
 "操作系统兼容性
 "======================================
 
-"vim光标形状
-"效果：普通模式下块状，插入模式下条状
-"For VTE compatible terminals (urxvt, st, xterm, gnome-terminal 3.x, Konsole KDE5 and others), wsltty and Windows Terminal
+"终端外观设置
+"默认光标形状 实心块状
+"背景色       RGB#0C0C0C
+"前景色       RGB#CCCCCC
+"光标颜色     RGB#95D6D4
+"选中背景色   RGB#13A10E
+"字体         Consolas
+"字号         14
+
+"终端快捷键设置
+"终端粘贴<ctrl-v>和vim进入列选可视模式<ctrl-v>冲突，应替换为<ctrl-alt-v>
+"
+"终端光标形状跟随vim模式自动切换
+"实现效果：普通模式实心块状，插入模式线条状，替换模式下划线状
 "&t_SI 表示插入模式
 "&t_SR 表示替换模式
 "&t_EI 表示普通模式
@@ -183,15 +189,15 @@ if has('win32')
     let &t_EI = "\<Esc>[2 q"
 endif
 
-"终端相关
+"vim/gvim命令模式打开终端相关
 "设置:term[inal]命令默认打开的终端窗口为powershell(默认值为cmd)
 if has('win32')
     set shell=powershell 
 endif
 
-"中文输入法相关
-"在gvim中请使用微软自带输入法，使用其他输入法不一定能切换中英文并输入中文
-"在vim中可以使用任何控制台支持的输入法来输入中文
+"中文输入相关
+"在vim中可以使用任何终端支持的输入法来输入中文
+"在gvim中(windows操作系统)请使用windows自带输入法，使用其他输入法不一定能切换中英文并输入中文
 
 "剪切板相关
 "设置vim/gvim和系统的剪切板互通
