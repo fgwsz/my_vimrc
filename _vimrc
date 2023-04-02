@@ -58,10 +58,9 @@ set nowrap "取消自动折行
 
 "高亮相关
 syntax on "开启语法高亮
-"打开窗口时自动关闭搜索词高亮显示
 set hlsearch "查找结果高亮显示
 set incsearch "查找结果随着键入匹配项实时高亮显示
-":nohlsearch 命令模式输入可关闭上一次搜索词对应的高亮显示
+":nohlsearch 命令模式输入可关闭上一次查找所对应的高亮显示
 set showmatch "光标移动到括号时高亮显示匹配括号
 "高亮显示光标所在行/列
 "set cursorline "高亮显示光标当前行
