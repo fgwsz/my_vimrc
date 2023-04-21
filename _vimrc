@@ -90,7 +90,7 @@ if has("gui_running")
 else
     highlight MyTabSpaceEol ctermfg=darkgrey
 endif
-match MyTabSpaceEol /\t\|\s\|\n|\r/
+match MyTabSpaceEol /\t\|\s\|\n\|\r/
 
 "缩进相关
 set tabstop=4 "设置tab键的宽度为4
