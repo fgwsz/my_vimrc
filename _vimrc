@@ -218,6 +218,8 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认
 if has('win32')
     set shell=powershell
 endif
+"设置:term命令终端窗口从插入模式变为普通(一般)模式的快捷键为alt+q
+tnoremap <A-q> <C-\><C-n>
 
 "中文输入相关
 "在vim中可以使用任何终端支持的输入法来输入中文
