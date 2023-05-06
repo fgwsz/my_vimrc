@@ -57,7 +57,7 @@ set number "显示绝对行号
 set nowrap "取消自动折行
 set sidescroll=1 "更加平滑的逐个字符扩展显示
 set scrolloff=999 "让编辑行自动位于屏幕中间
-set cc=80 "在第80列显示一条竖线，作为标准列宽的标识
+set colorcolumn=80 "在第80列显示一条竖线，作为标准列宽的标识
 
 "高亮相关
 syntax on "开启语法高亮
