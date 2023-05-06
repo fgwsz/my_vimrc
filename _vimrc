@@ -55,7 +55,8 @@ set number "显示绝对行号
 "set relativenumber "显示相对行号
 "set wrap "自动折行：将超出屏幕范围的文本打断并显示在下一行
 set nowrap "取消自动折行
-set sidescroll=1"更加平滑的逐个字符扩展显示
+set sidescroll=1 "更加平滑的逐个字符扩展显示
+set scrolloff=999 "让编辑行自动位于屏幕中间
 
 "高亮相关
 syntax on "开启语法高亮
