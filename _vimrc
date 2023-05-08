@@ -238,24 +238,33 @@ endif
 "保存(ctrl+s)
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <Esc>:w<CR>a
+vnoremap <C-s> <Esc><Esc>:w<CR>
 
 "全选(ctrl+a)
 nnoremap <C-a> gg0vG$
 inoremap <C-a> <Esc>gg0vG$
+vnoremap <C-a> <Esc><Esc>gg0vG$
 tnoremap <C-a> <C-\><C-n>gg0vG$
 
 "选中(shift+方向键)
 nnoremap <S-Up> v<Up>
 inoremap <S-Up> <Esc>v<Up>
+vnoremap <S-Up> j
 tnoremap <S-Up> <C-\><C-n>v<Up>
+
 nnoremap <S-Down> v<Down>
 inoremap <S-Down> <Esc>v<Down>
+vnoremap <S-Down> k
 tnoremap <S-Down> <C-\><C-n>v<Down>
+
 nnoremap <S-Left> v<Left>
 inoremap <S-Left> <Esc>v<Left>
+vnoremap <S-Left> h
 tnoremap <S-Left> <C-\><C-n>v<Left>
+
 nnoremap <S-Right> v<Right>
 inoremap <S-Right> <Esc>v<Right>
+vnoremap <S-Right> l
 tnoremap <S-Right> <C-\><C-n>v<Right>
 
 "复制(ctrl+c)
@@ -267,24 +276,32 @@ vnoremap <C-x> d<Esc>
 "复制当前行到下一行(ctrl+d)
 nnoremap <C-d> yyp
 inoremap <C-d> <Esc>yypa
+vnoremap <C-d> <Esc><Esc>yyp
 
 "撤销(ctrl+z)
 nnoremap <C-z> u
 inoremap <C-z> <Esc>ua
+vnoremap <C-z> <Esc><Esc>u
 
 "取消撤销(ctrl+y)
 nnoremap <C-y> <C-r>
 inoremap <C-y> <Esc><C-r>a
+vnoremap <C-y> <Esc><Esc><C-r>
 
 "关闭光标所在窗口(ctrl+w q)
 nnoremap <C-w>q :q!<CR>
 inoremap <C-w>q <Esc>:q!<CR>
+vnoremap <C-w>q <Esc><Esc>:q!<CR>
 tnoremap <C-w>q <C-\><C-n>:q!<CR>
 
 "打开终端(ctrl+t)
 nnoremap <C-t> :bo term<CR>
 inoremap <C-t> <Esc>:bo term<CR>
+vnoremap <C-t> <Esc><Esc>:bo term<CR>
+tnoremap <C-t> <C-\><C-n>:bo term<CR>
 
 "fast grep(ctrl+g)
 nnoremap <C-g> :tab new<CR>:copen<CR>:vimgrep 
 inoremap <C-g> <Esc>:tab new<CR>:copen<CR>:vimgrep 
+vnoremap <C-g> <Esc><Esc>:tab new<CR>:copen<CR>:vimgrep 
+tnoremap <C-g> <C-\><C-n>:tab new<CR>:copen<CR>:vimgrep 
