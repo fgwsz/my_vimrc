@@ -271,6 +271,15 @@ inoremap <C-z> <Esc>ua
 nnoremap <C-y> <C-r>
 inoremap <C-y> <Esc><C-r>a
 
-"关闭标签页(ctrl+w q)
+"关闭光标所在窗口(ctrl+w q)
 nnoremap <C-w>q :q!<CR>
 inoremap <C-w>q <Esc>:q!<CR>
+tnoremap <C-w>q <C-\><C-n>:q!<CR>
+
+"打开终端(ctrl+t)
+nnoremap <C-t> :bo term<CR>
+inoremap <C-t> <Esc>:bo term<CR>
+
+"fast grep(ctrl+g)
+nnoremap <C-g> :tab new<CR>:copen<CR>:vimgrep 
+inoremap <C-g> <Esc>:tab new<CR>:copen<CR>:vimgrep 
