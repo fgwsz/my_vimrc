@@ -249,12 +249,12 @@ tnoremap <C-a> <C-\><C-n>gg0vG$
 "选中(shift+方向键)
 nnoremap <S-Up> v<Up>
 inoremap <S-Up> <Esc>v<Up>
-vnoremap <S-Up> j
+vnoremap <S-Up> k
 tnoremap <S-Up> <C-\><C-n>v<Up>
 
 nnoremap <S-Down> v<Down>
 inoremap <S-Down> <Esc>v<Down>
-vnoremap <S-Down> k
+vnoremap <S-Down> j
 tnoremap <S-Down> <C-\><C-n>v<Down>
 
 nnoremap <S-Left> v<Left>
