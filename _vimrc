@@ -230,3 +230,47 @@ tnoremap <A-q> <C-\><C-n>
 if has('win32')
     set clipboard=unnamed
 endif
+
+"======================================
+"映射快捷键
+"======================================
+
+"保存(ctrl+s)
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>a
+
+"全选(ctrl+a)
+nnoremap <C-a> gg0vG$
+inoremap <C-a> <Esc>gg0vG$
+
+"选中(shift+方向键)
+nnoremap <S-Up> v<Up>
+inoremap <S-Up> <Esc>v<Up>
+nnoremap <S-Down> v<Down>
+inoremap <S-Down> <Esc>v<Down>
+nnoremap <S-Left> v<Left>
+inoremap <S-Left> <Esc>v<Left>
+nnoremap <S-Right> v<Right>
+inoremap <S-Right> <Esc>v<Right>
+
+"复制(ctrl+c)
+vnoremap <C-c> y<Esc>
+
+"剪切(ctrl+x)
+vnoremap <C-x> d<Esc>
+
+"复制当前行到下一行(ctrl+d)
+nnoremap <C-d> yyp
+inoremap <C-d> <Esc>yypa
+
+"撤销(ctrl+z)
+nnoremap <C-z> u
+inoremap <C-z> <Esc>ua
+
+"取消撤销(ctrl+y)
+nnoremap <C-y> <C-r>
+inoremap <C-y> <Esc><C-r>a
+
+"关闭标签页(ctrl+w q)
+nnoremap <C-w>q :q!<CR>
+inoremap <C-w>q <Esc>:q!<CR>
