@@ -273,20 +273,20 @@ vnoremap <C-c> y<Esc>
 "剪切(ctrl+x)
 vnoremap <C-x> d<Esc>
 
+"粘贴(ctrl+v)
+inoremap <C-v> <Esc>pa
+
 "复制当前行到下一行(ctrl+d)
 nnoremap <C-d> yyp
 inoremap <C-d> <Esc>yypa
-vnoremap <C-d> <Esc><Esc>yyp
 
 "撤销(ctrl+z)
 nnoremap <C-z> u
 inoremap <C-z> <Esc>ua
-vnoremap <C-z> <Esc><Esc>u
 
 "取消撤销(ctrl+y)
 nnoremap <C-y> <C-r>
 inoremap <C-y> <Esc><C-r>a
-vnoremap <C-y> <Esc><Esc><C-r>
 
 "关闭光标所在窗口(ctrl+w q)
 nnoremap <C-w>q :q!<CR>
