@@ -292,16 +292,16 @@ inoremap <C-y> <Esc><C-r>a
 nnoremap <C-w>q :q!<CR>
 inoremap <C-w>q <Esc>:q!<CR>
 vnoremap <C-w>q <Esc><Esc>:q!<CR>
-tnoremap <C-w>q <C-\><C-n>:q!<CR>
+tnoremap <C-w>q <C-\><C-n><Esc><Esc>:q!<CR>
 
 "打开终端(ctrl+t)
 nnoremap <C-t> :bo term<CR>
 inoremap <C-t> <Esc>:bo term<CR>
 vnoremap <C-t> <Esc><Esc>:bo term<CR>
-tnoremap <C-t> <C-\><C-n>:bo term<CR>
+tnoremap <C-t> <C-\><C-n><Esc><Esc>:bo term<CR>
 
 "fast grep(ctrl+g)
 nnoremap <C-g> :tab new<CR>:copen<CR>:vimgrep 
 inoremap <C-g> <Esc>:tab new<CR>:copen<CR>:vimgrep 
 vnoremap <C-g> <Esc><Esc>:tab new<CR>:copen<CR>:vimgrep 
-tnoremap <C-g> <C-\><C-n>:tab new<CR>:copen<CR>:vimgrep 
+tnoremap <C-g> <C-\><C-n><Esc><Esc>:tab new<CR>:copen<CR>:vimgrep 
