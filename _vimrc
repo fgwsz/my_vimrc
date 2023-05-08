@@ -242,16 +242,21 @@ inoremap <C-s> <Esc>:w<CR>a
 "全选(ctrl+a)
 nnoremap <C-a> gg0vG$
 inoremap <C-a> <Esc>gg0vG$
+tnoremap <C-a> <C-\><C-n>gg0vG$
 
 "选中(shift+方向键)
 nnoremap <S-Up> v<Up>
 inoremap <S-Up> <Esc>v<Up>
+tnoremap <S-Up> <C-\><C-n>v<Up>
 nnoremap <S-Down> v<Down>
 inoremap <S-Down> <Esc>v<Down>
+tnoremap <S-Down> <C-\><C-n>v<Down>
 nnoremap <S-Left> v<Left>
 inoremap <S-Left> <Esc>v<Left>
+tnoremap <S-Left> <C-\><C-n>v<Left>
 nnoremap <S-Right> v<Right>
 inoremap <S-Right> <Esc>v<Right>
+tnoremap <S-Right> <C-\><C-n>v<Right>
 
 "复制(ctrl+c)
 vnoremap <C-c> y<Esc>
