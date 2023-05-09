@@ -247,25 +247,25 @@ vnoremap <C-a> <Esc><Esc>gg0vG$
 tnoremap <C-a> <C-\><C-n>gg0vG$
 
 "选中(shift+方向键)
-nnoremap <S-Up> v<Up>
-inoremap <S-Up> <Esc>v<Up>
+nnoremap <S-Up> vk
+inoremap <S-Up> <Esc>vk
 vnoremap <S-Up> k
-tnoremap <S-Up> <C-\><C-n>v<Up>
+tnoremap <S-Up> <C-\><C-n>vk
 
-nnoremap <S-Down> v<Down>
-inoremap <S-Down> <Esc>v<Down>
+nnoremap <S-Down> vj
+inoremap <S-Down> <Esc>vj
 vnoremap <S-Down> j
-tnoremap <S-Down> <C-\><C-n>v<Down>
+tnoremap <S-Down> <C-\><C-n>vj
 
-nnoremap <S-Left> v<Left>
-inoremap <S-Left> <Esc>v<Left>
+nnoremap <S-Left> vh
+inoremap <S-Left> <Esc>vh
 vnoremap <S-Left> h
-tnoremap <S-Left> <C-\><C-n>v<Left>
+tnoremap <S-Left> <C-\><C-n>vh
 
-nnoremap <S-Right> v<Right>
-inoremap <S-Right> <Esc>v<Right>
+nnoremap <S-Right> vl
+inoremap <S-Right> <Esc>vl
 vnoremap <S-Right> l
-tnoremap <S-Right> <C-\><C-n>v<Right>
+tnoremap <S-Right> <C-\><C-n>vl
 
 "复制(ctrl+c)
 vnoremap <C-c> y<Esc>
