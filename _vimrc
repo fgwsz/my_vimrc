@@ -46,6 +46,10 @@ set wildmenu "使用增强的命令模式补全
 "enter 选中备选项并退出备选项菜单栏
 "↓     不选中任何备选项直接退出备选项菜单栏
 
+"错误提示
+set noerrorbells "关闭错误提示音
+set novisualbell "关闭错误提示屏幕闪烁
+
 "======================================
 "通用外观设置
 "======================================
@@ -292,7 +296,9 @@ inoremap <C-y> <Esc><C-r>a
 nnoremap <C-w>q :q!<CR>
 inoremap <C-w>q <Esc>:q!<CR>
 vnoremap <C-w>q <Esc><Esc>:q!<CR>
-tnoremap <C-w>q <C-\><C-n><Esc><Esc>:q!<CR>
+tnoremap <C-w>q <C-\><C-n><Esc><Esc>iexit<CR> 
+"使用q!会把由此终端窗口打开的全部应用强制关闭之后再退出
+"使用exit可以关闭此终端窗口，并在后台继续运行原先由此终端窗口打开的应用程序
 
 "打开终端(ctrl+t)
 nnoremap <C-t> :bo term<CR>
@@ -305,3 +311,8 @@ nnoremap <C-g> :tab new<CR>:copen<CR>:vimgrep
 inoremap <C-g> <Esc>:tab new<CR>:copen<CR>:vimgrep 
 vnoremap <C-g> <Esc><Esc>:tab new<CR>:copen<CR>:vimgrep 
 tnoremap <C-g> <C-\><C-n><Esc><Esc>:tab new<CR>:copen<CR>:vimgrep 
+
+"新增一空白行(o下方 O上方)
+"原因是vim/gvim自带的o/O在有些情况下新增行会附带一些特殊格式/字符
+nnoremap o o<Esc>0d$a
+nnoremap O O<Esc>0d$a
