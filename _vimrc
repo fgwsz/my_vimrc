@@ -252,29 +252,33 @@ tnoremap <C-a> <C-\><C-n>gg0vG$
 
 "选中(shift+方向键)
 nnoremap <S-Up> vk
-inoremap <S-Up> <Esc>vk
+inoremap <S-Up> <Esc>vkl
 vnoremap <S-Up> k
 tnoremap <S-Up> <C-\><C-n>vk
 
 nnoremap <S-Down> vj
-inoremap <S-Down> <Esc>vj
+inoremap <S-Down> <Esc>lvjh
 vnoremap <S-Down> j
 tnoremap <S-Down> <C-\><C-n>vj
 
 nnoremap <S-Left> vh
-inoremap <S-Left> <Esc>vh
+inoremap <S-Left> <Esc>vhl
 vnoremap <S-Left> h
 tnoremap <S-Left> <C-\><C-n>vh
 
 nnoremap <S-Right> vl
-inoremap <S-Right> <Esc>vl
+inoremap <S-Right> <Esc>lvlh
 vnoremap <S-Right> l
 tnoremap <S-Right> <C-\><C-n>vl
 
 "复制(ctrl+c)
+"插入模式光标形状   实心块状
+inoremap <C-c> <Esc>lvlhy<Esc><Esc>i
 vnoremap <C-c> y<Esc>
 
 "剪切(ctrl+x)
+"插入模式光标形状   实心块状
+inoremap <C-x> <Esc>lvlhd<Esc><Esc>i
 vnoremap <C-x> d<Esc>
 
 "粘贴(ctrl+v)
