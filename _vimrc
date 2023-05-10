@@ -85,7 +85,7 @@ set showmatch "光标移动到括号时高亮显示匹配括号
 
 "特殊字符显示相关
 set list "显示不可见字符
-set listchars=tab:>~,space:∙,eol:↲ "设置tab键显示为>~~~,space键显示为∙,换行eol键显示为↲
+set listchars=tab:>~,space:∙,eol:$ "设置tab键显示为>~~~,space键显示为∙,换行eol键显示为$
 
 "配色方案相关
 set background=dark "设置深色背景颜色美化
@@ -252,37 +252,25 @@ tnoremap <C-a> <C-\><C-n>gg0vG$
 
 "选中(shift+方向键)
 nnoremap <S-Up> vk
-"插入模式光标形状   实心块状
-inoremap <S-Up> <Esc>lvk
 vnoremap <S-Up> k
 tnoremap <S-Up> <C-\><C-n>vk
 
 nnoremap <S-Down> vj
-"插入模式光标形状   实心块状
-inoremap <S-Down> <Esc>lvj
 vnoremap <S-Down> j
 tnoremap <S-Down> <C-\><C-n>vj
 
 nnoremap <S-Left> vh
-"插入模式光标形状   实心块状
-inoremap <S-Left> <Esc>lvh
 vnoremap <S-Left> h
 tnoremap <S-Left> <C-\><C-n>vh
 
 nnoremap <S-Right> vl
-"插入模式光标形状   实心块状
-inoremap <S-Right> <Esc>lvl
 vnoremap <S-Right> l
 tnoremap <S-Right> <C-\><C-n>vl
 
 "复制(ctrl+c)
-"插入模式光标形状   实心块状
-inoremap <C-c> <Esc>lvlhy<Esc><Esc>i
 vnoremap <C-c> y<Esc>
 
 "剪切(ctrl+x)
-"插入模式光标形状   实心块状
-inoremap <C-x> <Esc>lvlhd<Esc><Esc>i
 vnoremap <C-x> d<Esc>
 
 "粘贴(ctrl+v)
