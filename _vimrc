@@ -292,11 +292,11 @@ inoremap <C-z> <Esc>ua
 nnoremap <C-y> <C-r>
 inoremap <C-y> <Esc><C-r>a
 
-"关闭光标所在窗口(ctrl+w q)
-nnoremap <C-w>q :q!<CR>
-inoremap <C-w>q <Esc>:q!<CR>
-vnoremap <C-w>q <Esc><Esc>:q!<CR>
-tnoremap <C-w>q <C-\><C-n><Esc><Esc>iexit<CR> 
+"关闭光标所在窗口(alt+w)
+nnoremap <A-w> :q!<CR>
+inoremap <A-w> <Esc>:q!<CR>
+vnoremap <A-w> <Esc><Esc>:q!<CR>
+tnoremap <A-w> <C-\><C-n><Esc><Esc>iexit<CR> 
 "使用q!会把由此终端窗口打开的全部应用强制关闭之后再退出
 "使用exit可以关闭此终端窗口，并在后台继续运行原先由此终端窗口打开的应用程序
 
