@@ -252,22 +252,26 @@ tnoremap <C-a> <C-\><C-n>gg0vG$
 
 "选中(shift+方向键)
 nnoremap <S-Up> vk
-inoremap <S-Up> <Esc>vkl
+"插入模式光标形状   实心块状
+inoremap <S-Up> <Esc>lvk
 vnoremap <S-Up> k
 tnoremap <S-Up> <C-\><C-n>vk
 
 nnoremap <S-Down> vj
-inoremap <S-Down> <Esc>lvjh
+"插入模式光标形状   实心块状
+inoremap <S-Down> <Esc>lvj
 vnoremap <S-Down> j
 tnoremap <S-Down> <C-\><C-n>vj
 
 nnoremap <S-Left> vh
-inoremap <S-Left> <Esc>vhl
+"插入模式光标形状   实心块状
+inoremap <S-Left> <Esc>lvh
 vnoremap <S-Left> h
 tnoremap <S-Left> <C-\><C-n>vh
 
 nnoremap <S-Right> vl
-inoremap <S-Right> <Esc>lvlh
+"插入模式光标形状   实心块状
+inoremap <S-Right> <Esc>lvl
 vnoremap <S-Right> l
 tnoremap <S-Right> <C-\><C-n>vl
 
