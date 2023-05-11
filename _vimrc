@@ -272,8 +272,8 @@ nnoremap <C-t> :bo term<CR>
 inoremap <C-t> <Esc>:bo term<CR>
 vnoremap <C-t> <Esc><Esc>:bo term<CR>
 
-"终端退出insert模式进入normal模式(alt+q)
-tnoremap <A-q> <C-\><C-n>
+"终端退出insert模式进入normal模式(alt+e)
+tnoremap <A-e> <C-\><C-n>
 
 "open tab of fast grep(ctrl+g)
 nnoremap <C-g> :tab new<CR>:E<CR>:copen<CR>:vimgrep 
