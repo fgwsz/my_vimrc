@@ -1,4 +1,4 @@
-"=====================================
+"======================================
 "说明
 "======================================
 
@@ -222,8 +222,9 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认
 if has('win32')
     set shell=powershell
 endif
-"设置:term命令终端窗口从插入模式变为普通(一般)模式的快捷键为alt+q
-tnoremap <A-q> <C-\><C-n>
+"退出终端
+"使用q!会把由此终端窗口打开的全部应用强制关闭之后再退出
+"使用exit可以关闭此终端窗口，并在后台继续运行原先由此终端窗口打开的应用程序
 
 "中文输入相关
 "在vim中可以使用任何终端支持的输入法来输入中文
@@ -248,33 +249,6 @@ vnoremap <C-s> <Esc><Esc>:w<CR>
 nnoremap <C-a> gg0vG$
 inoremap <C-a> <Esc>gg0vG$
 vnoremap <C-a> <Esc><Esc>gg0vG$
-tnoremap <C-a> <C-\><C-n>gg0vG$
-
-"选中(shift+方向键)
-nnoremap <S-Up> vk
-vnoremap <S-Up> k
-tnoremap <S-Up> <C-\><C-n>vk
-
-nnoremap <S-Down> vj
-vnoremap <S-Down> j
-tnoremap <S-Down> <C-\><C-n>vj
-
-nnoremap <S-Left> vh
-vnoremap <S-Left> h
-tnoremap <S-Left> <C-\><C-n>vh
-
-nnoremap <S-Right> vl
-vnoremap <S-Right> l
-tnoremap <S-Right> <C-\><C-n>vl
-
-"复制(ctrl+c)
-vnoremap <C-c> y<Esc>
-
-"剪切(ctrl+x)
-vnoremap <C-x> d<Esc>
-
-"粘贴(ctrl+v)
-inoremap <C-v> <Esc>pa
 
 "复制当前行到下一行(ctrl+d)
 nnoremap <C-d> yyp
@@ -292,21 +266,19 @@ inoremap <C-y> <Esc><C-r>a
 nnoremap <A-w> :q!<CR>
 inoremap <A-w> <Esc>:q!<CR>
 vnoremap <A-w> <Esc><Esc>:q!<CR>
-tnoremap <A-w> <C-\><C-n><Esc><Esc>iexit<CR> 
-"使用q!会把由此终端窗口打开的全部应用强制关闭之后再退出
-"使用exit可以关闭此终端窗口，并在后台继续运行原先由此终端窗口打开的应用程序
 
 "打开终端(ctrl+t)
 nnoremap <C-t> :bo term<CR>
 inoremap <C-t> <Esc>:bo term<CR>
 vnoremap <C-t> <Esc><Esc>:bo term<CR>
-tnoremap <C-t> <C-\><C-n><Esc><Esc>:bo term<CR>
 
-"fast grep(ctrl+g)
+"终端退出insert模式进入normal模式(alt+q)
+tnoremap <A-q> <C-\><C-n>
+
+"open tab of fast grep(ctrl+g)
 nnoremap <C-g> :tab new<CR>:E<CR>:copen<CR>:vimgrep 
 inoremap <C-g> <Esc>:tab new<CR>:E<CR>:copen<CR>:vimgrep 
 vnoremap <C-g> <Esc><Esc>:tab new<CR>:E<CR>:copen<CR>:vimgrep 
-tnoremap <C-g> <C-\><C-n><Esc><Esc>:tab new<CR>:E<CR>:copen<CR>:vimgrep 
 
 "新增一空白行(o下方 O上方)
 "原因是vim/gvim自带的o/O在有些情况下新增行会附带一些特殊格式/字符
