@@ -150,7 +150,7 @@ if has("gui_running")
     set guioptions-=L "隐藏左侧滚动条
     set guioptions-=r "隐藏右侧滚动条
     set guioptions-=b "隐藏底部滚动条
-    "set guioptions-=0 "隐藏标签栏
+    set guioptions-=e "使用内置标签栏，而不是GUI标签栏
 endif
 
 "======================================
