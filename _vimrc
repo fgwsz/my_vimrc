@@ -284,3 +284,11 @@ vnoremap <C-g> <Esc><Esc>:tab new<CR>:E<CR>:copen<CR>:vimgrep
 "原因是vim/gvim自带的o/O在有些情况下新增行会附带一些特殊格式/字符
 nnoremap o o<Esc>0d$a
 nnoremap O O<Esc>0d$a
+
+"删除命令模式中选中区域的所有换行符
+"rr:romove \r
+vnoremap rr :s/\n//g<CR>
+
+"删除命令模式中选中区域的所有空行(包括只含有空格的行)
+"rs:romove \s*
+vnoremap rs :g/^\s*$/d<CR>
