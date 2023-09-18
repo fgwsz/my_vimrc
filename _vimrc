@@ -292,3 +292,6 @@ vnoremap rr :s/\n//g<CR>
 "删除可视模式中选中区域的所有空行(包括只含有空格的行)
 "rs:remove \s*
 vnoremap rs :g/^\s*$/d<CR>
+
+"命令行模式粘贴快捷键(ctrl+r)
+cnoremap <C-r> <C-r>*
