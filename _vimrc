@@ -285,9 +285,9 @@ vnoremap <C-g> <Esc><Esc>:tab new<CR>:E<CR>:copen<CR>:vimgrep
 nnoremap o o<Esc>0d$a
 nnoremap O O<Esc>0d$a
 
-"删除可视模式中选中区域的所有换行符
+"删除可视模式中选中区域的所有换行，并将光标移动到该行行首
 "rr:remove \r
-vnoremap rr :s/\n//g<CR>
+vnoremap rr :s/\n//g<CR>0
 
 "删除可视模式中选中区域的所有空行(包括只含有空格的行)
 "rl:remove empty line
