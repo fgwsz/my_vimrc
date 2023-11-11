@@ -297,8 +297,9 @@ vnoremap rl :g/^\s*$/d<CR>
 "rs:remove space
 vnoremap rs :s/\s//g<CR>
 
-"命令行模式粘贴快捷键(ctrl+r)
+"命令行模式粘贴(ctrl+r)
 cnoremap <C-r> <C-r>*
 
-"命令行模式下(ctrl+t)关闭当前显示窗口中所有子窗口，只显示一个终端窗口
+"命令行模式全屏终端(ctrl+t)
+"关闭当前显示窗口中所有子窗口，只显示一个新打开的终端窗口
 cnoremap <C-t> :term<CR><C-\><C-n>:only<CR>i
