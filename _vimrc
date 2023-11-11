@@ -12,7 +12,7 @@
 "======================================
 
 "文件载入相关
-":source $MYVIMRC "修改本文件并保存后在命令模式输入可立即应用更改
+autocmd BufWritePost $MYVIMRC source $MYVIMRC "修改本文件并保存后立即生效
 set autoread "文件改动时重新读取
 
 "临时文件相关
