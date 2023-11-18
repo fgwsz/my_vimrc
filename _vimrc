@@ -282,8 +282,9 @@ vnoremap <C-g> <Esc><Esc>:tab new<CR>:E<CR>:copen<CR>:vimgrep
 
 "新增一空白行(o下方 O上方)
 "原因是vim/gvim自带的o/O在有些情况下新增行会附带一些特殊格式/字符
-nnoremap o o<Esc>0d$a
-nnoremap O O<Esc>0d$a
+"这里采用"_d命令删除（不存入剪切板），而不是d剪切，是为了保护剪切板中的内容
+nnoremap o o<Esc>0"_d$a
+nnoremap O O<Esc>0"_d$a
 
 "删除可视模式中选中区域的所有换行，并将光标移动到该行行首
 "rr:remove \r
