@@ -307,3 +307,41 @@ cnoremap <C-r> <C-r>*
 "命令行模式全屏终端(ctrl+t)
 "关闭当前显示窗口中所有子窗口，只显示一个新打开的终端窗口
 cnoremap <C-t> :term<CR><C-\><C-n>:only<CR>i
+
+"设置宏的时候删除原先记录的宏操作
+nnoremap qa :let @a=""<CR>qa
+nnoremap qb :let @b=""<CR>qb
+nnoremap qc :let @c=""<CR>qc
+nnoremap qd :let @d=""<CR>qd
+nnoremap qe :let @e=""<CR>qe
+nnoremap qf :let @f=""<CR>qf
+nnoremap qg :let @g=""<CR>qg
+nnoremap qh :let @h=""<CR>qh
+nnoremap qi :let @i=""<CR>qi
+nnoremap qj :let @j=""<CR>qj
+nnoremap qk :let @k=""<CR>qk
+nnoremap ql :let @l=""<CR>ql
+nnoremap qm :let @m=""<CR>qm
+nnoremap qn :let @n=""<CR>qn
+nnoremap qo :let @o=""<CR>qo
+nnoremap qp :let @p=""<CR>qp
+nnoremap qq :let @q=""<CR>qq
+nnoremap qr :let @r=""<CR>qr
+nnoremap qs :let @s=""<CR>qs
+nnoremap qt :let @t=""<CR>qt
+nnoremap qu :let @u=""<CR>qu
+nnoremap qv :let @v=""<CR>qv
+nnoremap qw :let @w=""<CR>qw
+nnoremap qx :let @x=""<CR>qx
+nnoremap qy :let @y=""<CR>qy
+nnoremap qz :let @z=""<CR>qz
+nnoremap q0 :let @0=""<CR>q0
+nnoremap q1 :let @1=""<CR>q1
+nnoremap q2 :let @2=""<CR>q2
+nnoremap q3 :let @3=""<CR>q3
+nnoremap q4 :let @4=""<CR>q4
+nnoremap q5 :let @5=""<CR>q5
+nnoremap q6 :let @6=""<CR>q6
+nnoremap q7 :let @7=""<CR>q7
+nnoremap q8 :let @8=""<CR>q8
+nnoremap q9 :let @9=""<CR>q9
