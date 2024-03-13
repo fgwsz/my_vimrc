@@ -270,10 +270,10 @@ nnoremap <A-w> :q!<CR>
 inoremap <A-w> <Esc>:q!<CR>
 vnoremap <A-w> <Esc><Esc>:q!<CR>
 
-"打开终端(ctrl+t)
-nnoremap <C-t> :bo term<CR>
-inoremap <C-t> <Esc>:bo term<CR>
-vnoremap <C-t> <Esc><Esc>:bo term<CR>
+"在当前窗口(分屏窗口)的下方打开一个新的终端窗口(分屏窗口)(ctrl+t)
+nnoremap <C-t> :belowright terminal<CR>
+inoremap <C-t> <Esc>:belowright terminal<CR>
+vnoremap <C-t> <Esc><Esc>:belowright terminal<CR>
 
 "终端退出insert模式进入normal模式(alt+e)
 tnoremap <A-e> <C-\><C-n>
