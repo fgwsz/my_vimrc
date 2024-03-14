@@ -92,15 +92,16 @@ set listchars=tab:>~,space:∙,eol:$ "设置tab键显示为>~~~,space键显示�
 
 "配色方案相关
 set background=dark "设置深色背景颜色美化
-colorscheme desert "设置配色方案为desert
+"colorscheme desert "设置配色方案为desert
+colorscheme evening "设置配色方案为evening
 "某些配色方案下特殊字符tab(\t)/space(\s)/eol(\n\r)显示不明显
 "将tab/space/eol的前景色统一设置为深灰色
-if has("gui_running")
-    highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
-else
-    highlight MyTabSpaceEol ctermfg=darkgrey
-endif
-match MyTabSpaceEol /\t\|\s\|\n\|\r/
+"if has("gui_running")
+"    highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
+"else
+"    highlight MyTabSpaceEol ctermfg=darkgrey
+"endif
+"match MyTabSpaceEol /\t\|\s\|\n\|\r/
 
 "缩进相关
 set tabstop=4 "设置tab键的宽度为4
