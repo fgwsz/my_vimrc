@@ -93,7 +93,8 @@ set listchars=tab:>~,space:∙,eol:$ "设置tab键显示为>~~~,space键显示�
 "配色方案相关
 set background=dark "设置深色背景颜色美化
 "colorscheme desert "设置配色方案为desert
-colorscheme evening "设置配色方案为evening
+"colorscheme evening "设置配色方案为evening
+"colorscheme industry "设置配色方案为industry
 "某些配色方案下特殊字符tab(\t)/space(\s)/eol(\n\r)显示不明显
 "将tab/space/eol的前景色统一设置为深灰色
 "if has("gui_running")
