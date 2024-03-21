@@ -197,6 +197,23 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认
 if has('win32')
     let g:netrw_winsys='windows'
 endif 
+
+"在Netrw浏览文件的时候，使用Windows Explorer打开光标选中的文件(gx)
+if has('win32')
+    "使用Windows Explorer打开光标选中的文件
+    function! OpenFileWithWindowsExplorer()
+        let l:current_path=expand('%:p')
+        let l:temp_filename=expand('<cfile>',':p')
+        let l:filename=substitute(l:temp_filename,'/','','g')
+        let l:file_path=l:current_path.l:filename
+        execute '!explorer.exe '.l:file_path
+    endfunction
+    "定义自定义命令OpenFile，调用上述函数
+    command! OpenFile :call OpenFileWithWindowsExplorer()
+    "绑定Netrw打开文件的快捷键(gx)
+    nnoremap gx :OpenFile<CR>
+endif
+
 "======================================
 "操作系统兼容性
 "======================================
