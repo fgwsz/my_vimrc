@@ -363,19 +363,46 @@ nnoremap q9 :let @9=""<CR>q9
 "j 移动到下边的分屏窗口
 "k 移动到上边的分屏窗口
 "l 移动到右边的分屏窗口
+"w 移动到下一个分屏窗口
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+nnoremap <C-w> <C-w>w
 inoremap <C-h> <Esc><C-w>h
 inoremap <C-j> <Esc><C-w>j
 inoremap <C-k> <Esc><C-w>k
 inoremap <C-l> <Esc><C-w>l
-vnoremap <C-j> <Esc><Esc><C-w>j<CR>
+inoremap <C-w> <Esc><C-w>w
 vnoremap <C-h> <Esc><Esc><C-w>h<CR>
+vnoremap <C-j> <Esc><Esc><C-w>j<CR>
 vnoremap <C-k> <Esc><Esc><C-w>k<CR>
 vnoremap <C-l> <Esc><Esc><C-w>l<CR>
-tnoremap <C-j> <C-w>j
+vnoremap <C-w> <Esc><Esc><C-w>w<CR>
 tnoremap <C-h> <C-w>h
+tnoremap <C-j> <C-w>j
 tnoremap <C-k> <C-w>k
 tnoremap <C-l> <C-w>l
+tnoremap <C-w> <C-w>w
+
+"快捷移动分屏窗口的位置(<Ctrl-*>代替<Ctrl-w>*)
+"H 移动分屏窗口到左边
+"J 移动分屏窗口到下边
+"K 移动分屏窗口到上边
+"L 移动分屏窗口到右边
+nnoremap <C-H> <C-w>H
+nnoremap <C-J> <C-w>J
+nnoremap <C-K> <C-w>K
+nnoremap <C-L> <C-w>L
+inoremap <C-H> <Esc><C-w>H
+inoremap <C-J> <Esc><C-w>J
+inoremap <C-K> <Esc><C-w>K
+inoremap <C-L> <Esc><C-w>L
+vnoremap <C-J> <Esc><Esc><C-w>J<CR>
+vnoremap <C-H> <Esc><Esc><C-w>H<CR>
+vnoremap <C-K> <Esc><Esc><C-w>K<CR>
+vnoremap <C-L> <Esc><Esc><C-w>L<CR>
+tnoremap <C-H> <C-w>H
+tnoremap <C-J> <C-w>J
+tnoremap <C-K> <C-w>K
+tnoremap <C-L> <C-w>L
