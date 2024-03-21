@@ -194,6 +194,9 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认
 "Netrw分屏窗口最大宽度(百分比)
 "let g:netrw_winsize=25 "设置为整个vim/gvim窗口宽度的25%
 
+if has('win32')
+    let g:netrw_winsys='windows'
+endif 
 "======================================
 "操作系统兼容性
 "======================================
@@ -274,7 +277,7 @@ vnoremap <A-w> <Esc><Esc>:q!<CR>
 
 "设置开启终端时自动切换到当前打开的文件路径
 function! OpenCurrentPathTerminal()
-    execute 'cd '.expand('%:p:h').'|belowright terminal'
+    execute 'lcd '.expand('%:p:h').'|belowright terminal'
 endfunction
 "定义自定义命令OpenTerm，调用上述函数
 command! OpenTerm :call OpenCurrentPathTerminal()
