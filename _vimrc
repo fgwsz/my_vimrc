@@ -303,6 +303,8 @@ command! OpenTerm :call OpenCurrentPathTerminal()
 nnoremap <C-t> :OpenTerm<CR>
 inoremap <C-t> <Esc>:OpenTerm<CR>
 vnoremap <C-t> <Esc><Esc>:OpenTerm<CR>
+"命令行模式，分屏窗口只显示终端(ctrl+t)
+cnoremap <C-t> :OpenTerm<CR><C-w>k:q!<CR>
 
 "终端退出insert模式进入normal模式(alt+e)
 tnoremap <A-e> <C-\><C-n>
@@ -332,10 +334,6 @@ vnoremap rs :s/\s//g<CR>
 
 "命令行模式粘贴(ctrl+r)
 cnoremap <C-r> <C-r>*
-
-"命令行模式全屏终端(ctrl+t)
-"关闭当前显示窗口中所有子窗口，只显示一个新打开的终端窗口
-cnoremap <C-t> :term<CR><C-\><C-n>:only<CR>i
 
 "设置宏的时候删除原先记录的宏操作
 nnoremap qa :let @a=""<CR>qa
