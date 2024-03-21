@@ -385,24 +385,24 @@ tnoremap <C-k> <C-w>k
 tnoremap <C-l> <C-w>l
 tnoremap <C-w> <C-w>w
 
-"快捷移动分屏窗口的位置(<Ctrl-*>代替<Ctrl-w>*)
-"H 移动分屏窗口到左边
-"J 移动分屏窗口到下边
-"K 移动分屏窗口到上边
-"L 移动分屏窗口到右边
-nnoremap <C-H> <C-w>H
-nnoremap <C-J> <C-w>J
-nnoremap <C-K> <C-w>K
-nnoremap <C-L> <C-w>L
-inoremap <C-H> <Esc><C-w>H
-inoremap <C-J> <Esc><C-w>J
-inoremap <C-K> <Esc><C-w>K
-inoremap <C-L> <Esc><C-w>L
-vnoremap <C-J> <Esc><Esc><C-w>J<CR>
-vnoremap <C-H> <Esc><Esc><C-w>H<CR>
-vnoremap <C-K> <Esc><Esc><C-w>K<CR>
-vnoremap <C-L> <Esc><Esc><C-w>L<CR>
-tnoremap <C-H> <C-w>H
-tnoremap <C-J> <C-w>J
-tnoremap <C-K> <C-w>K
-tnoremap <C-L> <C-w>L
+"快捷移动分屏窗口的位置(<Ctrl-m>x代替<Ctrl-w>X)
+"h 移动分屏窗口到左边
+"j 移动分屏窗口到下边
+"k 移动分屏窗口到上边
+"l 移动分屏窗口到右边
+nnoremap <C-m>h <C-w>H
+nnoremap <C-m>j <C-w>J
+nnoremap <C-m>k <C-w>K
+nnoremap <C-m>l <C-w>L
+inoremap <C-m>h <Esc><C-w>H
+inoremap <C-m>j <Esc><C-w>J
+inoremap <C-m>k <Esc><C-w>K
+inoremap <C-m>l <Esc><C-w>L
+vnoremap <C-m>h <Esc><Esc><C-w>H<CR>
+vnoremap <C-m>j <Esc><Esc><C-w>J<CR>
+vnoremap <C-m>k <Esc><Esc><C-w>K<CR>
+vnoremap <C-m>l <Esc><Esc><C-w>L<CR>
+tnoremap <C-m>h <C-w>H
+tnoremap <C-m>j <C-w>J
+tnoremap <C-m>k <C-w>K
+tnoremap <C-m>l <C-w>L
