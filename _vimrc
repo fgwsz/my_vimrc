@@ -357,3 +357,25 @@ nnoremap q6 :let @6=""<CR>q6
 nnoremap q7 :let @7=""<CR>q7
 nnoremap q8 :let @8=""<CR>q8
 nnoremap q9 :let @9=""<CR>q9
+
+"快捷切换分屏窗口(<Ctrl-*>代替<Ctrl-w>*)
+"h 移动到左边的分屏窗口
+"j 移动到下边的分屏窗口
+"k 移动到上边的分屏窗口
+"l 移动到右边的分屏窗口
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+inoremap <C-h> <Esc><C-w>h
+inoremap <C-j> <Esc><C-w>j
+inoremap <C-k> <Esc><C-w>k
+inoremap <C-l> <Esc><C-w>l
+vnoremap <C-j> <Esc><Esc><C-w>j<CR>
+vnoremap <C-h> <Esc><Esc><C-w>h<CR>
+vnoremap <C-k> <Esc><Esc><C-w>k<CR>
+vnoremap <C-l> <Esc><Esc><C-w>l<CR>
+tnoremap <C-j> <C-w>j
+tnoremap <C-h> <C-w>h
+tnoremap <C-k> <C-w>k
+tnoremap <C-l> <C-w>l
