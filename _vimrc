@@ -194,10 +194,6 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认
 "Netrw分屏窗口最大宽度(百分比)
 "let g:netrw_winsize=25 "设置为整个vim/gvim窗口宽度的25%
 
-if has('win32')
-    let g:netrw_winsys='windows'
-endif 
-
 "在Netrw浏览文件的时候，使用Windows Explorer打开光标选中的文件(gx)
 if has('win32')
     "使用Windows Explorer打开光标选中的文件
