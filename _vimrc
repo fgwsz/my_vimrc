@@ -396,24 +396,26 @@ tnoremap <C-k> <C-w>k
 tnoremap <C-l> <C-w>l
 tnoremap <C-w> <C-w>w
 
-"快捷移动分屏窗口的位置(<Ctrl-m>x代替<Ctrl-w>X)
+"快捷移动分屏窗口的位置(<Alt-m>x代替<Ctrl-w>X)
+"为什么不用<Ctrl-m>?
+"原因：在Windows vim插入模式中输入回车<Enter>，会被率先匹配成<Ctrl-m>,即^M
 "h 移动分屏窗口到左边
 "j 移动分屏窗口到下边
 "k 移动分屏窗口到上边
 "l 移动分屏窗口到右边
-nnoremap <C-m>h <C-w>H
-nnoremap <C-m>j <C-w>J
-nnoremap <C-m>k <C-w>K
-nnoremap <C-m>l <C-w>L
-inoremap <C-m>h <Esc><C-w>H
-inoremap <C-m>j <Esc><C-w>J
-inoremap <C-m>k <Esc><C-w>K
-inoremap <C-m>l <Esc><C-w>L
-vnoremap <C-m>h <Esc><Esc><C-w>H<CR>
-vnoremap <C-m>j <Esc><Esc><C-w>J<CR>
-vnoremap <C-m>k <Esc><Esc><C-w>K<CR>
-vnoremap <C-m>l <Esc><Esc><C-w>L<CR>
-tnoremap <C-m>h <C-w>H
-tnoremap <C-m>j <C-w>J
-tnoremap <C-m>k <C-w>K
-tnoremap <C-m>l <C-w>L
+nnoremap <A-m>h <C-w>H
+nnoremap <A-m>j <C-w>J
+nnoremap <A-m>k <C-w>K
+nnoremap <A-m>l <C-w>L
+inoremap <A-m>h <Esc><C-w>H
+inoremap <A-m>j <Esc><C-w>J
+inoremap <A-m>k <Esc><C-w>K
+inoremap <A-m>l <Esc><C-w>L
+vnoremap <A-m>h <Esc><Esc><C-w>H<CR>
+vnoremap <A-m>j <Esc><Esc><C-w>J<CR>
+vnoremap <A-m>k <Esc><Esc><C-w>K<CR>
+vnoremap <A-m>l <Esc><Esc><C-w>L<CR>
+tnoremap <A-m>h <C-w>H
+tnoremap <A-m>j <C-w>J
+tnoremap <A-m>k <C-w>K
+tnoremap <A-m>l <C-w>L
