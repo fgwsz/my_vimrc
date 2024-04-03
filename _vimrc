@@ -317,16 +317,19 @@ nnoremap o o<Esc>0"_d$a
 nnoremap O O<Esc>0"_d$a
 
 "删除可视模式中选中区域的所有换行，并将光标移动到该行行首
+"并取消替换后的高亮显示
 "rr:remove \r
-vnoremap rr :s/\n//g<CR>0
+vnoremap rr :s/\n//g<CR>:nohlsearch<CR>0
 
 "删除可视模式中选中区域的所有空行(包括只含有空格的行)
+"并取消替换后的高亮显示
 "rl:remove empty line
-vnoremap rl :g/^\s*$/d<CR>
+vnoremap rl :g/^\s*$/d<CR>:nohlsearch<CR>
 
 "删除可视模式中选中区域的所有空格
+"并取消替换后的高亮显示
 "rs:remove space
-vnoremap rs :s/\s//g<CR>
+vnoremap rs :s/\s//g<CR>:nohlsearch<CR>
 
 "命令行模式粘贴(ctrl+r)
 cnoremap <C-r> <C-r>*
