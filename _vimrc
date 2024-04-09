@@ -95,12 +95,15 @@ set background=dark "设置深色背景颜色美化
 colorscheme industry "设置配色方案为industry
 "某些配色方案下特殊字符tab(\t)/space(\s)/eol(\n\r)显示不明显
 "将tab/space/eol的前景色统一设置为深灰色
-if has("gui_running")
-    highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
-else
-    highlight MyTabSpaceEol ctermfg=darkgrey
-endif
-match MyTabSpaceEol /\t\|\s\|\n\|\r/
+function SetSpecialCharactersDarkGrey()
+    if has("gui_running")
+        highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
+    else
+        highlight MyTabSpaceEol ctermfg=darkgrey
+    endif
+    match MyTabSpaceEol /\t\|\s\|\n\|\r/
+endfunction
+autocmd WinEnter * call SetSpecialCharactersDarkGrey()
 
 "缩进相关
 set tabstop=4 "设置tab键的宽度为4
@@ -229,7 +232,7 @@ let g:netrw_keepdir=0
 "终端快捷键设置
 "终端粘贴<ctrl-v>和vim进入列选可视模式<ctrl-v>冲突，应替换为<ctrl-alt-v>
 
-"终端光标形状跟随vim模式自动切换
+"终端光标形状跟随vim模式自动切换(存在隐性BUG，有时会导致字符显示错误)
 "实现效果：普通模式实心块状，插入模式线条状，替换模式下划线状
 "&t_SI 表示插入模式
 "&t_SR 表示替换模式
@@ -241,11 +244,11 @@ let g:netrw_keepdir=0
 "4:solid underscore       不闪烁的下划线
 "5:blinking vertical bar  闪烁的竖线
 "6:solid vertical bar     不闪烁的竖线
-if has('win32')
-    let &t_SI = "\<Esc>[6 q"
-    let &t_SR = "\<Esc>[4 q"
-    let &t_EI = "\<Esc>[2 q"
-endif
+"if has('win32')
+"    let &t_SI = "\<Esc>[6 q"
+"    let &t_SR = "\<Esc>[4 q"
+"    let &t_EI = "\<Esc>[2 q"
+"endif
 
 "vim/gvim命令模式打开终端相关
 "设置:term[inal]命令默认打开的终端窗口为powershell(默认值为cmd)
