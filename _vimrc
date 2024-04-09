@@ -422,3 +422,6 @@ tnoremap <A-m>h <C-w>H
 tnoremap <A-m>j <C-w>J
 tnoremap <A-m>k <C-w>K
 tnoremap <A-m>l <C-w>L
+
+"切换当前窗口工作目录为当前打开的文件目录(命令:LCdC)
+command! LCdC :execute 'lcd '.expand('%:p:h')
