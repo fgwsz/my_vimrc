@@ -293,12 +293,22 @@ nnoremap <A-w> :q!<CR>
 inoremap <A-w> <Esc>:q!<CR>
 vnoremap <A-w> <Esc><Esc>:q!<CR>
 
+"切换当前窗口工作目录为当前打开的文件目录(命令:LCdC)
+function! LCdCurrentPath()
+    "尾部添加一个`/`的目的是修复`lcd D:`直接切换到盘符的根目录时的打开错误
+    execute 'lcd '.expand('%:p:h').'/'
+endfunction
+"定义自定义命令LCdC，调用上述函数
+command! LCdC :call LCdCurrentPath()
+
 "设置开启终端时自动切换到当前打开的文件路径
 function! OpenCurrentPathTerminal()
-    execute 'lcd '.expand('%:p:h').'|belowright terminal'
+    call LCdCurrentPath()
+    execute 'belowright terminal'
 endfunction
 "定义自定义命令OpenTerm，调用上述函数
 command! OpenTerm :call OpenCurrentPathTerminal()
+
 "在当前窗口(分屏窗口)的下方打开一个新的终端窗口(分屏窗口)(ctrl+t)
 "该终端窗口的工作路径为当前打开的文件路径
 nnoremap <C-t> :OpenTerm<CR>
@@ -427,6 +437,3 @@ tnoremap <A-m>h <C-w>H
 tnoremap <A-m>j <C-w>J
 tnoremap <A-m>k <C-w>K
 tnoremap <A-m>l <C-w>L
-
-"切换当前窗口工作目录为当前打开的文件目录(命令:LCdC)
-command! LCdC :execute 'lcd '.expand('%:p:h')
