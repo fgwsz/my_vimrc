@@ -92,17 +92,15 @@ set listchars=tab:>~,space:∙,eol:$ "设置tab键显示为>~~~,space键显示�
 
 "配色方案相关
 set background=dark "设置深色背景颜色美化
-"colorscheme desert "设置配色方案为desert
-"colorscheme evening "设置配色方案为evening
 colorscheme industry "设置配色方案为industry
 "某些配色方案下特殊字符tab(\t)/space(\s)/eol(\n\r)显示不明显
 "将tab/space/eol的前景色统一设置为深灰色
-"if has("gui_running")
-"    highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
-"else
-"    highlight MyTabSpaceEol ctermfg=darkgrey
-"endif
-"match MyTabSpaceEol /\t\|\s\|\n\|\r/
+if has("gui_running")
+    highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
+else
+    highlight MyTabSpaceEol ctermfg=darkgrey
+endif
+match MyTabSpaceEol /\t\|\s\|\n\|\r/
 
 "缩进相关
 set tabstop=4 "设置tab键的宽度为4
@@ -231,17 +229,23 @@ let g:netrw_keepdir=0
 "终端快捷键设置
 "终端粘贴<ctrl-v>和vim进入列选可视模式<ctrl-v>冲突，应替换为<ctrl-alt-v>
 
-"终端光标形状跟随vim模式自动切换(<Esc>字符替换可能会有隐形bug，不推荐使用)
+"终端光标形状跟随vim模式自动切换
 "实现效果：普通模式实心块状，插入模式线条状，替换模式下划线状
 "&t_SI 表示插入模式
 "&t_SR 表示替换模式
 "&t_EI 表示普通模式
 ""\<Esc>[6 q"用来配置光标的形状，其中6的取值可以是1~6，分别指代不同的光标样式
-"if has('win32')
-"    let &t_SI = "\<Esc>[6 q"
-"    let &t_SR = "\<Esc>[4 q"
-"    let &t_EI = "\<Esc>[2 q"
-"endif
+"1:blinking block         闪烁的方块
+"2:solid block            不闪烁的方块
+"3:blinking underscore    闪烁的下划线
+"4:solid underscore       不闪烁的下划线
+"5:blinking vertical bar  闪烁的竖线
+"6:solid vertical bar     不闪烁的竖线
+if has('win32')
+    let &t_SI = "\<Esc>[6 q"
+    let &t_SR = "\<Esc>[4 q"
+    let &t_EI = "\<Esc>[2 q"
+endif
 
 "vim/gvim命令模式打开终端相关
 "设置:term[inal]命令默认打开的终端窗口为powershell(默认值为cmd)
