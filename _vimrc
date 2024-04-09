@@ -103,6 +103,7 @@ function SetSpecialCharactersDarkGrey()
     endif
     match MyTabSpaceEol /\t\|\s\|\n\|\r/
 endfunction
+call SetSpecialCharactersDarkGrey()
 autocmd WinEnter * call SetSpecialCharactersDarkGrey()
 
 "缩进相关
