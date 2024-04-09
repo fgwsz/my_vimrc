@@ -295,8 +295,7 @@ vnoremap <A-w> <Esc><Esc>:q!<CR>
 
 "切换当前窗口工作目录为当前打开的文件目录(命令:LCdC)
 function! LCdCurrentPath()
-    "尾部添加一个`/`的目的是修复`lcd D:`直接切换到盘符的根目录时的打开错误
-    execute 'lcd '.expand('%:p:h').'/'
+    execute 'lcd '.expand('%:p:h')
 endfunction
 "定义自定义命令LCdC，调用上述函数
 command! LCdC :call LCdCurrentPath()
