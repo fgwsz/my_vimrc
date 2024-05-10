@@ -324,8 +324,13 @@ vnoremap <C-t> <Esc><Esc>:OpenTerm<CR>
 "命令行模式，分屏窗口只显示终端(ctrl+t)
 cnoremap <C-t> :OpenTerm<CR><C-w>k:q!<CR>
 
-"终端退出insert模式进入normal模式(alt+e)
+"终端退出insert模式进入normal模式(esc)
 tnoremap <A-e> <C-\><C-n>
+
+"在当前窗口(分屏窗口)的左侧打开一个新的netrw窗口(分屏窗口)(ctrl+e)
+nnoremap <C-e> :Vex<CR>
+inoremap <C-e> <Esc>:Vex<CR>
+vnoremap <C-e> <Esc><Esc>:Vex<CR>
 
 "open tab of fast grep(ctrl+g)
 nnoremap <C-g> :tab new<CR>:E<CR>:copen<CR>:vimgrep 
