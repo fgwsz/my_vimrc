@@ -301,17 +301,23 @@ nnoremap <A-w> :q!<CR>
 inoremap <A-w> <Esc>:q!<CR>
 vnoremap <A-w> <Esc><Esc>:q!<CR>
 
-"切换标签页
-"(键位设置来自于VimiumC)
+"切换到下一个标签页
+"(模仿VimiumC J)
 nnoremap J gt
 vnoremap J <Esc><Esc>gt<CR>
+
+"切换到上一个标签页
+"(模仿VimiumC K)
 nnoremap K gT
 vnoremap K <Esc><Esc>gT<CR>
 
-"前进(上一个文件编辑位置)/后退(下一个文件编辑位置)
-"(键位设置来自于VimiumC)
+"后退(跳转到上一个文件编辑位置)
+"(模仿VimiumC H)
 nnoremap H <C-o>
 vnoremap H <Esc><Esc><C-o><CR>
+
+"前进(跳转到下一个文件编辑位置)
+"(模仿VimiumC L)
 nnoremap L <C-i>
 vnoremap L <Esc><Esc><C-i><CR>
 
