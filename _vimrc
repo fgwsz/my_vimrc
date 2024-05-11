@@ -321,6 +321,18 @@ vnoremap H <Esc><Esc><C-o><CR>
 nnoremap L <C-i>
 vnoremap L <Esc><Esc><C-i><CR>
 
+"新建一个标签页(Tab+n)
+nnoremap <Tab>n :tabnew<CR>
+vnoremap <Tab>n <Esc><Esc>:tabnew<CR>
+
+"关闭当前标签页(Tab+c)
+nnoremap <Tab>c :tabclose<CR>
+vnoremap <Tab>c <Esc><Esc>:tabclose<CR>
+
+"关闭当前标签页以外的全部标签页(Tab+o)
+nnoremap <Tab>o :tabonly<CR>
+vnoremap <Tab>o <Esc><Esc>:tabonly<CR>
+
 "切换当前窗口工作目录为当前打开的文件目录(命令:LCdC)
 function! LCdCurrentPath()
     execute 'lcd '.expand('%:p:h')
