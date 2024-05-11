@@ -301,6 +301,20 @@ nnoremap <A-w> :q!<CR>
 inoremap <A-w> <Esc>:q!<CR>
 vnoremap <A-w> <Esc><Esc>:q!<CR>
 
+"切换标签页
+"(键位设置来自于VimiumC)
+nnoremap J gt
+vnoremap J <Esc><Esc>gt<CR>
+nnoremap K gT
+vnoremap K <Esc><Esc>gT<CR>
+
+"前进(上一个文件编辑位置)/后退(下一个文件编辑位置)
+"(键位设置来自于VimiumC)
+nnoremap H <C-o>
+vnoremap H <Esc><Esc><C-o><CR>
+nnoremap L <C-i>
+vnoremap L <Esc><Esc><C-i><CR>
+
 "切换当前窗口工作目录为当前打开的文件目录(命令:LCdC)
 function! LCdCurrentPath()
     execute 'lcd '.expand('%:p:h')
