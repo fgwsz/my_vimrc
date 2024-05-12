@@ -88,7 +88,7 @@ set showmatch "光标移动到括号时高亮显示匹配括号
 
 "特殊字符显示相关
 set list "显示不可见字符
-set listchars=tab:>~,space:∙,eol:$ "设置tab键显示为>~~~,space键显示为∙,换行eol键显示为$
+set listchars=tab:>―,space:·,eol:↓ "设置tab键显示为>―――,space键显示为·,换行eol键显示为↓
 
 "配色方案相关
 set background=dark "设置深色背景颜色美化
