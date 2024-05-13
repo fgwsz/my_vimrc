@@ -104,7 +104,8 @@ set laststatus=2 "显示状态栏
 set ruler "显示光标所在位置
 set showmode "显示当前模式
 set showcmd "显示键入按键信息
-set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&fileencoding}\ %c:%l/%L%)\ [%p%%]\  "路径 [文件类型] 系统 编码 光标当前行字符数:当前行号/总行数 [显示进度]
+set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y%m%r%h%w\ %0(%{&fileformat}\ %{&fileencoding}\ %c:%l/%L%)\ [%p%%]\  
+"路径 [文件类型][文件属性] 系统 编码 光标当前行字符数:当前行号/总行数 [显示进度]
 
 "标签栏显示相关
 set showtabline=2 "总是显示标签栏
