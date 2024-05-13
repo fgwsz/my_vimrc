@@ -370,7 +370,7 @@ vnoremap <silent>rl :g/^\s*$/d<CR>:nohlsearch<CR>
 vnoremap <silent>rs :s/\s//g<CR>:nohlsearch<CR>
 
 "命令行模式粘贴(ctrl+r)
-cnoremap <silent><C-r> <C-r>*
+cnoremap <C-r> <C-r>*
 
 "设置宏的时候删除原先记录的宏操作
 nnoremap <silent>qa :let @a=""<CR>qa
