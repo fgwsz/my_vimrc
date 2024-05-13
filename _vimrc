@@ -193,10 +193,8 @@ if has('win32')
         let l:file_path=l:current_path.l:filename
         execute '!explorer.exe '.l:file_path
     endfunction
-    "定义自定义命令OpenFile，调用上述函数
-    command! OpenFile :call OpenFileWithWindowsExplorer()
     "绑定Netrw打开文件的快捷键(gx)
-    nnoremap <silent>gx :OpenFile<CR>
+    nnoremap <silent>gx :call OpenFileWithWindowsExplorer<CR>
 endif
 
 "Netrw切换文件路径的时候是否保持原有的工作目录
@@ -258,38 +256,7 @@ if has('win32')
 endif
 
 "======================================
-"自动命令
-"======================================
-
-"修改本文件并保存后立即生效
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
-
-"某些配色方案下特殊字符tab(\t)/space(\s)/eol(\n\r)显示不明显
-"将tab/space/eol的前景色统一设置为深灰色
-function SetSpecialCharactersDarkGrey()
-    if has("gui_running")
-        highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
-    else
-        highlight MyTabSpaceEol ctermfg=darkgrey
-    endif
-    match MyTabSpaceEol /\t\|\s\|\n\|\r/
-endfunction
-call SetSpecialCharactersDarkGrey() "作用于初始窗口
-autocmd WinEnter * call SetSpecialCharactersDarkGrey()
-
-"切换当前窗口工作目录为当前打开的文件目录
-function! LCdCurrentPath()
-    execute 'lcd '.expand('%:p:h')
-endfunction
-"文件打开时自动切换当前窗口工作目录为文件父目录
-autocmd BufEnter * :call LCdCurrentPath()
-
-"当写入缓冲区的时候自动取消当前窗口的高亮显示
-"作用：文本替换后自动取消当前窗口的高亮显示
-autocmd BufWrite * :nohlsearch
-
-"======================================
-"映射快捷键
+"自定义快捷键
 "======================================
 
 "保存(ctrl+s)
@@ -494,3 +461,33 @@ vnoremap <silent><Tab>o <Esc><Esc>:tabonly!<CR>
 "关闭当前窗口的高亮显示(Ctrl+n)
 nnoremap <silent><C-n> :nohlsearch<CR>
 vnoremap <silent><C-n> <Esc><Esc>:nohlsearch<CR>
+
+"======================================
+"自动命令
+"======================================
+
+"某些配色方案下特殊字符tab(\t)/space(\s)/eol(\n\r)显示不明显
+"将tab/space/eol的前景色统一设置为深灰色
+function SetSpecialCharactersDarkGrey()
+    if has("gui_running")
+        highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
+    else
+        highlight MyTabSpaceEol ctermfg=darkgrey
+    endif
+    match MyTabSpaceEol /\t\|\s\|\n\|\r/
+endfunction
+call SetSpecialCharactersDarkGrey() "作用于初始窗口
+autocmd WinEnter * call SetSpecialCharactersDarkGrey()
+
+"切换当前窗口工作目录为当前打开的文件目录
+function! LCdCurrentPath()
+    execute 'lcd '.expand('%:p:h')
+endfunction
+"文件打开时自动切换当前窗口工作目录为文件父目录
+autocmd BufEnter * :call LCdCurrentPath()
+
+"文件缓冲区修改(仅适用于文本替换后)自动取消当前窗口的高亮显示
+autocmd BufWrite * :nohlsearch
+
+"修改本文件并保存后立即生效
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
