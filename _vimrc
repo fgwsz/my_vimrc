@@ -109,19 +109,19 @@ set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
 function! GetPrettyModeString()
     let l:mode=mode()
     if l:mode==#"n"
-        return "|NORMAL|"
+        return "|Normal|"
     elseif l:mode==#"i"
-        return "|INSERT|"
+        return "|Insert|"
     elseif l:mode==#"c"
-        return "|COMMAND|"
+        return "|Command|"
     elseif l:mode==#"t"
-        return "|TERMINAL|"
+        return "|Terminal|"
     elseif l:mode==#"v"
-        return "|VISUAL|"
+        return "|Visual|"
     elseif l:mode==#"V"
-        return "|VISUAL LINE|"
-    else "if l:mode==#"^V" 此语句无法生效
-        return "|VISUAL BLOCK|"
+        return "|Visual-Line|"
+    else "if l:mode==#'^V' 此语句无法生效
+        return "|Visual-Block|"
     endif
 endfunction
 
