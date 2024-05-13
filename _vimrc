@@ -104,7 +104,80 @@ set expandtab "键入tab时自动替换为空格
 "标签栏显示相关
 set showtabline=2 "总是显示标签栏
 set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
+"检查当前标签栏是否已修改未保存
+function! TabModified(n)
+    let l:label=' '
+    let l:buflist=tabpagebuflist(a:n)
+    for l:bufnr in l:buflist
+        if getbufvar(l:bufnr,"&modified")
+            let l:label='* '
+            break
+        endif
+    endfor
+    return l:label
+endfunction
+"返回当前标签栏的名称
+function! TabName(n)
+    let l:winnr=tabpagewinnr(a:n)
+    let l:buflist=tabpagebuflist(a:n)
+    let l:filetype=getbufvar(l:winnr,'&filetype','')
+    let l:name=bufname(l:buflist[l:winnr-1])
+    if l:name==#''
+        let l:name=l:filetype
+        if l:name==#''
+            let l:name='Null'
+        endif
+    else
+        let l:name=fnamemodify(l:name,':t')
+    endif
+    return l:name
+endfunction
+"被选中的标签的高亮设置
+highlight SelectTabLine    ctermfg=Black       ctermbg=Yellow     guifg=Black       guibg=Yellow
+highlight SelectPageNum    ctermfg=Blue        ctermbg=Yellow     guifg=Blue        guibg=Yellow
+highlight SelectWindowsNum ctermfg=Red         ctermbg=Yellow     guifg=Red         guibg=Yellow
+"未被选中的标签的高亮设置
+highlight NormalTabLine    ctermfg=Black       ctermbg=DarkYellow guifg=Black       guibg=DarkYellow
+highlight NormalPageNum    ctermfg=DarkBlue    ctermbg=DarkYellow guifg=DarkBlue    guibg=DarkYellow
+highlight NormalWindowsNum ctermfg=DarkRed     ctermbg=DarkYellow guifg=DarkRed     guibg=DarkYellow
+"标签栏整体的显示函数
+function! TabLine()
+    let l:result=''
+    for l:index in range(tabpagenr('$'))
+        let l:hlTab=''
+        let l:select=0
+        if l:index+1==tabpagenr()
+            let l:hlTab ='%#SelectTabLine#'
+            let l:result.=hlTab."[%#SelectPageNum#%T".(l:index+1).hlTab
+            let l:select=1
+        else
+            let l:hlTab='%#NormalTabLine#'
+            let l:result.=l:hlTab."[%#NormalPageNum#%T".(l:index+1).l:hlTab
+        endif
+        let l:result.='%{TabModified('.(l:index+1).')}%<%{TabName('.(l:index+1).')}'
+        let l:wincount=tabpagewinnr(l:index+1,'$')
+        if l:wincount>1
+            if l:select==1
+                let l:result.=" %#SelectWindowsNum#".l:wincount
+            else
+                let l:result.=" %#NormalWindowsNum#".l:wincount
+            endif
+        endif
+        let l:result.=l:hlTab.']'
+    endfor
+    "最后一个标签页之后用TabLineFill填充并复位标签页号
+    let l:result.='%#TabLineFill#%T'
+    "右对齐用于关闭当前标签页的标签
+    if tabpagenr('$')>1
+        let l:result.='%=%#TabLine#%999XX'
+    endif
+    return l:result
+endfunction
+"设置标签栏的显示样式
+set tabline=%!TabLine()
 
+"状态栏显示相关
+set laststatus=2 "显示状态栏
 "得到vim当前模式字符串
 function! GetPrettyModeString()
     let l:mode=mode()
@@ -124,7 +197,6 @@ function! GetPrettyModeString()
         return "|Visual-Block|"
     endif
 endfunction
-
 "得到当前文件编码字符串
 function! GetPrettyFileEncoding()
     if &fileencoding==#""
@@ -132,18 +204,12 @@ function! GetPrettyFileEncoding()
     else
         return "[".&fileencoding."]"
 endfunction
-
-"状态栏显示相关
-set laststatus=2 "显示状态栏
 "设置状态栏显示内容
 set statusline=%{GetPrettyModeString()} "vim当前模式
 set statusline+=%<%F "路径
 set statusline+=%m "是否存在改动:存在改动"[+]",无改动"",只读文件"[-]"
 set statusline+=%= "右对齐
 set statusline+=%y "文件类型
-set statusline+=%r "是否具有只读属性
-set statusline+=%h "是否为Help buffer
-set statusline+=%w "是否为Preview buffer
 set statusline+=[%{&fileformat}] "操作系统
 set statusline+=%{GetPrettyFileEncoding()} "文件编码
 set statusline+=[%c:%l/%L\(%p%%)] "光标所在位置
@@ -463,23 +529,55 @@ tnoremap <silent><A-m>l <C-w>L
 
 "切换到下一个标签页
 "(模仿VimiumC J)
-nnoremap <silent>J gt
-vnoremap <silent>J <Esc><Esc>gt<CR>
+"不使用gt的原因:gt不是按照标签页的序号跳转的，是按照标签页打开的顺序跳转的
+function! TabNext()
+    if tabpagenr('$')==1
+        return
+    endif
+    let l:current_tab=tabpagenr()
+    let l:target_tab=current_tab-1
+    if l:target_tab<1
+        let l:target_tab=tabpagenr('$')
+    endif
+    execute l:target_tab.'tabnext'
+endfunction
+nnoremap <silent>J :call TabNext()<CR>
+vnoremap <silent>J <Esc><Esc>:call TabNext()<CR>
 
 "切换到上一个标签页
 "(模仿VimiumC K)
-nnoremap <silent>K gT
-vnoremap <silent>K <Esc><Esc>gT<CR>
+"不使用gT的原因:gT不是按照标签页的序号跳转的，是按照标签页打开的顺序跳转的
+function! TabPrev()
+    if tabpagenr('$')==1
+        return
+    endif
+    let l:current_tab=tabpagenr()
+    let l:target_tab=current_tab+1
+    if l:target_tab>tabpagenr('$')
+        let l:target_tab=1
+    endif
+    execute l:target_tab.'tabnext'
+endfunction
+nnoremap <silent>K :call TabPrev()<CR>
+vnoremap <silent>K <Esc><Esc>:call TabPrev()<CR>
+
+"让当前标签页在标签栏中向左移动一格(Tab+,)
+nnoremap <silent><Tab>, :tabmove -1<CR>
+vnoremap <silent><Tab>, <Esc><Esc>:tabmove -1<CR>
+
+"让当前标签页在标签栏中向有右移动一格(Tab+.)
+nnoremap <silent><Tab>. :tabmove +1<CR>
+vnoremap <silent><Tab>. <Esc><Esc>:tabmove +1<CR>
 
 "后退(跳转到上一个文件编辑位置)
 "(模仿VimiumC H)
 nnoremap <silent>H <C-o>
-vnoremap <silent>H <Esc><Esc><C-o><CR>
+vnoremap <silent>H <Esc><Esc><C-o>
 
 "前进(跳转到下一个文件编辑位置)
 "(模仿VimiumC L)
 nnoremap <silent>L <C-i>
-vnoremap <silent>L <Esc><Esc><C-i><CR>
+vnoremap <silent>L <Esc><Esc><C-i>
 
 "新建一个空标签页(Tab+n)
 nnoremap <silent><Tab>n :tabnew<CR>
