@@ -138,9 +138,9 @@ set laststatus=2 "显示状态栏
 "设置状态栏显示内容
 set statusline=%{GetPrettyModeString()} "vim当前模式
 set statusline+=%<%F "路径
+set statusline+=%m "是否存在改动:存在改动"[+]",无改动"",只读文件"[-]"
 set statusline+=%= "右对齐
 set statusline+=%y "文件类型
-set statusline+=%m "是否存在改动:存在改动"[+]",无改动"",只读文件"[-]"
 set statusline+=%r "是否具有只读属性
 set statusline+=%h "是否为Help buffer
 set statusline+=%w "是否为Preview buffer
