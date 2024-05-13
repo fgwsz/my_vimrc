@@ -271,165 +271,131 @@ if has('win32')
 endif
 
 "======================================
+"自动命令
+"======================================
+
+"切换当前窗口工作目录为当前打开的文件目录
+function! LCdCurrentPath()
+    execute 'lcd '.expand('%:p:h')
+endfunction
+"文件打开时自动切换当前窗口工作目录为文件父目录
+autocmd BufEnter * :call LCdCurrentPath()
+
+"当写入缓冲区的时候自动取消当前窗口的高亮显示
+"作用：文本替换后自动取消当前窗口的高亮显示
+autocmd BufWrite * :nohlsearch
+
+"======================================
 "映射快捷键
 "======================================
 
 "保存(ctrl+s)
-nnoremap <C-s> :w<CR>
-inoremap <C-s> <Esc>:w<CR>a
-vnoremap <C-s> <Esc><Esc>:w<CR>
+nnoremap <silent><C-s> :w<CR>
+inoremap <silent><C-s> <Esc>:w<CR>a
+vnoremap <silent><C-s> <Esc><Esc>:w<CR>
 
 "全选(ctrl+a)
-nnoremap <C-a> gg0vG$
-inoremap <C-a> <Esc>gg0vG$
-vnoremap <C-a> <Esc><Esc>gg0vG$
+nnoremap <silent><C-a> gg0vG$
+inoremap <silent><C-a> <Esc>gg0vG$
+vnoremap <silent><C-a> <Esc><Esc>gg0vG$
 
 "复制当前行到下一行(ctrl+d)
-nnoremap <C-d> yyp
-inoremap <C-d> <Esc>yypa
+nnoremap <silent><C-d> yyp
+inoremap <silent><C-d> <Esc>yypa
 
 "撤销(ctrl+z)
-nnoremap <C-z> u
-inoremap <C-z> <Esc>ua
+nnoremap <silent><C-z> u
+inoremap <silent><C-z> <Esc>ua
 
 "取消撤销(ctrl+y)
-nnoremap <C-y> <C-r>
-inoremap <C-y> <Esc><C-r>a
+nnoremap <silent><C-y> <C-r>
+inoremap <silent><C-y> <Esc><C-r>a
 
-"关闭光标所在窗口(alt+w)
-nnoremap <A-w> :q!<CR>
-inoremap <A-w> <Esc>:q!<CR>
-vnoremap <A-w> <Esc><Esc>:q!<CR>
-
-"切换到下一个标签页
-"(模仿VimiumC J)
-nnoremap J gt
-vnoremap J <Esc><Esc>gt<CR>
-
-"切换到上一个标签页
-"(模仿VimiumC K)
-nnoremap K gT
-vnoremap K <Esc><Esc>gT<CR>
-
-"后退(跳转到上一个文件编辑位置)
-"(模仿VimiumC H)
-nnoremap H <C-o>
-vnoremap H <Esc><Esc><C-o><CR>
-
-"前进(跳转到下一个文件编辑位置)
-"(模仿VimiumC L)
-nnoremap L <C-i>
-vnoremap L <Esc><Esc><C-i><CR>
-
-"新建一个标签页(Tab+n)
-nnoremap <Tab>n :tabnew<CR>
-vnoremap <Tab>n <Esc><Esc>:tabnew<CR>
-
-"关闭当前标签页(Tab+c)
-nnoremap <Tab>c :tabclose<CR>
-vnoremap <Tab>c <Esc><Esc>:tabclose<CR>
-
-"关闭当前标签页以外的全部标签页(Tab+o)
-nnoremap <Tab>o :tabonly<CR>
-vnoremap <Tab>o <Esc><Esc>:tabonly<CR>
-
-"切换当前窗口工作目录为当前打开的文件目录(命令:LCdC)
-function! LCdCurrentPath()
-    execute 'lcd '.expand('%:p:h')
-endfunction
-"定义自定义命令LCdC，调用上述函数
-command! LCdC :call LCdCurrentPath()
-
-"设置开启终端时自动切换到当前打开的文件路径
-function! OpenCurrentPathTerminal()
-    call LCdCurrentPath()
-    execute 'belowright terminal'
-endfunction
-"定义自定义命令OpenTerm，调用上述函数
-command! OpenTerm :call OpenCurrentPathTerminal()
+"强制关闭光标所在窗口(alt+w)
+nnoremap <silent><A-w> :q!<CR>
+inoremap <silent><A-w> <Esc>:q!<CR>
+vnoremap <silent><A-w> <Esc><Esc>:q!<CR>
 
 "在当前窗口(分屏窗口)的下方打开一个新的终端窗口(分屏窗口)(ctrl+t)
-"该终端窗口的工作路径为当前打开的文件路径
-nnoremap <C-t> :OpenTerm<CR>
-inoremap <C-t> <Esc>:OpenTerm<CR>
-vnoremap <C-t> <Esc><Esc>:OpenTerm<CR>
+nnoremap <silent><C-t> :belowright terminal<CR>
+inoremap <silent><C-t> <Esc>:belowright terminal<CR>
+vnoremap <silent><C-t> <Esc><Esc>:belowright terminal<CR>
 "命令行模式，分屏窗口只显示终端(ctrl+t)
-cnoremap <C-t> :OpenTerm<CR><C-w>k:q!<CR>
+cnoremap <silent><C-t> :belowright terminal<CR><C-w>k:q!<CR>
 
 "终端退出insert模式进入normal模式(esc)
-tnoremap <A-e> <C-\><C-n>
+tnoremap <silent><A-e> <C-\><C-n>
 
 "在当前窗口(分屏窗口)的左侧打开一个新的netrw窗口(分屏窗口)(ctrl+e)
-nnoremap <C-e> :Vex<CR>
-inoremap <C-e> <Esc>:Vex<CR>
-vnoremap <C-e> <Esc><Esc>:Vex<CR>
+nnoremap <silent><C-e> :Vexplore<CR>
+inoremap <silent><C-e> <Esc>:Vexplore<CR>
+vnoremap <silent><C-e> <Esc><Esc>:Vexplore<CR>
+"命令行模式，分屏窗口只显示netrw(ctrl+e)
+cnoremap <silent><C-e> :Explore<CR>
 
 "open tab of fast grep(ctrl+g)
-nnoremap <C-g> :tab new<CR>:E<CR>:copen<CR>:vimgrep 
-inoremap <C-g> <Esc>:tab new<CR>:E<CR>:copen<CR>:vimgrep 
-vnoremap <C-g> <Esc><Esc>:tab new<CR>:E<CR>:copen<CR>:vimgrep 
+nnoremap <C-g> :tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
+inoremap <C-g> <Esc>:tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
+vnoremap <C-g> <Esc><Esc>:tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
 
 "新增一空白行(o下方 O上方)
 "原因是vim/gvim自带的o/O在有些情况下新增行会附带一些特殊格式/字符
 "这里采用"_d命令删除（不存入剪切板），而不是d剪切，是为了保护剪切板中的内容
-nnoremap o o<Esc>0"_d$a
-nnoremap O O<Esc>0"_d$a
+nnoremap <silent>o o<Esc>0"_d$a
+nnoremap <silent>O O<Esc>0"_d$a
 
 "删除可视模式中选中区域的所有换行，并将光标移动到该行行首
-"并取消替换后的高亮显示
 "rr:remove \r
-vnoremap rr :s/\n//g<CR>:nohlsearch<CR>0
+vnoremap <silent>rr :s/\n//g<CR>0
 
 "删除可视模式中选中区域的所有空行(包括只含有空格的行)
-"并取消替换后的高亮显示
 "rl:remove empty line
-vnoremap rl :g/^\s*$/d<CR>:nohlsearch<CR>
+vnoremap <silent>rl :g/^\s*$/d<CR>
 
 "删除可视模式中选中区域的所有空格
-"并取消替换后的高亮显示
 "rs:remove space
-vnoremap rs :s/\s//g<CR>:nohlsearch<CR>
+vnoremap <silent>rs :s/\s//g<CR>
 
 "命令行模式粘贴(ctrl+r)
-cnoremap <C-r> <C-r>*
+cnoremap <silent><C-r> <C-r>*
 
 "设置宏的时候删除原先记录的宏操作
-nnoremap qa :let @a=""<CR>qa
-nnoremap qb :let @b=""<CR>qb
-nnoremap qc :let @c=""<CR>qc
-nnoremap qd :let @d=""<CR>qd
-nnoremap qe :let @e=""<CR>qe
-nnoremap qf :let @f=""<CR>qf
-nnoremap qg :let @g=""<CR>qg
-nnoremap qh :let @h=""<CR>qh
-nnoremap qi :let @i=""<CR>qi
-nnoremap qj :let @j=""<CR>qj
-nnoremap qk :let @k=""<CR>qk
-nnoremap ql :let @l=""<CR>ql
-nnoremap qm :let @m=""<CR>qm
-nnoremap qn :let @n=""<CR>qn
-nnoremap qo :let @o=""<CR>qo
-nnoremap qp :let @p=""<CR>qp
-nnoremap qq :let @q=""<CR>qq
-nnoremap qr :let @r=""<CR>qr
-nnoremap qs :let @s=""<CR>qs
-nnoremap qt :let @t=""<CR>qt
-nnoremap qu :let @u=""<CR>qu
-nnoremap qv :let @v=""<CR>qv
-nnoremap qw :let @w=""<CR>qw
-nnoremap qx :let @x=""<CR>qx
-nnoremap qy :let @y=""<CR>qy
-nnoremap qz :let @z=""<CR>qz
-nnoremap q0 :let @0=""<CR>q0
-nnoremap q1 :let @1=""<CR>q1
-nnoremap q2 :let @2=""<CR>q2
-nnoremap q3 :let @3=""<CR>q3
-nnoremap q4 :let @4=""<CR>q4
-nnoremap q5 :let @5=""<CR>q5
-nnoremap q6 :let @6=""<CR>q6
-nnoremap q7 :let @7=""<CR>q7
-nnoremap q8 :let @8=""<CR>q8
-nnoremap q9 :let @9=""<CR>q9
+nnoremap <silent>qa :let @a=""<CR>qa
+nnoremap <silent>qb :let @b=""<CR>qb
+nnoremap <silent>qc :let @c=""<CR>qc
+nnoremap <silent>qd :let @d=""<CR>qd
+nnoremap <silent>qe :let @e=""<CR>qe
+nnoremap <silent>qf :let @f=""<CR>qf
+nnoremap <silent>qg :let @g=""<CR>qg
+nnoremap <silent>qh :let @h=""<CR>qh
+nnoremap <silent>qi :let @i=""<CR>qi
+nnoremap <silent>qj :let @j=""<CR>qj
+nnoremap <silent>qk :let @k=""<CR>qk
+nnoremap <silent>ql :let @l=""<CR>ql
+nnoremap <silent>qm :let @m=""<CR>qm
+nnoremap <silent>qn :let @n=""<CR>qn
+nnoremap <silent>qo :let @o=""<CR>qo
+nnoremap <silent>qp :let @p=""<CR>qp
+nnoremap <silent>qq :let @q=""<CR>qq
+nnoremap <silent>qr :let @r=""<CR>qr
+nnoremap <silent>qs :let @s=""<CR>qs
+nnoremap <silent>qt :let @t=""<CR>qt
+nnoremap <silent>qu :let @u=""<CR>qu
+nnoremap <silent>qv :let @v=""<CR>qv
+nnoremap <silent>qw :let @w=""<CR>qw
+nnoremap <silent>qx :let @x=""<CR>qx
+nnoremap <silent>qy :let @y=""<CR>qy
+nnoremap <silent>qz :let @z=""<CR>qz
+nnoremap <silent>q0 :let @0=""<CR>q0
+nnoremap <silent>q1 :let @1=""<CR>q1
+nnoremap <silent>q2 :let @2=""<CR>q2
+nnoremap <silent>q3 :let @3=""<CR>q3
+nnoremap <silent>q4 :let @4=""<CR>q4
+nnoremap <silent>q5 :let @5=""<CR>q5
+nnoremap <silent>q6 :let @6=""<CR>q6
+nnoremap <silent>q7 :let @7=""<CR>q7
+nnoremap <silent>q8 :let @8=""<CR>q8
+nnoremap <silent>q9 :let @9=""<CR>q9
 
 "快捷切换分屏窗口(<Ctrl-*>代替<Ctrl-w>*)
 "h 移动到左边的分屏窗口
@@ -437,26 +403,26 @@ nnoremap q9 :let @9=""<CR>q9
 "k 移动到上边的分屏窗口
 "l 移动到右边的分屏窗口
 "w 移动到下一个分屏窗口
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-nnoremap <C-w> <C-w>w
-inoremap <C-h> <Esc><C-w>h
-inoremap <C-j> <Esc><C-w>j
-inoremap <C-k> <Esc><C-w>k
-inoremap <C-l> <Esc><C-w>l
-inoremap <C-w> <Esc><C-w>w
-vnoremap <C-h> <Esc><Esc><C-w>h<CR>
-vnoremap <C-j> <Esc><Esc><C-w>j<CR>
-vnoremap <C-k> <Esc><Esc><C-w>k<CR>
-vnoremap <C-l> <Esc><Esc><C-w>l<CR>
-vnoremap <C-w> <Esc><Esc><C-w>w<CR>
-tnoremap <C-h> <C-w>h
-tnoremap <C-j> <C-w>j
-tnoremap <C-k> <C-w>k
-tnoremap <C-l> <C-w>l
-tnoremap <C-w> <C-w>w
+nnoremap <silent><C-h> <C-w>h
+nnoremap <silent><C-j> <C-w>j
+nnoremap <silent><C-k> <C-w>k
+nnoremap <silent><C-l> <C-w>l
+nnoremap <silent><C-w> <C-w>w
+inoremap <silent><C-h> <Esc><C-w>h
+inoremap <silent><C-j> <Esc><C-w>j
+inoremap <silent><C-k> <Esc><C-w>k
+inoremap <silent><C-l> <Esc><C-w>l
+inoremap <silent><C-w> <Esc><C-w>w
+vnoremap <silent><C-h> <Esc><Esc><C-w>h<CR>
+vnoremap <silent><C-j> <Esc><Esc><C-w>j<CR>
+vnoremap <silent><C-k> <Esc><Esc><C-w>k<CR>
+vnoremap <silent><C-l> <Esc><Esc><C-w>l<CR>
+vnoremap <silent><C-w> <Esc><Esc><C-w>w<CR>
+tnoremap <silent><C-h> <C-w>h
+tnoremap <silent><C-j> <C-w>j
+tnoremap <silent><C-k> <C-w>k
+tnoremap <silent><C-l> <C-w>l
+tnoremap <silent><C-w> <C-w>w
 
 "快捷移动分屏窗口的位置(<Alt-m>x代替<Ctrl-w>X)
 "为什么不用<Ctrl-m>?
@@ -465,19 +431,63 @@ tnoremap <C-w> <C-w>w
 "j 移动分屏窗口到下边
 "k 移动分屏窗口到上边
 "l 移动分屏窗口到右边
-nnoremap <A-m>h <C-w>H
-nnoremap <A-m>j <C-w>J
-nnoremap <A-m>k <C-w>K
-nnoremap <A-m>l <C-w>L
-inoremap <A-m>h <Esc><C-w>H
-inoremap <A-m>j <Esc><C-w>J
-inoremap <A-m>k <Esc><C-w>K
-inoremap <A-m>l <Esc><C-w>L
-vnoremap <A-m>h <Esc><Esc><C-w>H<CR>
-vnoremap <A-m>j <Esc><Esc><C-w>J<CR>
-vnoremap <A-m>k <Esc><Esc><C-w>K<CR>
-vnoremap <A-m>l <Esc><Esc><C-w>L<CR>
-tnoremap <A-m>h <C-w>H
-tnoremap <A-m>j <C-w>J
-tnoremap <A-m>k <C-w>K
-tnoremap <A-m>l <C-w>L
+nnoremap <silent><A-m>h <C-w>H
+nnoremap <silent><A-m>j <C-w>J
+nnoremap <silent><A-m>k <C-w>K
+nnoremap <silent><A-m>l <C-w>L
+inoremap <silent><A-m>h <Esc><C-w>H
+inoremap <silent><A-m>j <Esc><C-w>J
+inoremap <silent><A-m>k <Esc><C-w>K
+inoremap <silent><A-m>l <Esc><C-w>L
+vnoremap <silent><A-m>h <Esc><Esc><C-w>H<CR>
+vnoremap <silent><A-m>j <Esc><Esc><C-w>J<CR>
+vnoremap <silent><A-m>k <Esc><Esc><C-w>K<CR>
+vnoremap <silent><A-m>l <Esc><Esc><C-w>L<CR>
+tnoremap <silent><A-m>h <C-w>H
+tnoremap <silent><A-m>j <C-w>J
+tnoremap <silent><A-m>k <C-w>K
+tnoremap <silent><A-m>l <C-w>L
+
+"切换到下一个标签页
+"(模仿VimiumC J)
+nnoremap <silent>J gt
+vnoremap <silent>J <Esc><Esc>gt<CR>
+
+"切换到上一个标签页
+"(模仿VimiumC K)
+nnoremap <silent>K gT
+vnoremap <silent>K <Esc><Esc>gT<CR>
+
+"后退(跳转到上一个文件编辑位置)
+"(模仿VimiumC H)
+nnoremap <silent>H <C-o>
+vnoremap <silent>H <Esc><Esc><C-o><CR>
+
+"前进(跳转到下一个文件编辑位置)
+"(模仿VimiumC L)
+nnoremap <silent>L <C-i>
+vnoremap <silent>L <Esc><Esc><C-i><CR>
+
+"新建一个空标签页(Tab+n)
+nnoremap <silent><Tab>n :tabnew<CR>
+vnoremap <silent><Tab>n <Esc><Esc>:tabnew<CR>
+
+"新建一个netrw标签页(Tab+n)
+nnoremap <silent><Tab>e :Texplore<CR>
+vnoremap <silent><Tab>e <Esc><Esc>:Texplore<CR>
+
+"新建一个终端标签页(Tab+n)
+nnoremap <silent><Tab>t :tabnew<CR>:belowright terminal<CR><C-w>k:q!<CR>
+vnoremap <silent><Tab>t <Esc><Esc>:tabnew<CR>:belowright terminal<CR><C-w>k:q!<CR>
+
+"强制关闭当前标签页(Tab+c)
+nnoremap <silent><Tab>c :tabclose!<CR>
+vnoremap <silent><Tab>c <Esc><Esc>:tabclose!<CR>
+
+"强制关闭当前标签页以外的全部标签页(Tab+o)
+nnoremap <silent><Tab>o :tabonly!<CR>
+vnoremap <silent><Tab>o <Esc><Esc>:tabonly!<CR>
+
+"关闭当前窗口的高亮显示(Ctrl+n)
+nnoremap <silent><C-n> :nohlsearch<CR>
+vnoremap <silent><C-n> <Esc><Esc>:nohlsearch<CR>
