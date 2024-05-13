@@ -34,7 +34,8 @@ filetype plugin on "允许插件
 
 "编码相关
 set encoding=utf-8 "设置vim/gvim打开文件的默认编码格式
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1 "设置vim/gvim按照从左到右的顺序自动推断文件的编码类型
+"设置vim/gvim按照从左到右的顺序自动推断文件的编码类型
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 
 "命令模式补全
 set wildmenu "使用增强的命令模式补全
@@ -87,7 +88,8 @@ set showmatch "光标移动到括号时高亮显示匹配括号
 
 "特殊字符显示相关
 set list "显示不可见字符
-set listchars=tab:>―,space:·,eol:↓ "设置tab键显示为>―――,space键显示为·,换行eol键显示为↓
+"设置tab键显示为>―――,space键显示为·,换行eol键显示为↓
+set listchars=tab:>―,space:·,eol:↓
 
 "配色方案相关
 set background=dark "设置深色背景颜色美化
@@ -99,17 +101,57 @@ set softtabstop=4 "按下tab键时显示宽度为4，按下backspace键删除tab
 set shiftwidth=4 "缩进字符宽度为4
 set expandtab "键入tab时自动替换为空格
 
-"状态栏显示相关
-set laststatus=2 "显示状态栏
-set ruler "显示光标所在位置
-set showmode "显示当前模式
-set showcmd "显示键入按键信息
-set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y%m%r%h%w\ %0(%{&fileformat}\ %{&fileencoding}\ %c:%l/%L%)\ [%p%%]\  
-"路径 [文件类型][文件属性] 系统 编码 光标当前行字符数:当前行号/总行数 [显示进度]
-
 "标签栏显示相关
 set showtabline=2 "总是显示标签栏
 set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
+
+"得到vim当前模式字符串
+function! GetPrettyModeString()
+    let l:mode=mode()
+    if l:mode==#"n"
+        return "|NORMAL|"
+    elseif l:mode==#"i"
+        return "|INSERT|"
+    elseif l:mode==#"c"
+        return "|COMMAND|"
+    elseif l:mode==#"t"
+        return "|TERMINAL|"
+    elseif l:mode==#"v"
+        return "|VISUAL|"
+    elseif l:mode==#"V"
+        return "|VISUAL LINE|"
+    else "if l:mode==#"^V" 此语句无法生效
+        return "|VISUAL BLOCK|"
+    endif
+endfunction
+
+"得到当前文件编码字符串
+function! GetPrettyFileEncoding()
+    if &fileencoding==#""
+        return ""
+    else
+        return "[".&fileencoding."]"
+endfunction
+
+"状态栏显示相关
+set laststatus=2 "显示状态栏
+"设置状态栏显示内容
+set statusline=%{GetPrettyModeString()} "vim当前模式
+set statusline+=%<%F "路径
+set statusline+=%= "右对齐
+set statusline+=%y "文件类型
+set statusline+=%m "是否存在改动:存在改动"[+]",无改动"",只读文件"[-]"
+set statusline+=%r "是否具有只读属性
+set statusline+=%h "是否为Help buffer
+set statusline+=%w "是否为Preview buffer
+set statusline+=[%{&fileformat}] "操作系统
+set statusline+=%{GetPrettyFileEncoding()} "文件编码
+set statusline+=[%c:%l/%L\(%p%%)] "光标所在位置
+
+"信息栏相关
+set ruler "显示光标所在位置
+set showmode "显示当前模式
+set showcmd "显示键入按键信息
 
 "======================================
 "gvim独有设置
@@ -317,15 +359,15 @@ nnoremap <silent>O O<Esc>0"_d$a
 
 "删除可视模式中选中区域的所有换行，并将光标移动到该行行首
 "rr:remove \r
-vnoremap <silent>rr :s/\n//g<CR>0
+vnoremap <silent>rr :s/\n//g<CR>:nohlsearch<CR>0
 
 "删除可视模式中选中区域的所有空行(包括只含有空格的行)
 "rl:remove empty line
-vnoremap <silent>rl :g/^\s*$/d<CR>
+vnoremap <silent>rl :g/^\s*$/d<CR>:nohlsearch<CR>
 
 "删除可视模式中选中区域的所有空格
 "rs:remove space
-vnoremap <silent>rs :s/\s//g<CR>
+vnoremap <silent>rs :s/\s//g<CR>:nohlsearch<CR>
 
 "命令行模式粘贴(ctrl+r)
 cnoremap <silent><C-r> <C-r>*
