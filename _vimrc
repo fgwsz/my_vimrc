@@ -12,7 +12,6 @@
 "======================================
 
 "文件载入相关
-autocmd BufWritePost $MYVIMRC source $MYVIMRC "修改本文件并保存后立即生效
 set autoread "文件改动时重新读取
 
 "临时文件相关
@@ -93,18 +92,6 @@ set listchars=tab:>―,space:·,eol:↓ "设置tab键显示为>―――,space�
 "配色方案相关
 set background=dark "设置深色背景颜色美化
 colorscheme industry "设置配色方案为industry
-"某些配色方案下特殊字符tab(\t)/space(\s)/eol(\n\r)显示不明显
-"将tab/space/eol的前景色统一设置为深灰色
-function SetSpecialCharactersDarkGrey()
-    if has("gui_running")
-        highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
-    else
-        highlight MyTabSpaceEol ctermfg=darkgrey
-    endif
-    match MyTabSpaceEol /\t\|\s\|\n\|\r/
-endfunction
-call SetSpecialCharactersDarkGrey()
-autocmd WinEnter * call SetSpecialCharactersDarkGrey()
 
 "缩进相关
 set tabstop=4 "设置tab键的宽度为4
@@ -209,7 +196,7 @@ if has('win32')
     "定义自定义命令OpenFile，调用上述函数
     command! OpenFile :call OpenFileWithWindowsExplorer()
     "绑定Netrw打开文件的快捷键(gx)
-    nnoremap gx :OpenFile<CR>
+    nnoremap <silent>gx :OpenFile<CR>
 endif
 
 "Netrw切换文件路径的时候是否保持原有的工作目录
@@ -273,6 +260,22 @@ endif
 "======================================
 "自动命令
 "======================================
+
+"修改本文件并保存后立即生效
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
+"某些配色方案下特殊字符tab(\t)/space(\s)/eol(\n\r)显示不明显
+"将tab/space/eol的前景色统一设置为深灰色
+function SetSpecialCharactersDarkGrey()
+    if has("gui_running")
+        highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
+    else
+        highlight MyTabSpaceEol ctermfg=darkgrey
+    endif
+    match MyTabSpaceEol /\t\|\s\|\n\|\r/
+endfunction
+call SetSpecialCharactersDarkGrey() "作用于初始窗口
+autocmd WinEnter * call SetSpecialCharactersDarkGrey()
 
 "切换当前窗口工作目录为当前打开的文件目录
 function! LCdCurrentPath()
