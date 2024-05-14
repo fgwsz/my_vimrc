@@ -86,8 +86,8 @@ set showmatch "光标移动到括号时高亮显示匹配括号
 ""ctermfg:vim的前景色
 ""guibg:vim的背景色
 ""guifg:vim的前景色
-"highlight CursorLine cterm=NONE ctermbg=black ctermfg=NONE guibg=black guifg=NONE
-"highlight CursorColumn cterm=NONE ctermbg=black ctermfg=NONE guibg=black guifg=NONE
+"highlight CursorLine   cterm=NONE ctermbg=Black ctermfg=NONE guibg=Black guifg=NONE
+"highlight CursorColumn cterm=NONE ctermbg=Black ctermfg=NONE guibg=Black guifg=NONE
 
 "特殊字符显示相关
 set list "显示不可见字符
@@ -370,9 +370,9 @@ let g:netrw_keepdir=0
 "5:blinking vertical bar  闪烁的竖线
 "6:solid vertical bar     不闪烁的竖线
 "if has('win32')
-"    let &t_SI = "\<Esc>[6 q"
-"    let &t_SR = "\<Esc>[4 q"
-"    let &t_EI = "\<Esc>[2 q"
+"    let &t_SI = '\<Esc>[6 q'
+"    let &t_SR = '\<Esc>[4 q'
+"    let &t_EI = '\<Esc>[2 q'
 "endif
 
 "vim/gvim命令模式打开终端相关
@@ -467,42 +467,42 @@ vnoremap <silent>rs :s/\s//g<CR>:nohlsearch<CR>
 cnoremap <C-r> <C-r>*
 
 "设置宏的时候删除原先记录的宏操作
-nnoremap <silent>qa :let @a=""<CR>qa
-nnoremap <silent>qb :let @b=""<CR>qb
-nnoremap <silent>qc :let @c=""<CR>qc
-nnoremap <silent>qd :let @d=""<CR>qd
-nnoremap <silent>qe :let @e=""<CR>qe
-nnoremap <silent>qf :let @f=""<CR>qf
-nnoremap <silent>qg :let @g=""<CR>qg
-nnoremap <silent>qh :let @h=""<CR>qh
-nnoremap <silent>qi :let @i=""<CR>qi
-nnoremap <silent>qj :let @j=""<CR>qj
-nnoremap <silent>qk :let @k=""<CR>qk
-nnoremap <silent>ql :let @l=""<CR>ql
-nnoremap <silent>qm :let @m=""<CR>qm
-nnoremap <silent>qn :let @n=""<CR>qn
-nnoremap <silent>qo :let @o=""<CR>qo
-nnoremap <silent>qp :let @p=""<CR>qp
-nnoremap <silent>qq :let @q=""<CR>qq
-nnoremap <silent>qr :let @r=""<CR>qr
-nnoremap <silent>qs :let @s=""<CR>qs
-nnoremap <silent>qt :let @t=""<CR>qt
-nnoremap <silent>qu :let @u=""<CR>qu
-nnoremap <silent>qv :let @v=""<CR>qv
-nnoremap <silent>qw :let @w=""<CR>qw
-nnoremap <silent>qx :let @x=""<CR>qx
-nnoremap <silent>qy :let @y=""<CR>qy
-nnoremap <silent>qz :let @z=""<CR>qz
-nnoremap <silent>q0 :let @0=""<CR>q0
-nnoremap <silent>q1 :let @1=""<CR>q1
-nnoremap <silent>q2 :let @2=""<CR>q2
-nnoremap <silent>q3 :let @3=""<CR>q3
-nnoremap <silent>q4 :let @4=""<CR>q4
-nnoremap <silent>q5 :let @5=""<CR>q5
-nnoremap <silent>q6 :let @6=""<CR>q6
-nnoremap <silent>q7 :let @7=""<CR>q7
-nnoremap <silent>q8 :let @8=""<CR>q8
-nnoremap <silent>q9 :let @9=""<CR>q9
+nnoremap <silent>qa :let @a=''<CR>qa
+nnoremap <silent>qb :let @b=''<CR>qb
+nnoremap <silent>qc :let @c=''<CR>qc
+nnoremap <silent>qd :let @d=''<CR>qd
+nnoremap <silent>qe :let @e=''<CR>qe
+nnoremap <silent>qf :let @f=''<CR>qf
+nnoremap <silent>qg :let @g=''<CR>qg
+nnoremap <silent>qh :let @h=''<CR>qh
+nnoremap <silent>qi :let @i=''<CR>qi
+nnoremap <silent>qj :let @j=''<CR>qj
+nnoremap <silent>qk :let @k=''<CR>qk
+nnoremap <silent>ql :let @l=''<CR>ql
+nnoremap <silent>qm :let @m=''<CR>qm
+nnoremap <silent>qn :let @n=''<CR>qn
+nnoremap <silent>qo :let @o=''<CR>qo
+nnoremap <silent>qp :let @p=''<CR>qp
+nnoremap <silent>qq :let @q=''<CR>qq
+nnoremap <silent>qr :let @r=''<CR>qr
+nnoremap <silent>qs :let @s=''<CR>qs
+nnoremap <silent>qt :let @t=''<CR>qt
+nnoremap <silent>qu :let @u=''<CR>qu
+nnoremap <silent>qv :let @v=''<CR>qv
+nnoremap <silent>qw :let @w=''<CR>qw
+nnoremap <silent>qx :let @x=''<CR>qx
+nnoremap <silent>qy :let @y=''<CR>qy
+nnoremap <silent>qz :let @z=''<CR>qz
+nnoremap <silent>q0 :let @0=''<CR>q0
+nnoremap <silent>q1 :let @1=''<CR>q1
+nnoremap <silent>q2 :let @2=''<CR>q2
+nnoremap <silent>q3 :let @3=''<CR>q3
+nnoremap <silent>q4 :let @4=''<CR>q4
+nnoremap <silent>q5 :let @5=''<CR>q5
+nnoremap <silent>q6 :let @6=''<CR>q6
+nnoremap <silent>q7 :let @7=''<CR>q7
+nnoremap <silent>q8 :let @8=''<CR>q8
+nnoremap <silent>q9 :let @9=''<CR>q9
 
 "快捷切换分屏窗口(<Ctrl-*>代替<Ctrl-w>*)
 "h 移动到左边的分屏窗口
