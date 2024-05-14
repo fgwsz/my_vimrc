@@ -194,6 +194,8 @@ function! GetPrettyModeString()
         return '|Normal|'
     elseif l:mode==#'i'
         return '|Insert|'
+    elseif l:mode==#'R'
+        return '|Replace|'
     elseif l:mode==#'c'
         return '|Command|'
     elseif l:mode==#'t'
