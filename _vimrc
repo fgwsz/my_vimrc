@@ -386,9 +386,7 @@ endif
 
 "剪切板相关
 "设置vim/gvim和系统的剪切板互通
-if has('win32')
-    set clipboard=unnamed
-endif
+set clipboard^=unnamed,unnamedplus
 
 "======================================
 "自定义快捷键
@@ -647,9 +645,8 @@ vnoremap <silent><Tab>8 <Esc><Esc>:8 tabnext<CR>
 vnoremap <silent><Tab>9 <Esc><Esc>:9 tabnext<CR>
 vnoremap <silent><Tab>0 <Esc><Esc>:10 tabnext<CR>
 
-"关闭当前窗口的高亮显示(Ctrl+n)
-nnoremap <silent><C-n> :nohlsearch<CR>
-vnoremap <silent><C-n> <Esc><Esc>:nohlsearch<CR>
+"关闭当前窗口的高亮显示(Esc)
+nnoremap <silent><Esc> :nohlsearch<CR>
 
 "======================================
 "自动命令
