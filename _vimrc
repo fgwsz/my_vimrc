@@ -180,12 +180,8 @@ function! TabLine()
             endif
         endif
     endfor
-    "最后一个标签页之后用TabLineFill填充并复位标签页号
+    "最后一个标签页之后用TabLineFill填充
     let l:result.='%#TabLineFill#%T'
-    "右对齐用于关闭当前标签页的标签
-    if tabpagenr('$')>1
-        let l:result.='%=%#TabLine#%999XX'
-    endif
     return l:result
 endfunction
 "设置标签栏的显示样式
