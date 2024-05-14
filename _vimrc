@@ -452,7 +452,7 @@ nnoremap <silent>o o<Esc>0"_d$a
 nnoremap <silent>O O<Esc>0"_d$a
 
 "删除可视模式中选中区域的所有换行，并将光标移动到该行行首
-"ar:remove all \n
+"an:remove all \n
 vnoremap <silent>an :s/\n//g<CR>:nohlsearch<CR>0
 
 "删除可视模式中选中区域的所有空行(包括只含有空格的行)
