@@ -226,7 +226,7 @@ set statusline+=%4*%y "文件类型
 set statusline+=%5*\ %{&fileformat}\  "操作系统
 set statusline+=%6*%{GetPrettyFileEncoding()} "文件编码
 set statusline+=%7*\ %c:%l/%L\(%p%%)\  "光标所在位置
-
+"statusline配色方案
 highlight User1 cterm=bold gui=bold ctermfg=White      ctermbg=DarkGreen   guifg=White      guibg=DarkGreen
 highlight User2 cterm=bold gui=bold ctermfg=White      ctermbg=DarkBlue    guifg=White      guibg=DarkBlue
 highlight User3 cterm=bold gui=bold ctermfg=White      ctermbg=Red         guifg=White      guibg=Red
