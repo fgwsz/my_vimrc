@@ -104,63 +104,72 @@ set expandtab "键入tab时自动替换为空格
 "标签栏显示相关
 set showtabline=2 "总是显示标签栏
 set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
-"检查当前标签栏是否已修改未保存
+"检查编号为n的标签页是否存在已修改未保存的缓冲区
 function! TabModified(n)
-    let l:label=' '
+    let l:label=''
     let l:buflist=tabpagebuflist(a:n)
     for l:bufnr in l:buflist
-        if getbufvar(l:bufnr,"&modified")
-            let l:label='* '
+        if getbufvar(l:bufnr,'&readonly')||getbufvar(l:bufnr,'&buftype')==#'terminal'
+            continue
+        endif
+        if getbufvar(l:bufnr,'&modified')
+            let l:label='*'
             break
         endif
     endfor
     return l:label
 endfunction
-"返回当前标签栏的名称
+"返回编号为n的标签页的名称
 function! TabName(n)
     let l:winnr=tabpagewinnr(a:n)
     let l:buflist=tabpagebuflist(a:n)
-    let l:filetype=getbufvar(l:winnr,'&filetype','')
-    let l:name=bufname(l:buflist[l:winnr-1])
-    if l:name==#''
-        let l:name=l:filetype
-        if l:name==#''
-            let l:name='Null'
+    let l:buf=l:buflist[l:winnr-1]
+    let l:filetype=getbufvar(l:buf,'&filetype','')
+    let l:name=bufname(l:buf)
+    if empty(l:name)
+        if empty(l:filetype)
+            return 'Null'
+        else
+            return l:filetype
         endif
     else
-        let l:name=fnamemodify(l:name,':t')
+        return fnamemodify(l:name,':t')
     endif
-    return l:name
 endfunction
 "被选中的标签的高亮设置
-highlight SelectTabLine    ctermfg=Black       ctermbg=Yellow     guifg=Black       guibg=Yellow
-highlight SelectPageNum    ctermfg=Blue        ctermbg=Yellow     guifg=Blue        guibg=Yellow
-highlight SelectWindowsNum ctermfg=Red         ctermbg=Yellow     guifg=Red         guibg=Yellow
+highlight SelectTabLine      ctermfg=Black       ctermbg=Yellow     guifg=Black       guibg=Yellow
+highlight SelectPageNum      ctermfg=Blue        ctermbg=Yellow     guifg=Blue        guibg=Yellow
+highlight SelectPageModified ctermfg=Red         ctermbg=Yellow     guifg=Red         guibg=Yellow
+highlight SelectWindowsNum   ctermfg=Green       ctermbg=Yellow     guifg=Green       guibg=Yellow
 "未被选中的标签的高亮设置
-highlight NormalTabLine    ctermfg=Black       ctermbg=DarkYellow guifg=Black       guibg=DarkYellow
-highlight NormalPageNum    ctermfg=DarkBlue    ctermbg=DarkYellow guifg=DarkBlue    guibg=DarkYellow
-highlight NormalWindowsNum ctermfg=DarkRed     ctermbg=DarkYellow guifg=DarkRed     guibg=DarkYellow
+highlight NormalTabLine      ctermfg=Black       ctermbg=DarkYellow guifg=Black       guibg=DarkYellow
+highlight NormalPageNum      ctermfg=DarkBlue    ctermbg=DarkYellow guifg=DarkBlue    guibg=DarkYellow
+highlight NormalPageModified ctermfg=DarkRed     ctermbg=DarkYellow guifg=DarkRed     guibg=DarkYellow
+highlight NormalWindowsNum   ctermfg=DarkGreen   ctermbg=DarkYellow guifg=DarkGreen   guibg=DarkYellow
 "标签栏整体的显示函数
 function! TabLine()
     let l:result=''
     for l:index in range(tabpagenr('$'))
         let l:hlTab=''
+        let l:hlModified=''
         let l:select=0
         if l:index+1==tabpagenr()
-            let l:hlTab ='%#SelectTabLine#'
-            let l:result.=hlTab."[%#SelectPageNum#%T".(l:index+1).hlTab
+            let l:hlTab='%#SelectTabLine#'
+            let l:hlModified='%#SelectPageModified#'
+            let l:result.=l:hlTab.'[%#SelectPageNum#%T'.(l:index+1)
             let l:select=1
         else
             let l:hlTab='%#NormalTabLine#'
-            let l:result.=l:hlTab."[%#NormalPageNum#%T".(l:index+1).l:hlTab
+            let l:result.=l:hlTab.'[%#NormalPageNum#%T'.(l:index+1)
         endif
-        let l:result.='%{TabModified('.(l:index+1).')}%<%{TabName('.(l:index+1).')}'
+        let l:result.=l:hlModified.'%{TabModified('.(l:index+1).')}'
+        let l:result.=l:hlTab.' %<%{TabName('.(l:index+1).')}'
         let l:wincount=tabpagewinnr(l:index+1,'$')
         if l:wincount>1
             if l:select==1
-                let l:result.=" %#SelectWindowsNum#".l:wincount
+                let l:result.=' %#SelectWindowsNum#'.l:wincount
             else
-                let l:result.=" %#NormalWindowsNum#".l:wincount
+                let l:result.=' %#NormalWindowsNum#'.l:wincount
             endif
         endif
         let l:result.=l:hlTab.']'
@@ -181,28 +190,28 @@ set laststatus=2 "显示状态栏
 "得到vim当前模式字符串
 function! GetPrettyModeString()
     let l:mode=mode()
-    if l:mode==#"n"
-        return "|Normal|"
-    elseif l:mode==#"i"
-        return "|Insert|"
-    elseif l:mode==#"c"
-        return "|Command|"
-    elseif l:mode==#"t"
-        return "|Terminal|"
-    elseif l:mode==#"v"
-        return "|Visual|"
-    elseif l:mode==#"V"
-        return "|Visual-Line|"
+    if l:mode==#'n'
+        return '|Normal|'
+    elseif l:mode==#'i'
+        return '|Insert|'
+    elseif l:mode==#'c'
+        return '|Command|'
+    elseif l:mode==#'t'
+        return '|Terminal|'
+    elseif l:mode==#'v'
+        return '|Visual|'
+    elseif l:mode==#'V'
+        return '|Visual-Line|'
     else "if l:mode==#'^V' 此语句无法生效
-        return "|Visual-Block|"
+        return '|Visual-Block|'
     endif
 endfunction
 "得到当前文件编码字符串
 function! GetPrettyFileEncoding()
-    if &fileencoding==#""
-        return ""
+    if &fileencoding==#''
+        return ''
     else
-        return "[".&fileencoding."]"
+        return '['.&fileencoding.']'
 endfunction
 "设置状态栏显示内容
 set statusline=%{GetPrettyModeString()} "vim当前模式
@@ -224,7 +233,7 @@ set showcmd "显示键入按键信息
 "======================================
 
 "打开gvim时最大化窗口
-if has("gui_running")
+if has('gui_running')
     if has('win32')
         au GUIEnter * simalt ~x
     else
@@ -238,8 +247,8 @@ endfunction
 
 "gvim字体相关
 "设置gvim显示字体为Consolas,字号为14号
-if has("gui_running")
-    if has("win32")
+if has('gui_running')
+    if has('win32')
         set guifont=Consolas:h14
     else
         set guifont=Consolas\ 14
@@ -247,7 +256,7 @@ if has("gui_running")
 endif
 
 "gvim gui菜单显示相关
-if has("gui_running")
+if has('gui_running')
     set guioptions-=m "隐藏菜单栏
     set guioptions-=T "隐藏工具栏
     set guioptions-=L "隐藏左侧滚动条
@@ -531,13 +540,13 @@ tnoremap <silent><A-m>l <C-w>L
 "(模仿VimiumC J)
 "不使用gt的原因:gt不是按照标签页的序号跳转的，是按照标签页打开的顺序跳转的
 function! TabNext()
-    if tabpagenr('$')==1
+    let l:tab_count=tabpagenr('$')
+    if l:tab_count==1
         return
     endif
-    let l:current_tab=tabpagenr()
-    let l:target_tab=current_tab-1
+    let l:target_tab=tabpagenr()-1
     if l:target_tab<1
-        let l:target_tab=tabpagenr('$')
+        let l:target_tab=l:tab_count
     endif
     execute l:target_tab.'tabnext'
 endfunction
@@ -548,12 +557,12 @@ vnoremap <silent>J <Esc><Esc>:call TabNext()<CR>
 "(模仿VimiumC K)
 "不使用gT的原因:gT不是按照标签页的序号跳转的，是按照标签页打开的顺序跳转的
 function! TabPrev()
-    if tabpagenr('$')==1
+    let l:tab_count=tabpagenr('$')
+    if l:tab_count==1
         return
     endif
-    let l:current_tab=tabpagenr()
-    let l:target_tab=current_tab+1
-    if l:target_tab>tabpagenr('$')
+    let l:target_tab=tabpagenr()+1
+    if l:target_tab>l:tab_count
         let l:target_tab=1
     endif
     execute l:target_tab.'tabnext'
@@ -610,7 +619,7 @@ vnoremap <silent><C-n> <Esc><Esc>:nohlsearch<CR>
 "某些配色方案下特殊字符tab(\t)/space(\s)/eol(\n\r)显示不明显
 "将tab/space/eol的前景色统一设置为深灰色
 function SetSpecialCharactersDarkGrey()
-    if has("gui_running")
+    if has('gui_running')
         highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
     else
         highlight MyTabSpaceEol ctermfg=darkgrey
