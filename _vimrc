@@ -113,7 +113,7 @@ function! TabModified(n)
             continue
         endif
         if getbufvar(l:bufnr,'&modified')
-            let l:label='*'
+            let l:label='＊'
             break
         endif
     endfor
@@ -137,44 +137,44 @@ function! TabName(n)
     endif
 endfunction
 "被选中的标签的高亮设置
-highlight SelectTabLine      cterm=bold gui=bold ctermfg=Black       ctermbg=Yellow     guifg=Black       guibg=Yellow
-highlight SelectPageNum      cterm=bold gui=bold ctermfg=Blue        ctermbg=Yellow     guifg=Blue        guibg=Yellow
-highlight SelectPageModified cterm=bold gui=bold ctermfg=Red         ctermbg=Yellow     guifg=Red         guibg=Yellow
-highlight SelectWindowsNum   cterm=bold gui=bold ctermfg=Green       ctermbg=Yellow     guifg=Green       guibg=Yellow
+highlight SelectTabNum      cterm=bold gui=bold ctermfg=Blue  ctermbg=Yellow guifg=Blue  guibg=Yellow
+highlight SelectTabModified cterm=bold gui=bold ctermfg=White ctermbg=Red    guifg=White guibg=Red
+highlight SelectTabName     cterm=bold gui=bold ctermfg=White ctermbg=Blue   guifg=White guibg=Blue
+highlight SelectWindowsNum  cterm=bold gui=bold ctermfg=Blue  ctermbg=Green  guifg=Blue  guibg=Green
 "未被选中的标签的高亮设置
-highlight NormalTabLine      cterm=NONE gui=NONE ctermfg=Black       ctermbg=DarkYellow guifg=Black       guibg=DarkYellow
-highlight NormalPageNum      cterm=NONE gui=NONE ctermfg=DarkBlue    ctermbg=DarkYellow guifg=DarkBlue    guibg=DarkYellow
-highlight NormalPageModified cterm=NONE gui=NONE ctermfg=DarkRed     ctermbg=DarkYellow guifg=DarkRed     guibg=DarkYellow
-highlight NormalWindowsNum   cterm=NONE gui=NONE ctermfg=DarkGreen   ctermbg=DarkYellow guifg=DarkGreen   guibg=DarkYellow
+highlight NormalTabNum      cterm=NONE gui=NONE ctermfg=DarkBlue ctermbg=DarkYellow guifg=DarkBlue guibg=DarkYellow
+highlight NormalTabModified cterm=NONE gui=NONE ctermfg=Gray     ctermbg=DarkRed    guifg=Gray     guibg=DarkRed
+highlight NormalTabName     cterm=NONE gui=NONE ctermfg=Gray     ctermbg=DarkBlue   guifg=Gray     guibg=DarkBlue
+highlight NormalWindowsNum  cterm=NONE gui=NONE ctermfg=DarkBlue ctermbg=DarkGreen  guifg=DarkBlue guibg=DarkGreen
 "标签栏整体的显示函数
 function! TabLine()
     let l:result=''
     for l:index in range(tabpagenr('$'))
-        let l:hlTab=''
+        let l:hlName=''
         let l:hlModified=''
         let l:select=0
         if l:index+1==tabpagenr()
-            let l:hlTab='%#SelectTabLine#'
-            let l:hlModified='%#SelectPageModified#'
-            let l:result.=l:hlTab.'[%#SelectPageNum#%T'.(l:index+1)
+            let l:hlName='%#SelectTabName#'
+            let l:hlModified='%#SelectTabModified#'
+            let l:result.=l:hlName.'%#SelectTabNum#%T['.(l:index+1).']'
             let l:select=1
         else
-            let l:hlTab='%#NormalTabLine#'
-            let l:result.=l:hlTab.'[%#NormalPageNum#%T'.(l:index+1)
+            let l:hlName='%#NormalTabName#'
+            let l:hlModified='%#NormalTabModified#'
+            let l:result.=l:hlName.'%#NormalTabNum#%T['.(l:index+1).']'
         endif
         let l:result.=l:hlModified.'%{TabModified('.(l:index+1).')}'
-        let l:result.=l:hlTab.' %<%{TabName('.(l:index+1).')}'
+        let l:result.=l:hlName.' %<%{TabName('.(l:index+1).')} '
         let l:wincount=tabpagewinnr(l:index+1,'$')
         if l:wincount>1
             if l:select==1
-                let l:result.=' %#SelectWindowsNum#'.l:wincount
+                let l:result.='%#SelectWindowsNum#('.l:wincount.')'
             else
-                let l:result.=' %#NormalWindowsNum#'.l:wincount
+                let l:result.='%#NormalWindowsNum#('.l:wincount.')'
             endif
         endif
-        let l:result.=l:hlTab.']'
     endfor
-    "最后一个标签页之后用TabLineFill填充并复位标签页号
+    "最后一个标签页之后用TabNameFill填充并复位标签页号
     let l:result.='%#TabLineFill#%T'
     "右对齐用于关闭当前标签页的标签
     if tabpagenr('$')>1
