@@ -590,12 +590,42 @@ nnoremap <silent>K :call TabPrev()<CR>
 vnoremap <silent>K <Esc><Esc>:call TabPrev()<CR>
 
 "让当前标签页在标签栏中向左移动一格(Tab+,)
-nnoremap <silent><Tab>, :tabmove -1<CR>
-vnoremap <silent><Tab>, <Esc><Esc>:tabmove -1<CR>
+"(模仿VimiumC <<):`shift ,`是`<`,替换`shift`为`Tab`
+"不直接使用`tabmove -1`的原因:
+"如果当前标签页是标签栏最左侧的标签页，`:tabmove -1`无法左移(循环左移)
+function! TabMoveLeft()
+    let l:tab_count=tabpagenr('$')
+    if l:tab_count==1
+        return
+    endif
+    let l:target_tab=tabpagenr()-1
+    if l:target_tab<1
+        execute ':tabmove +'.(l:tab_count-1)
+    else
+        execute ':tabmove -1'
+    endif
+endfunction
+nnoremap <silent><Tab>, :call TabMoveLeft()<CR>
+vnoremap <silent><Tab>, <Esc><Esc>:call TabMoveLeft()<CR>
 
 "让当前标签页在标签栏中向有右移动一格(Tab+.)
-nnoremap <silent><Tab>. :tabmove +1<CR>
-vnoremap <silent><Tab>. <Esc><Esc>:tabmove +1<CR>
+"(模仿VimiumC >>):`shift .`是`>`,替换`shift`为`Tab`
+"不直接使用`tabmove +1`的原因:
+"如果当前标签页是标签栏最右侧的标签页，`:tabmove +1`无法右移(循环右移)
+function! TabMoveRight()
+    let l:tab_count=tabpagenr('$')
+    if l:tab_count==1
+        return
+    endif
+    let l:target_tab=tabpagenr()+1
+    if l:target_tab>l:tab_count
+        execute ':tabmove -'.(l:tab_count-1)
+    else
+        execute ':tabmove +1'
+    endif
+endfunction
+nnoremap <silent><Tab>. :call TabMoveRight()<CR>
+vnoremap <silent><Tab>. <Esc><Esc>:call TabMoveRight()<CR>
 
 "后退(跳转到上一个文件编辑位置)
 "(模仿VimiumC H)
@@ -620,12 +650,26 @@ nnoremap <silent><Tab>t :tabnew<CR>:belowright terminal<CR><C-w>k:q!<CR>
 vnoremap <silent><Tab>t <Esc><Esc>:tabnew<CR>:belowright terminal<CR><C-w>k:q!<CR>
 
 "强制关闭当前标签页(Tab+c)
-nnoremap <silent><Tab>c :tabclose!<CR>
-vnoremap <silent><Tab>c <Esc><Esc>:tabclose!<CR>
+"不直接使用`:tabclose!`的原因:
+"如果当前标签栏只有一个标签页，`:tabclose!`无法关闭该标签页
+function! TabClose()
+    let l:tab_count=tabpagenr('$')
+    if l:tab_count>1
+        execute 'tabclose!'
+    else
+        execute 'qa!'
+    endif
+endfunction
+nnoremap <silent><Tab>c :call TabClose()<CR>
+vnoremap <silent><Tab>c <Esc><Esc>:call TabClose()<CR>
 
 "强制关闭当前标签页以外的全部标签页(Tab+o)
 nnoremap <silent><Tab>o :tabonly!<CR>
 vnoremap <silent><Tab>o <Esc><Esc>:tabonly!<CR>
+
+"强制关闭全部标签页(Tab+a)
+nnoremap <silent><Tab>a :qa!<CR>
+vnoremap <silent><Tab>a <Esc><Esc>:qa!<CR>
 
 "跳转到编号为<number>的标签页(Tab+<number>)
 nnoremap <silent><Tab>1 :1 tabnext<CR>
