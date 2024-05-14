@@ -65,6 +65,9 @@ set nowrap "取消自动折行
 set sidescroll=1 "更加平滑的逐个字符扩展显示
 set scrolloff=999 "让编辑行自动位于屏幕中间
 set colorcolumn=80 "在第80列显示一条竖线，作为标准列宽的标识
+set textwidth=0 "设置单行输入字符数量无限制
+"vim在单行字符数量超过colorcolumn数量时键入字符，可能会触发vim的自动换行操作
+"设置textwidth选项为0(字符数量无限制)，会关闭vim的自动换行操作
 
 "高亮相关
 syntax on "开启语法高亮
