@@ -191,21 +191,21 @@ set laststatus=2 "显示状态栏
 function! GetPrettyModeString()
     let l:mode=mode()
     if l:mode==#'n'
-        return '|Normal|'
+        return 'Normal'
     elseif l:mode==#'i'
-        return '|Insert|'
+        return 'Insert'
     elseif l:mode==#'R'
-        return '|Replace|'
+        return 'Replace'
     elseif l:mode==#'c'
-        return '|Command|'
+        return 'Command'
     elseif l:mode==#'t'
-        return '|Terminal|'
+        return 'Terminal'
     elseif l:mode==#'v'
-        return '|Visual|'
+        return 'Visual'
     elseif l:mode==#'V'
-        return '|Visual-Line|'
+        return 'Visual-Line'
     else "if l:mode==#'^V' 此语句无法生效
-        return '|Visual-Block|'
+        return 'Visual-Block'
     endif
 endfunction
 "得到当前文件编码字符串
@@ -213,17 +213,27 @@ function! GetPrettyFileEncoding()
     if &fileencoding==#''
         return ''
     else
-        return '['.&fileencoding.']'
+        return ' '.&fileencoding.' '
 endfunction
 "设置状态栏显示内容
-set statusline=%{GetPrettyModeString()} "vim当前模式
-set statusline+=%<%F "路径
-set statusline+=%m "是否存在改动:存在改动"[+]",无改动"",只读文件"[-]"
-set statusline+=%= "右对齐
-set statusline+=%y "文件类型
-set statusline+=[%{&fileformat}] "操作系统
-set statusline+=%{GetPrettyFileEncoding()} "文件编码
-set statusline+=[%c:%l/%L\(%p%%)] "光标所在位置
+"`%{n}*`:对其余的行使用高亮显示组User{n}，直到另一个%{n}*。
+"数字{n}必须从1到9。用`%*`或`%0*`可以恢复正常的高亮显示。
+set statusline =%1*\ %{GetPrettyModeString()}\  "vim当前模式
+set statusline+=%2*\ %<%F\  "路径
+set statusline+=%3*%m "是否存在改动:存在改动'[+]',无改动'',只读文件'[-]'
+set statusline+=%0*%= "右对齐
+set statusline+=%4*%y "文件类型
+set statusline+=%5*\ %{&fileformat}\  "操作系统
+set statusline+=%6*%{GetPrettyFileEncoding()} "文件编码
+set statusline+=%7*\ %c:%l/%L\(%p%%)\  "光标所在位置
+
+highlight User1 cterm=bold gui=bold ctermfg=White      ctermbg=DarkGreen   guifg=White      guibg=DarkGreen
+highlight User2 cterm=bold gui=bold ctermfg=White      ctermbg=DarkBlue    guifg=White      guibg=DarkBlue
+highlight User3 cterm=bold gui=bold ctermfg=White      ctermbg=Red         guifg=White      guibg=Red
+highlight User4 cterm=bold gui=bold ctermfg=White      ctermbg=Brown       guifg=White      guibg=Brown
+highlight User5 cterm=bold gui=bold ctermfg=White      ctermbg=DarkMagenta guifg=White      guibg=DarkMagenta
+highlight User6 cterm=bold gui=bold ctermfg=White      ctermbg=DarkCyan    guifg=White      guibg=DarkCyan
+highlight User7 cterm=bold gui=bold ctermfg=White      ctermbg=DarkYellow  guifg=White      guibg=DarkYellow
 
 "信息栏相关
 set ruler "显示光标所在位置
