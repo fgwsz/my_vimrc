@@ -103,7 +103,7 @@ set expandtab "键入tab时自动替换为空格
 
 "标签栏显示相关
 set showtabline=2 "总是显示标签栏
-set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
+"set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
 "检查编号为n的标签页是否存在已修改未保存的缓冲区
 function! TabModified(n)
     let l:label=''
@@ -607,6 +607,28 @@ vnoremap <silent><Tab>c <Esc><Esc>:tabclose!<CR>
 "强制关闭当前标签页以外的全部标签页(Tab+o)
 nnoremap <silent><Tab>o :tabonly!<CR>
 vnoremap <silent><Tab>o <Esc><Esc>:tabonly!<CR>
+
+"跳转到编号为<number>的标签页(Tab+<number>)
+nnoremap <silent><Tab>1 :1 tabnext<CR>
+nnoremap <silent><Tab>2 :2 tabnext<CR>
+nnoremap <silent><Tab>3 :3 tabnext<CR>
+nnoremap <silent><Tab>4 :4 tabnext<CR>
+nnoremap <silent><Tab>5 :5 tabnext<CR>
+nnoremap <silent><Tab>6 :6 tabnext<CR>
+nnoremap <silent><Tab>7 :7 tabnext<CR>
+nnoremap <silent><Tab>8 :8 tabnext<CR>
+nnoremap <silent><Tab>9 :9 tabnext<CR>
+nnoremap <silent><Tab>0 :10 tabnext<CR>
+vnoremap <silent><Tab>1 <Esc><Esc>:1 tabnext<CR>
+vnoremap <silent><Tab>2 <Esc><Esc>:2 tabnext<CR>
+vnoremap <silent><Tab>3 <Esc><Esc>:3 tabnext<CR>
+vnoremap <silent><Tab>4 <Esc><Esc>:4 tabnext<CR>
+vnoremap <silent><Tab>5 <Esc><Esc>:5 tabnext<CR>
+vnoremap <silent><Tab>6 <Esc><Esc>:6 tabnext<CR>
+vnoremap <silent><Tab>7 <Esc><Esc>:7 tabnext<CR>
+vnoremap <silent><Tab>8 <Esc><Esc>:8 tabnext<CR>
+vnoremap <silent><Tab>9 <Esc><Esc>:9 tabnext<CR>
+vnoremap <silent><Tab>0 <Esc><Esc>:10 tabnext<CR>
 
 "关闭当前窗口的高亮显示(Ctrl+n)
 nnoremap <silent><C-n> :nohlsearch<CR>
