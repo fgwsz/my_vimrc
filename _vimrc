@@ -127,22 +127,26 @@ function! TabName(n)
     let l:buf=tabpagebuflist(a:n)[tabpagewinnr(a:n)-1]
     let l:filetype=getbufvar(l:buf,'&filetype','')
     let l:buftype=getbufvar(l:buf,'&buftype','')
+    if l:filetype==#'netrw'
+        return 'Netrw'
+    endif
+    if l:buftype==#'terminal'
+        return 'Terminal'
+    endif
+    if l:buftype==#'quickfix'
+        return 'Quickfix List'
+    endif
     let l:name=bufname(l:buf)
-    if empty(l:name)
-        if empty(l:filetype)&&empty(l:buftype)
-            return 'No Name'
-        else
-            if l:buftype==#'quickfix'
-                return 'Quickfix List'
-            endif
-            if !empty(l:filetype)
-                return l:filetype
-            else
-                return l:buftype
-            endif
-        endif
-    else
+    if !empty(l:name)
         return fnamemodify(l:name,':t')
+    else
+        if !empty(l:filetype)
+            return l:filetype
+        elseif !empty(l:buftype)
+            return l:buftype
+        else
+            return 'No Name'
+        endif
     endif
 endfunction
 "被选中的标签的高亮设置
