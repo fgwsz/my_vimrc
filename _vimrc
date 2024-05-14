@@ -137,15 +137,15 @@ function! TabName(n)
     endif
 endfunction
 "被选中的标签的高亮设置
-highlight SelectTabLine      ctermfg=Black       ctermbg=Yellow     guifg=Black       guibg=Yellow
-highlight SelectPageNum      ctermfg=Blue        ctermbg=Yellow     guifg=Blue        guibg=Yellow
-highlight SelectPageModified ctermfg=Red         ctermbg=Yellow     guifg=Red         guibg=Yellow
-highlight SelectWindowsNum   ctermfg=Green       ctermbg=Yellow     guifg=Green       guibg=Yellow
+highlight SelectTabLine      cterm=bold gui=bold ctermfg=Black       ctermbg=Yellow     guifg=Black       guibg=Yellow
+highlight SelectPageNum      cterm=bold gui=bold ctermfg=Blue        ctermbg=Yellow     guifg=Blue        guibg=Yellow
+highlight SelectPageModified cterm=bold gui=bold ctermfg=Red         ctermbg=Yellow     guifg=Red         guibg=Yellow
+highlight SelectWindowsNum   cterm=bold gui=bold ctermfg=Green       ctermbg=Yellow     guifg=Green       guibg=Yellow
 "未被选中的标签的高亮设置
-highlight NormalTabLine      ctermfg=Black       ctermbg=DarkYellow guifg=Black       guibg=DarkYellow
-highlight NormalPageNum      ctermfg=DarkBlue    ctermbg=DarkYellow guifg=DarkBlue    guibg=DarkYellow
-highlight NormalPageModified ctermfg=DarkRed     ctermbg=DarkYellow guifg=DarkRed     guibg=DarkYellow
-highlight NormalWindowsNum   ctermfg=DarkGreen   ctermbg=DarkYellow guifg=DarkGreen   guibg=DarkYellow
+highlight NormalTabLine      cterm=NONE gui=NONE ctermfg=Black       ctermbg=DarkYellow guifg=Black       guibg=DarkYellow
+highlight NormalPageNum      cterm=NONE gui=NONE ctermfg=DarkBlue    ctermbg=DarkYellow guifg=DarkBlue    guibg=DarkYellow
+highlight NormalPageModified cterm=NONE gui=NONE ctermfg=DarkRed     ctermbg=DarkYellow guifg=DarkRed     guibg=DarkYellow
+highlight NormalWindowsNum   cterm=NONE gui=NONE ctermfg=DarkGreen   ctermbg=DarkYellow guifg=DarkGreen   guibg=DarkYellow
 "标签栏整体的显示函数
 function! TabLine()
     let l:result=''
