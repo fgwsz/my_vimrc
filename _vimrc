@@ -121,16 +121,22 @@ function! TabModified(n)
 endfunction
 "返回编号为n的标签页的名称
 function! TabName(n)
-    let l:winnr=tabpagewinnr(a:n)
-    let l:buflist=tabpagebuflist(a:n)
-    let l:buf=l:buflist[l:winnr-1]
+    let l:buf=tabpagebuflist(a:n)[tabpagewinnr(a:n)-1]
     let l:filetype=getbufvar(l:buf,'&filetype','')
+    let l:buftype=getbufvar(l:buf,'&buftype','')
     let l:name=bufname(l:buf)
     if empty(l:name)
-        if empty(l:filetype)
-            return 'Null'
+        if empty(l:filetype)&&empty(l:buftype)
+            return 'No Name'
         else
-            return l:filetype
+            if l:buftype==#'quickfix'
+                return 'Quickfix List'
+            endif
+            if !empty(l:filetype)
+                return l:filetype
+            else
+                return l:buftype
+            endif
         endif
     else
         return fnamemodify(l:name,':t')
@@ -174,7 +180,7 @@ function! TabLine()
             endif
         endif
     endfor
-    "最后一个标签页之后用TabNameFill填充并复位标签页号
+    "最后一个标签页之后用TabLineFill填充并复位标签页号
     let l:result.='%#TabLineFill#%T'
     "右对齐用于关闭当前标签页的标签
     if tabpagenr('$')>1
