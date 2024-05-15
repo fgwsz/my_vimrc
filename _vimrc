@@ -279,7 +279,7 @@ set statusline+=%0*%=\  "右对齐并添加一个空格(防止后续格式因对
 set statusline+=%5*%{BufType()} "文件类型
 set statusline+=%6*\ %{&fileformat}\  "操作系统
 set statusline+=%7*%{FileEncoding()} "文件编码
-set statusline+=%8*\ %c:%l/%L\(%p%%)\  "光标所在位置
+set statusline+=%8*\ %c:%l/%L(%p%%)\  "光标所在位置
 "statusline高亮配色
 if has('gui_running')
     highlight User1 gui=bold guifg=White guibg=DarkGreen
