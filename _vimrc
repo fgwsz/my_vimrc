@@ -545,6 +545,14 @@ vnoremap <silent>al :g/^\s*$/d<CR>:nohlsearch<CR>
 "as:remove all space
 vnoremap <silent>as :s/\s//g<CR>:nohlsearch<CR>
 
+"删除可视模式中选中区域的仅存在于行尾的空格
+"at:remove all tail space
+vnoremap <silent>at :s/\s\+$//g<CR>:nohlsearch<CR>
+
+"删除可视模式中选中区域的仅存在于行首的空格
+"ah:remove all head space
+vnoremap <silent>ah :s/^\s\+//g<CR>:nohlsearch<CR>
+
 "命令行模式粘贴(ctrl+r)
 cnoremap <C-r> <C-r>*
 
