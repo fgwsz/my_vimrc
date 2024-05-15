@@ -312,19 +312,7 @@ set showcmd "显示键入按键信息
 
 "打开gvim时最大化窗口
 if has('gui_running')
-    if has('win32')
-        au GUIEnter * simalt ~x
-    elseif has('linux')
-        function! LinuxMaximizeWindow()
-            silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
-        endfunction
-        au GUIEnter * call LinuxMaximizeWindow()
-"    elseif has('mac')||has('macunix')
-"        function! MacMaximizeWindow()
-"            "TODO
-"        endfunction
-"        au GUIEnter * call MacMaximizeWindow()
-    endif
+    set lines=999 columns=999
 endif
 
 "gvim字体相关
