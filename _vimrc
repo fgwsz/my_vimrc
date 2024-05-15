@@ -312,7 +312,11 @@ set showcmd "显示键入按键信息
 
 "打开gvim时最大化窗口
 if has('gui_running')
-    set lines=999 columns=999
+    if has('win32')
+        autocmd GUIEnter * simalt ~x
+    else
+        set lines=999 columns=999
+    endif
 endif
 
 "gvim字体相关
