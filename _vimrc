@@ -386,7 +386,7 @@ if has('win32')
         execute '!explorer.exe '.l:file_path
     endfunction
     "绑定Netrw打开文件的快捷键(gx)
-    nnoremap <silent>gx :call OpenFileWithWindowsExplorer<CR>
+    nnoremap <silent>gx :call OpenFileWithWindowsExplorer()<CR>
 endif
 
 "Netrw切换文件路径的时候是否保持原有的工作目录
@@ -681,7 +681,7 @@ function! TabNext()
     if l:target_tab<1
         let l:target_tab=l:tab_count
     endif
-    execute l:target_tab.'tabnext'
+    execute 'silent '.l:target_tab.'tabnext'
 endfunction
 nnoremap <silent>J :call TabNext()<CR>
 vnoremap <silent>J <Esc><Esc>:call TabNext()<CR>
@@ -698,7 +698,7 @@ function! TabPrev()
     if l:target_tab>l:tab_count
         let l:target_tab=1
     endif
-    execute l:target_tab.'tabnext'
+    execute 'silent '.l:target_tab.'tabnext'
 endfunction
 nnoremap <silent>K :call TabPrev()<CR>
 vnoremap <silent>K <Esc><Esc>:call TabPrev()<CR>
@@ -714,9 +714,9 @@ function! TabMoveLeft()
     endif
     let l:target_tab=tabpagenr()-1
     if l:target_tab<1
-        execute ':tabmove +'.(l:tab_count-1)
+        execute 'silent tabmove +'.(l:tab_count-1)
     else
-        execute ':tabmove -1'
+        execute 'silent tabmove -1'
     endif
 endfunction
 nnoremap <silent><Tab>, :call TabMoveLeft()<CR>
@@ -733,9 +733,9 @@ function! TabMoveRight()
     endif
     let l:target_tab=tabpagenr()+1
     if l:target_tab>l:tab_count
-        execute ':tabmove -'.(l:tab_count-1)
+        execute 'silent tabmove -'.(l:tab_count-1)
     else
-        execute ':tabmove +1'
+        execute 'silent tabmove +1'
     endif
 endfunction
 nnoremap <silent><Tab>. :call TabMoveRight()<CR>
@@ -769,9 +769,9 @@ vnoremap <silent><Tab>t <Esc><Esc>:tabnew<CR>:belowright terminal<CR><C-w>k:q!<C
 function! TabClose()
     let l:tab_count=tabpagenr('$')
     if l:tab_count>1
-        execute 'tabclose!'
+        execute 'silent tabclose!'
     else
-        execute 'qa!'
+        execute 'silent qa!'
     endif
 endfunction
 nnoremap <silent><Tab>c :call TabClose()<CR>
@@ -829,7 +829,7 @@ autocmd WinEnter * call SetSpecialCharactersDarkGrey()
 
 "切换当前窗口工作目录为当前打开的文件目录
 function! LCdCurrentPath()
-    execute 'lcd '.expand('%:p:h')
+    execute 'silent lcd '.expand('%:p:h')
 endfunction
 "文件打开时自动切换当前窗口工作目录为文件父目录
 autocmd BufEnter * :call LCdCurrentPath()
