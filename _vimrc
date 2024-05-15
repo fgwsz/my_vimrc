@@ -227,9 +227,9 @@ function! BufMode()
     elseif l:mode==#'v'
         return 'Visual'
     elseif l:mode==#'V'
-        return 'Visual-Line'
+        return 'Visual Line'
     else "if l:mode==#'^V' 此语句无法生效
-        return 'Visual-Block'
+        return 'Visual Block'
     endif
 endfunction
 "得到当前缓冲区只读属性
