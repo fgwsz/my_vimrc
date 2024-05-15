@@ -86,8 +86,13 @@ set showmatch "光标移动到括号时高亮显示匹配括号
 ""ctermfg:vim的前景色
 ""guibg:vim的背景色
 ""guifg:vim的前景色
-"highlight CursorLine   cterm=NONE ctermbg=Black ctermfg=NONE guibg=Black guifg=NONE
-"highlight CursorColumn cterm=NONE ctermbg=Black ctermfg=NONE guibg=Black guifg=NONE
+"if has('gui_running')
+"    highlight CursorLine   gui=NONE guibg=Black guifg=NONE
+"    highlight CursorColumn gui=NONE guibg=Black guifg=NONE
+"else
+"    highlight CursorLine   cterm=NONE ctermbg=Black ctermfg=NONE
+"    highlight CursorColumn cterm=NONE ctermbg=Black ctermfg=NONE
+"endif
 
 "特殊字符显示相关
 set list "显示不可见字符
@@ -149,16 +154,26 @@ function! TabName(n)
         endif
     endif
 endfunction
-"被选中的标签的高亮设置
-highlight SelectTabNum      cterm=bold gui=bold ctermfg=Blue  ctermbg=Yellow guifg=Blue  guibg=Yellow
-highlight SelectTabModified cterm=bold gui=bold ctermfg=White ctermbg=Red    guifg=White guibg=Red
-highlight SelectTabName     cterm=bold gui=bold ctermfg=White ctermbg=Blue   guifg=White guibg=Blue
-highlight SelectWindowsNum  cterm=bold gui=bold ctermfg=Blue  ctermbg=Green  guifg=Blue  guibg=Green
-"未被选中的标签的高亮设置
-highlight NormalTabNum      cterm=NONE gui=NONE ctermfg=DarkBlue ctermbg=DarkYellow guifg=DarkBlue guibg=DarkYellow
-highlight NormalTabModified cterm=NONE gui=NONE ctermfg=Gray     ctermbg=DarkRed    guifg=Gray     guibg=DarkRed
-highlight NormalTabName     cterm=NONE gui=NONE ctermfg=Gray     ctermbg=DarkBlue   guifg=Gray     guibg=DarkBlue
-highlight NormalWindowsNum  cterm=NONE gui=NONE ctermfg=DarkBlue ctermbg=DarkGreen  guifg=DarkBlue guibg=DarkGreen
+"tabline高亮配色
+if has('gui_running')
+    highlight SelectTabNum      gui=bold guifg=Blue     guibg=Yellow
+    highlight SelectTabModified gui=bold guifg=White    guibg=Red
+    highlight SelectTabName     gui=bold guifg=White    guibg=Blue
+    highlight SelectWindowsNum  gui=bold guifg=Blue     guibg=Green
+    highlight NormalTabNum      gui=NONE guifg=DarkBlue guibg=DarkYellow
+    highlight NormalTabModified gui=NONE guifg=Gray     guibg=DarkRed
+    highlight NormalTabName     gui=NONE guifg=Gray     guibg=DarkBlue
+    highlight NormalWindowsNum  gui=NONE guifg=DarkBlue guibg=DarkGreen
+else
+    highlight SelectTabNum      cterm=bold ctermfg=Blue     ctermbg=Yellow
+    highlight SelectTabModified cterm=bold ctermfg=White    ctermbg=Red
+    highlight SelectTabName     cterm=bold ctermfg=White    ctermbg=Blue
+    highlight SelectWindowsNum  cterm=bold ctermfg=Blue     ctermbg=Green
+    highlight NormalTabNum      cterm=NONE ctermfg=DarkBlue ctermbg=DarkYellow
+    highlight NormalTabModified cterm=NONE ctermfg=Gray     ctermbg=DarkRed
+    highlight NormalTabName     cterm=NONE ctermfg=Gray     ctermbg=DarkBlue
+    highlight NormalWindowsNum  cterm=NONE ctermfg=DarkBlue ctermbg=DarkGreen
+endif
 "标签栏整体的显示函数
 function! TabLine()
     let l:result=''
@@ -265,15 +280,26 @@ set statusline+=%5*%{BufType()} "文件类型
 set statusline+=%6*\ %{&fileformat}\  "操作系统
 set statusline+=%7*%{FileEncoding()} "文件编码
 set statusline+=%8*\ %c:%l/%L\(%p%%)\  "光标所在位置
-"statusline配色方案
-highlight User1 cterm=bold gui=bold ctermfg=White      ctermbg=DarkGreen   guifg=White      guibg=DarkGreen
-highlight User2 cterm=bold gui=bold ctermfg=White      ctermbg=DarkBlue    guifg=White      guibg=DarkBlue
-highlight User3 cterm=bold gui=bold ctermfg=White      ctermbg=DarkGray    guifg=White      guibg=DarkGray
-highlight User4 cterm=bold gui=bold ctermfg=White      ctermbg=Red         guifg=White      guibg=Red
-highlight User5 cterm=bold gui=bold ctermfg=White      ctermbg=Brown       guifg=White      guibg=Brown
-highlight User6 cterm=bold gui=bold ctermfg=White      ctermbg=DarkMagenta guifg=White      guibg=DarkMagenta
-highlight User7 cterm=bold gui=bold ctermfg=White      ctermbg=DarkCyan    guifg=White      guibg=DarkCyan
-highlight User8 cterm=bold gui=bold ctermfg=White      ctermbg=DarkYellow  guifg=White      guibg=DarkYellow
+"statusline高亮配色
+if has('gui_running')
+    highlight User1 gui=bold guifg=White guibg=DarkGreen
+    highlight User2 gui=bold guifg=White guibg=DarkBlue
+    highlight User3 gui=bold guifg=White guibg=DarkGray
+    highlight User4 gui=bold guifg=White guibg=Red
+    highlight User5 gui=bold guifg=White guibg=Brown
+    highlight User6 gui=bold guifg=White guibg=DarkMagenta
+    highlight User7 gui=bold guifg=White guibg=DarkCyan
+    highlight User8 gui=bold guifg=White guibg=DarkYellow
+else
+    highlight User1 cterm=bold ctermfg=White ctermbg=DarkGreen
+    highlight User2 cterm=bold ctermfg=White ctermbg=DarkBlue
+    highlight User3 cterm=bold ctermfg=White ctermbg=DarkGray
+    highlight User4 cterm=bold ctermfg=White ctermbg=Red
+    highlight User5 cterm=bold ctermfg=White ctermbg=Brown
+    highlight User6 cterm=bold ctermfg=White ctermbg=DarkMagenta
+    highlight User7 cterm=bold ctermfg=White ctermbg=DarkCyan
+    highlight User8 cterm=bold ctermfg=White ctermbg=DarkYellow
+endif
 
 "信息栏相关
 set ruler "显示光标所在位置
@@ -288,21 +314,25 @@ set showcmd "显示键入按键信息
 if has('gui_running')
     if has('win32')
         au GUIEnter * simalt ~x
-    else
-        au GUIEnter * call MaximizeWindow()
+    elseif has('linux')
+        function! LinuxMaximizeWindow()
+            silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
+        endfunction
+        au GUIEnter * call LinuxMaximizeWindow()
+"    elseif has('mac')||has('macunix')
+"        function! MacMaximizeWindow()
+"            "TODO
+"        endfunction
+"        au GUIEnter * call MacMaximizeWindow()
     endif
 endif
-
-function! MaximizeWindow()
-    silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
-endfunction
 
 "gvim字体相关
 "设置gvim显示字体为Consolas,字号为14号
 if has('gui_running')
-    if has('win32')
+    if has('win32')||has('mac')||has('macunix')
         set guifont=Consolas:h14
-    else
+    elseif has('linux')
         set guifont=Consolas\ 14
     endif
 endif
@@ -353,6 +383,10 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认
 "Netrw分屏窗口最大宽度(百分比)
 "let g:netrw_winsize=25 "设置为整个vim/gvim窗口宽度的25%
 
+"为什么实现如下的功能，而不直接使用Netrw的`x`功能键的原因:
+"在Vim/GVim 9.0版本中，在'win32'系统中使用`x`，无法打开/执行文件
+"在Vim/GVim 9.1版本中，修复了这一问题
+"所以为了适配'win32'系统Vim/GVim 9.0版本，实现如下功能作为`x`的代替
 "在Netrw浏览文件的时候，使用Windows Explorer打开光标选中的文件(gx)
 if has('win32')
     "使用Windows Explorer打开光标选中的文件
@@ -407,10 +441,11 @@ let g:netrw_keepdir=0
 "endif
 
 "vim/gvim命令模式打开终端相关
-"设置:term[inal]命令默认打开的终端窗口为powershell(默认值为cmd)
+"设置`:term[inal]`命令默认打开的终端
 if has('win32')
-    set shell=powershell
+    set shell=powershell "'win32'系统`shell`默认值为`cmd`
 endif
+
 "退出终端
 "使用q!会把由此终端窗口打开的全部应用强制关闭之后再退出
 "使用exit可以关闭此终端窗口，并在后台继续运行原先由此终端窗口打开的应用程序
@@ -450,9 +485,19 @@ nnoremap <silent><C-y> <C-r>
 inoremap <silent><C-y> <Esc><C-r>a
 
 "强制关闭光标所在窗口(alt+w)
-nnoremap <silent><A-w> :q!<CR>
-inoremap <silent><A-w> <Esc>:q!<CR>
-vnoremap <silent><A-w> <Esc><Esc>:q!<CR>
+if has('mac')||has('macunix')
+    nnoremap <silent><D-w> :q!<CR>
+    inoremap <silent><D-w> <Esc>:q!<CR>
+    vnoremap <silent><D-w> <Esc><Esc>:q!<CR>
+elseif has('win32')
+    nnoremap <silent><A-w> :q!<CR>
+    inoremap <silent><A-w> <Esc>:q!<CR>
+    vnoremap <silent><A-w> <Esc><Esc>:q!<CR>
+else
+    nnoremap <silent><M-w> :q!<CR>
+    inoremap <silent><M-w> <Esc>:q!<CR>
+    vnoremap <silent><M-w> <Esc><Esc>:q!<CR>
+endif
 
 "在当前窗口(分屏窗口)的下方打开一个新的终端窗口(分屏窗口)(ctrl+t)
 nnoremap <silent><C-t> :belowright terminal<CR>
@@ -461,8 +506,14 @@ vnoremap <silent><C-t> <Esc><Esc>:belowright terminal<CR>
 "命令行模式，分屏窗口只显示终端(ctrl+t)
 cnoremap <silent><C-t> :belowright terminal<CR><C-w>k:q!<CR>
 
-"终端退出insert模式进入normal模式(esc)
-tnoremap <silent><A-e> <C-\><C-n>
+"终端退出insert模式进入normal模式(Mac:Cmd|Win:Alt|Other:Meta-e)
+if has('mac')||has('macunix')
+    tnoremap <silent><D-e> <C-\><C-n>
+elseif has('win32')
+    tnoremap <silent><A-e> <C-\><C-n>
+else
+    tnoremap <silent><M-e> <C-\><C-n>
+endif
 
 "在当前窗口(分屏窗口)的左侧打开一个新的netrw窗口(分屏窗口)(ctrl+e)
 nnoremap <silent><C-e> :Vexplore<CR>
@@ -562,29 +613,65 @@ tnoremap <silent><C-k> <C-w>k
 tnoremap <silent><C-l> <C-w>l
 tnoremap <silent><C-w> <C-w>w
 
-"快捷移动分屏窗口的位置(<Alt-m>x代替<Ctrl-w>X)
+"快捷移动分屏窗口的位置(<(Mac:Cmd|Win:Alt|Other:Meta)-m>x代替<Ctrl-w>X)
 "为什么不用<Ctrl-m>?
-"原因：在Windows vim插入模式中输入回车<Enter>，会被率先匹配成<Ctrl-m>,即^M
+"原因：在Vim插入模式中输入回车<Enter>，会被率先匹配成<Ctrl-m>,即^M
 "h 移动分屏窗口到左边
 "j 移动分屏窗口到下边
 "k 移动分屏窗口到上边
 "l 移动分屏窗口到右边
-nnoremap <silent><A-m>h <C-w>H
-nnoremap <silent><A-m>j <C-w>J
-nnoremap <silent><A-m>k <C-w>K
-nnoremap <silent><A-m>l <C-w>L
-inoremap <silent><A-m>h <Esc><C-w>H
-inoremap <silent><A-m>j <Esc><C-w>J
-inoremap <silent><A-m>k <Esc><C-w>K
-inoremap <silent><A-m>l <Esc><C-w>L
-vnoremap <silent><A-m>h <Esc><Esc><C-w>H<CR>
-vnoremap <silent><A-m>j <Esc><Esc><C-w>J<CR>
-vnoremap <silent><A-m>k <Esc><Esc><C-w>K<CR>
-vnoremap <silent><A-m>l <Esc><Esc><C-w>L<CR>
-tnoremap <silent><A-m>h <C-w>H
-tnoremap <silent><A-m>j <C-w>J
-tnoremap <silent><A-m>k <C-w>K
-tnoremap <silent><A-m>l <C-w>L
+if has('mac')||has('macunix')
+    nnoremap <silent><D-m>h <C-w>H
+    nnoremap <silent><D-m>j <C-w>J
+    nnoremap <silent><D-m>k <C-w>K
+    nnoremap <silent><D-m>l <C-w>L
+    inoremap <silent><D-m>h <Esc><C-w>H
+    inoremap <silent><D-m>j <Esc><C-w>J
+    inoremap <silent><D-m>k <Esc><C-w>K
+    inoremap <silent><D-m>l <Esc><C-w>L
+    vnoremap <silent><D-m>h <Esc><Esc><C-w>H<CR>
+    vnoremap <silent><D-m>j <Esc><Esc><C-w>J<CR>
+    vnoremap <silent><D-m>k <Esc><Esc><C-w>K<CR>
+    vnoremap <silent><D-m>l <Esc><Esc><C-w>L<CR>
+    tnoremap <silent><D-m>h <C-w>H
+    tnoremap <silent><D-m>j <C-w>J
+    tnoremap <silent><D-m>k <C-w>K
+    tnoremap <silent><D-m>l <C-w>L
+elseif has('win32')
+    nnoremap <silent><A-m>h <C-w>H
+    nnoremap <silent><A-m>j <C-w>J
+    nnoremap <silent><A-m>k <C-w>K
+    nnoremap <silent><A-m>l <C-w>L
+    inoremap <silent><A-m>h <Esc><C-w>H
+    inoremap <silent><A-m>j <Esc><C-w>J
+    inoremap <silent><A-m>k <Esc><C-w>K
+    inoremap <silent><A-m>l <Esc><C-w>L
+    vnoremap <silent><A-m>h <Esc><Esc><C-w>H<CR>
+    vnoremap <silent><A-m>j <Esc><Esc><C-w>J<CR>
+    vnoremap <silent><A-m>k <Esc><Esc><C-w>K<CR>
+    vnoremap <silent><A-m>l <Esc><Esc><C-w>L<CR>
+    tnoremap <silent><A-m>h <C-w>H
+    tnoremap <silent><A-m>j <C-w>J
+    tnoremap <silent><A-m>k <C-w>K
+    tnoremap <silent><A-m>l <C-w>L
+else
+    nnoremap <silent><M-m>h <C-w>H
+    nnoremap <silent><M-m>j <C-w>J
+    nnoremap <silent><M-m>k <C-w>K
+    nnoremap <silent><M-m>l <C-w>L
+    inoremap <silent><M-m>h <Esc><C-w>H
+    inoremap <silent><M-m>j <Esc><C-w>J
+    inoremap <silent><M-m>k <Esc><C-w>K
+    inoremap <silent><M-m>l <Esc><C-w>L
+    vnoremap <silent><M-m>h <Esc><Esc><C-w>H<CR>
+    vnoremap <silent><M-m>j <Esc><Esc><C-w>J<CR>
+    vnoremap <silent><M-m>k <Esc><Esc><C-w>K<CR>
+    vnoremap <silent><M-m>l <Esc><Esc><C-w>L<CR>
+    tnoremap <silent><M-m>h <C-w>H
+    tnoremap <silent><M-m>j <C-w>J
+    tnoremap <silent><M-m>k <C-w>K
+    tnoremap <silent><M-m>l <C-w>L
+endif
 
 "切换到下一个标签页
 "(模仿VimiumC J)
@@ -735,7 +822,7 @@ nnoremap <silent><Esc> :nohlsearch<CR>
 "将tab/space/eol的前景色统一设置为深灰色
 function SetSpecialCharactersDarkGrey()
     if has('gui_running')
-        highlight MyTabSpaceEol ctermfg=darkgrey guifg=darkgrey
+        highlight MyTabSpaceEol guifg=darkgrey
     else
         highlight MyTabSpaceEol ctermfg=darkgrey
     endif
