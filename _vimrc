@@ -738,6 +738,10 @@ vnoremap <silent><Tab>0 <Esc><Esc>:10 tabnext<CR>
 "关闭当前窗口的高亮显示(Esc)
 nnoremap <silent><Esc> :nohlsearch<CR>
 
+"为了避免某些情况下无法在GVim/Vim中使用<Ctrl+v>进行粘贴
+"因此自定义一个快捷键<Ctrl+p>用于在终端中进行粘贴
+tnoremap<silent><C-p> <Esc><Esc><C-\><C-n>i<C-w>"+
+
 "======================================
 "自动命令
 "======================================
