@@ -1,2 +1,2 @@
-cp _vimrc _vimrc_old
-cp ~/.vimrc _vimrc
+cp ./_vimrc ./_vimrc_old
+cp ~/.vimrc ./_vimrc

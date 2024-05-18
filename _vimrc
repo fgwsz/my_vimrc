@@ -480,6 +480,7 @@ inoremap <silent><C-y> <Esc><C-r>a
 nnoremap <silent><C-q> :q!<CR>
 inoremap <silent><C-q> <Esc>:q!<CR>
 vnoremap <silent><C-q> <Esc><Esc>:q!<CR>
+tnoremap <silent><C-q> <Esc><Esc><C-\><C-n>:q!<CR>
 
 "在当前窗口(分屏窗口)的下方打开一个新的终端窗口(分屏窗口)(ctrl+t)
 nnoremap <silent><C-t> :belowright terminal<CR>
