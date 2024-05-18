@@ -814,6 +814,9 @@ vnoremap <silent><Tab>0 <Esc><Esc>:10 tabnext<CR>
 "关闭当前窗口的高亮显示(Esc)
 nnoremap <silent><Esc> :nohlsearch<CR>
 
+"在当前缓冲区进入Netrw Explore
+nnoremap <silent>- :Explore<CR>
+
 "======================================
 "自动命令
 "======================================
