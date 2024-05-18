@@ -476,20 +476,10 @@ inoremap <silent><C-z> <Esc>ua
 nnoremap <silent><C-y> <C-r>
 inoremap <silent><C-y> <Esc><C-r>a
 
-"强制关闭光标所在窗口(alt+w)
-if has('mac')||has('macunix')
-    nnoremap <silent><D-w> :q!<CR>
-    inoremap <silent><D-w> <Esc>:q!<CR>
-    vnoremap <silent><D-w> <Esc><Esc>:q!<CR>
-elseif has('win32')
-    nnoremap <silent><A-w> :q!<CR>
-    inoremap <silent><A-w> <Esc>:q!<CR>
-    vnoremap <silent><A-w> <Esc><Esc>:q!<CR>
-else
-    nnoremap <silent><M-w> :q!<CR>
-    inoremap <silent><M-w> <Esc>:q!<CR>
-    vnoremap <silent><M-w> <Esc><Esc>:q!<CR>
-endif
+"强制关闭光标所在窗口ctrl+q)
+nnoremap <silent><C-q> :q!<CR>
+inoremap <silent><C-q> <Esc>:q!<CR>
+vnoremap <silent><C-q> <Esc><Esc>:q!<CR>
 
 "在当前窗口(分屏窗口)的下方打开一个新的终端窗口(分屏窗口)(ctrl+t)
 nnoremap <silent><C-t> :belowright terminal<CR>
@@ -498,21 +488,17 @@ vnoremap <silent><C-t> <Esc><Esc>:belowright terminal<CR>
 "命令行模式，分屏窗口只显示终端(ctrl+t)
 cnoremap <silent><C-t> :belowright terminal<CR><C-w>k:q!<CR>
 
-"终端退出insert模式进入normal模式(Mac:Cmd|Win:Alt|Other:Meta-e)
-if has('mac')||has('macunix')
-    tnoremap <silent><D-e> <C-\><C-n>
-elseif has('win32')
-    tnoremap <silent><A-e> <C-\><C-n>
-else
-    tnoremap <silent><M-e> <C-\><C-n>
-endif
+"终端退出insert模式进入normal模式(Esc)
+tnoremap <silent><Esc> <C-\><C-n>
 
 "在当前窗口(分屏窗口)的左侧打开一个新的netrw窗口(分屏窗口)(ctrl+e)
-nnoremap <silent><C-e> :Vexplore<CR>
-inoremap <silent><C-e> <Esc>:Vexplore<CR>
-vnoremap <silent><C-e> <Esc><Esc>:Vexplore<CR>
-"命令行模式，分屏窗口只显示netrw(ctrl+e)
-cnoremap <silent><C-e> :Explore<CR>
+"为什么不直接使用`Vexplore`的原因?
+"linux bash terminal使用`*Explore`命令会重新打开一个终端,不会打开Netrw Explore
+nnoremap <silent><C-e> :vsplit .<CR>
+inoremap <silent><C-e> <Esc>:vsplit .<CR>
+vnoremap <silent><C-e> <Esc><Esc>:vsplit .<CR>
+"在当前缓冲区进入Netrw Explore
+nnoremap <silent>- :vsplit .<CR><C-w>l:q!<CR>
 
 "open tab of fast grep(ctrl+g)
 nnoremap <C-g> :tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
@@ -591,17 +577,14 @@ nnoremap <silent>q9 :let @9=''<CR>q9
 "j 移动到下边的分屏窗口
 "k 移动到上边的分屏窗口
 "l 移动到右边的分屏窗口
-"w 移动到下一个分屏窗口
 nnoremap <silent><C-h> <C-w>h
 nnoremap <silent><C-j> <C-w>j
 nnoremap <silent><C-k> <C-w>k
 nnoremap <silent><C-l> <C-w>l
-nnoremap <silent><C-w> <C-w>w
 inoremap <silent><C-h> <Esc><C-w>h
 inoremap <silent><C-j> <Esc><C-w>j
 inoremap <silent><C-k> <Esc><C-w>k
 inoremap <silent><C-l> <Esc><C-w>l
-inoremap <silent><C-w> <Esc><C-w>w
 vnoremap <silent><C-h> <Esc><Esc><C-w>h<CR>
 vnoremap <silent><C-j> <Esc><Esc><C-w>j<CR>
 vnoremap <silent><C-k> <Esc><Esc><C-w>k<CR>
@@ -611,67 +594,33 @@ tnoremap <silent><C-h> <C-w>h
 tnoremap <silent><C-j> <C-w>j
 tnoremap <silent><C-k> <C-w>k
 tnoremap <silent><C-l> <C-w>l
-tnoremap <silent><C-w> <C-w>w
 
-"快捷移动分屏窗口的位置(<(Mac:Cmd|Win:Alt|Other:Meta)-m>x代替<Ctrl-w>X)
-"为什么不用<Ctrl-m>?
-"原因：在Vim插入模式中输入回车<Enter>，会被率先匹配成<Ctrl-m>,即^M
+"快捷移动分屏窗口的位置(<Ctrl-w>x代替<Ctrl-w>X)
 "h 移动分屏窗口到左边
 "j 移动分屏窗口到下边
 "k 移动分屏窗口到上边
 "l 移动分屏窗口到右边
-if has('mac')||has('macunix')
-    nnoremap <silent><D-m>h <C-w>H
-    nnoremap <silent><D-m>j <C-w>J
-    nnoremap <silent><D-m>k <C-w>K
-    nnoremap <silent><D-m>l <C-w>L
-    inoremap <silent><D-m>h <Esc><C-w>H
-    inoremap <silent><D-m>j <Esc><C-w>J
-    inoremap <silent><D-m>k <Esc><C-w>K
-    inoremap <silent><D-m>l <Esc><C-w>L
-    vnoremap <silent><D-m>h <Esc><Esc><C-w>H<CR>
-    vnoremap <silent><D-m>j <Esc><Esc><C-w>J<CR>
-    vnoremap <silent><D-m>k <Esc><Esc><C-w>K<CR>
-    vnoremap <silent><D-m>l <Esc><Esc><C-w>L<CR>
-    tnoremap <silent><D-m>h <C-w>H
-    tnoremap <silent><D-m>j <C-w>J
-    tnoremap <silent><D-m>k <C-w>K
-    tnoremap <silent><D-m>l <C-w>L
-elseif has('win32')
-    nnoremap <silent><A-m>h <C-w>H
-    nnoremap <silent><A-m>j <C-w>J
-    nnoremap <silent><A-m>k <C-w>K
-    nnoremap <silent><A-m>l <C-w>L
-    inoremap <silent><A-m>h <Esc><C-w>H
-    inoremap <silent><A-m>j <Esc><C-w>J
-    inoremap <silent><A-m>k <Esc><C-w>K
-    inoremap <silent><A-m>l <Esc><C-w>L
-    vnoremap <silent><A-m>h <Esc><Esc><C-w>H<CR>
-    vnoremap <silent><A-m>j <Esc><Esc><C-w>J<CR>
-    vnoremap <silent><A-m>k <Esc><Esc><C-w>K<CR>
-    vnoremap <silent><A-m>l <Esc><Esc><C-w>L<CR>
-    tnoremap <silent><A-m>h <C-w>H
-    tnoremap <silent><A-m>j <C-w>J
-    tnoremap <silent><A-m>k <C-w>K
-    tnoremap <silent><A-m>l <C-w>L
-else
-    nnoremap <silent><M-m>h <C-w>H
-    nnoremap <silent><M-m>j <C-w>J
-    nnoremap <silent><M-m>k <C-w>K
-    nnoremap <silent><M-m>l <C-w>L
-    inoremap <silent><M-m>h <Esc><C-w>H
-    inoremap <silent><M-m>j <Esc><C-w>J
-    inoremap <silent><M-m>k <Esc><C-w>K
-    inoremap <silent><M-m>l <Esc><C-w>L
-    vnoremap <silent><M-m>h <Esc><Esc><C-w>H<CR>
-    vnoremap <silent><M-m>j <Esc><Esc><C-w>J<CR>
-    vnoremap <silent><M-m>k <Esc><Esc><C-w>K<CR>
-    vnoremap <silent><M-m>l <Esc><Esc><C-w>L<CR>
-    tnoremap <silent><M-m>h <C-w>H
-    tnoremap <silent><M-m>j <C-w>J
-    tnoremap <silent><M-m>k <C-w>K
-    tnoremap <silent><M-m>l <C-w>L
-endif
+nnoremap <silent><C-w>h <C-w>H
+nnoremap <silent><C-w>j <C-w>J
+nnoremap <silent><C-w>k <C-w>K
+nnoremap <silent><C-w>l <C-w>L
+inoremap <silent><C-w>h <Esc><C-w>H
+inoremap <silent><C-w>j <Esc><C-w>J
+inoremap <silent><C-w>k <Esc><C-w>K
+inoremap <silent><C-w>l <Esc><C-w>L
+vnoremap <silent><C-w>h <Esc><Esc><C-w>H<CR>
+vnoremap <silent><C-w>j <Esc><Esc><C-w>J<CR>
+vnoremap <silent><C-w>k <Esc><Esc><C-w>K<CR>
+vnoremap <silent><C-w>l <Esc><Esc><C-w>L<CR>
+tnoremap <silent><C-w>h <C-w>H
+tnoremap <silent><C-w>j <C-w>J
+tnoremap <silent><C-w>k <C-w>K
+tnoremap <silent><C-w>l <C-w>L
+
+"快捷跳转到下一个分屏窗口(简化<Ctrl-w>w)
+nnoremap <silent><C-w>w <C-w>w
+inoremap <silent><C-w>w <Esc><C-w>w
+vnoremap <silent><C-w>w <Esc><Esc><C-w>w<CR>
 
 "切换到下一个标签页
 "(模仿VimiumC J)
@@ -813,9 +762,6 @@ vnoremap <silent><Tab>0 <Esc><Esc>:10 tabnext<CR>
 
 "关闭当前窗口的高亮显示(Esc)
 nnoremap <silent><Esc> :nohlsearch<CR>
-
-"在当前缓冲区进入Netrw Explore
-nnoremap <silent>- :Explore<CR>
 
 "======================================
 "自动命令
