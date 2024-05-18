@@ -48,7 +48,7 @@ set wildmenu "使用增强的命令模式补全
 
 "错误提示
 set noerrorbells "关闭错误提示音
-set novisualbell "关闭错误提示屏幕闪烁
+set visualbell t_vb= "关闭错误提示屏幕闪烁
 
 "退出提示
 set noconfirm "关闭退出提示
