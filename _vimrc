@@ -833,7 +833,10 @@ autocmd WinEnter * call SetSpecialCharactersDarkGrey()
 
 "切换当前窗口工作目录为当前打开的文件目录
 function! LCdCurrentPath()
-    execute 'silent lcd '.expand('%:p:h')
+    let l:current_path=expand('%:p:h')
+    if l:current_path
+        execute 'silent lcd '.l:current_path
+    endif
 endfunction
 "文件打开时自动切换当前窗口工作目录为文件父目录
 autocmd BufEnter * :call LCdCurrentPath()
