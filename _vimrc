@@ -53,6 +53,9 @@ set visualbell t_vb= "关闭错误提示屏幕闪烁
 "退出提示
 set noconfirm "关闭退出提示
 
+"设置可粘贴
+set paste
+
 "======================================
 "通用外观设置
 "======================================
@@ -486,11 +489,12 @@ tnoremap <silent><C-q> <Esc><Esc><C-\><C-n>:q!<CR>
 nnoremap <silent><C-t> :belowright terminal<CR>
 inoremap <silent><C-t> <Esc>:belowright terminal<CR>
 vnoremap <silent><C-t> <Esc><Esc>:belowright terminal<CR>
+tnoremap <silent><C-t> <Esc><Esc><C-\><C-n>:belowright terminal<CR>
 "命令行模式，分屏窗口只显示终端(ctrl+t)
 cnoremap <silent><C-t> :belowright terminal<CR><C-w>k:q!<CR>
 
-"终端退出insert模式进入normal模式(Esc)
-tnoremap <silent><Esc> <C-\><C-n>
+"终端退出insert模式进入normal模式(<C-\>n)
+tnoremap <silent><C-n> <C-\><C-n>
 
 "在当前窗口(分屏窗口)的左侧打开一个新的netrw窗口(分屏窗口)(ctrl+e)
 "为什么不直接使用`Vexplore`的原因?
@@ -498,6 +502,7 @@ tnoremap <silent><Esc> <C-\><C-n>
 nnoremap <silent><C-e> :vsplit .<CR>
 inoremap <silent><C-e> <Esc>:vsplit .<CR>
 vnoremap <silent><C-e> <Esc><Esc>:vsplit .<CR>
+tnoremap <silent><C-e> <Esc><Esc><C-\><C-n>:vsplit .<CR>
 "在当前缓冲区进入Netrw Explore
 nnoremap <silent>- :vsplit .<CR><C-w>l:q!<CR>
 
@@ -505,6 +510,7 @@ nnoremap <silent>- :vsplit .<CR><C-w>l:q!<CR>
 nnoremap <C-g> :tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
 inoremap <C-g> <Esc>:tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
 vnoremap <C-g> <Esc><Esc>:tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
+tnoremap <C-g> <Esc><Esc><C-\><C-n>:tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
 
 "新增一空白行(o下方 O上方)
 "原因是vim/gvim自带的o/O在有些情况下新增行会附带一些特殊格式/字符
@@ -532,7 +538,7 @@ vnoremap <silent>at :s/\s\+$//g<CR>:nohlsearch<CR>
 "ah:remove all head space
 vnoremap <silent>ah :s/^\s\+//g<CR>:nohlsearch<CR>
 
-"命令行模式粘贴(ctrl+r)
+"命令行模式粘贴(ctrl+v)
 cnoremap <C-r> <C-r>*
 
 "设置宏的时候删除原先记录的宏操作
@@ -573,55 +579,23 @@ nnoremap <silent>q7 :let @7=''<CR>q7
 nnoremap <silent>q8 :let @8=''<CR>q8
 nnoremap <silent>q9 :let @9=''<CR>q9
 
-"快捷切换分屏窗口(<Ctrl-*>代替<Ctrl-w>*)
-"h 移动到左边的分屏窗口
-"j 移动到下边的分屏窗口
-"k 移动到上边的分屏窗口
-"l 移动到右边的分屏窗口
-nnoremap <silent><C-h> <C-w>h
-nnoremap <silent><C-j> <C-w>j
-nnoremap <silent><C-k> <C-w>k
-nnoremap <silent><C-l> <C-w>l
-inoremap <silent><C-h> <Esc><C-w>h
-inoremap <silent><C-j> <Esc><C-w>j
-inoremap <silent><C-k> <Esc><C-w>k
-inoremap <silent><C-l> <Esc><C-w>l
-vnoremap <silent><C-h> <Esc><Esc><C-w>h<CR>
-vnoremap <silent><C-j> <Esc><Esc><C-w>j<CR>
-vnoremap <silent><C-k> <Esc><Esc><C-w>k<CR>
-vnoremap <silent><C-l> <Esc><Esc><C-w>l<CR>
-vnoremap <silent><C-w> <Esc><Esc><C-w>w<CR>
-tnoremap <silent><C-h> <C-w>h
-tnoremap <silent><C-j> <C-w>j
-tnoremap <silent><C-k> <C-w>k
-tnoremap <silent><C-l> <C-w>l
-
-"快捷移动分屏窗口的位置(<Ctrl-w>x代替<Ctrl-w>X)
+"快捷移动分屏窗口的位置(<Ctrl-m>x代替<Ctrl-w>X)
 "h 移动分屏窗口到左边
 "j 移动分屏窗口到下边
 "k 移动分屏窗口到上边
 "l 移动分屏窗口到右边
-nnoremap <silent><C-w>h <C-w>H
-nnoremap <silent><C-w>j <C-w>J
-nnoremap <silent><C-w>k <C-w>K
-nnoremap <silent><C-w>l <C-w>L
-inoremap <silent><C-w>h <Esc><C-w>H
-inoremap <silent><C-w>j <Esc><C-w>J
-inoremap <silent><C-w>k <Esc><C-w>K
-inoremap <silent><C-w>l <Esc><C-w>L
-vnoremap <silent><C-w>h <Esc><Esc><C-w>H<CR>
-vnoremap <silent><C-w>j <Esc><Esc><C-w>J<CR>
-vnoremap <silent><C-w>k <Esc><Esc><C-w>K<CR>
-vnoremap <silent><C-w>l <Esc><Esc><C-w>L<CR>
-tnoremap <silent><C-w>h <C-w>H
-tnoremap <silent><C-w>j <C-w>J
-tnoremap <silent><C-w>k <C-w>K
-tnoremap <silent><C-w>l <C-w>L
-
-"快捷跳转到下一个分屏窗口(简化<Ctrl-w>w)
-nnoremap <silent><C-w>w <C-w>w
-inoremap <silent><C-w>w <Esc><C-w>w
-vnoremap <silent><C-w>w <Esc><Esc><C-w>w<CR>
+nnoremap <silent><C-m>h <C-w>H
+nnoremap <silent><C-m>j <C-w>J
+nnoremap <silent><C-m>k <C-w>K
+nnoremap <silent><C-m>l <C-w>L
+vnoremap <silent><C-m>h <C-w>H
+vnoremap <silent><C-m>j <C-w>J
+vnoremap <silent><C-m>k <C-w>K
+vnoremap <silent><C-m>l <C-w>L
+tnoremap <silent><C-m>h <C-w>H
+tnoremap <silent><C-m>j <C-w>J
+tnoremap <silent><C-m>k <C-w>K
+tnoremap <silent><C-m>l <C-w>L
 
 "切换到下一个标签页
 "(模仿VimiumC J)
