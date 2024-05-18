@@ -53,8 +53,8 @@ set visualbell t_vb= "关闭错误提示屏幕闪烁
 "退出提示
 set noconfirm "关闭退出提示
 
-"设置可粘贴
-set paste
+"设置粘贴模式(paste mode)关闭
+set nopaste
 
 "======================================
 "通用外观设置
@@ -458,9 +458,9 @@ set clipboard^=unnamed,unnamedplus
 "======================================
 
 "保存(ctrl+s)
-nnoremap <silent><C-s> :w<CR>
-inoremap <silent><C-s> <Esc>:w<CR>a
-vnoremap <silent><C-s> <Esc><Esc>:w<CR>
+nnoremap <silent><C-s> :w!<CR>
+inoremap <silent><C-s> <Esc>:w!<CR>a
+vnoremap <silent><C-s> <Esc><Esc>:w!<CR>
 
 "全选(ctrl+a)
 nnoremap <silent><C-a> gg0vG$
@@ -483,13 +483,13 @@ inoremap <silent><C-y> <Esc><C-r>a
 nnoremap <silent><C-q> :q!<CR>
 inoremap <silent><C-q> <Esc>:q!<CR>
 vnoremap <silent><C-q> <Esc><Esc>:q!<CR>
-tnoremap <silent><C-q> <Esc><Esc><C-\><C-n>:q!<CR>
+tnoremap <silent><C-q> <C-\><C-n>:q!<CR>
 
 "在当前窗口(分屏窗口)的下方打开一个新的终端窗口(分屏窗口)(ctrl+t)
 nnoremap <silent><C-t> :belowright terminal<CR>
 inoremap <silent><C-t> <Esc>:belowright terminal<CR>
 vnoremap <silent><C-t> <Esc><Esc>:belowright terminal<CR>
-tnoremap <silent><C-t> <Esc><Esc><C-\><C-n>:belowright terminal<CR>
+tnoremap <silent><C-t> <C-\><C-n>:belowright terminal<CR>
 "命令行模式，分屏窗口只显示终端(ctrl+t)
 cnoremap <silent><C-t> :belowright terminal<CR><C-w>k:q!<CR>
 
@@ -502,7 +502,9 @@ tnoremap <silent><C-n> <C-\><C-n>
 nnoremap <silent><C-e> :vsplit .<CR>
 inoremap <silent><C-e> <Esc>:vsplit .<CR>
 vnoremap <silent><C-e> <Esc><Esc>:vsplit .<CR>
-tnoremap <silent><C-e> <Esc><Esc><C-\><C-n>:vsplit .<CR>
+tnoremap <silent><C-e> <C-\><C-n>:vsplit .<CR>
+"命令行模式，分屏窗口只显示netrw(ctrl+e)
+cnoremap <silent><C-e> :vsplit .<CR><C-w>l:q!<CR>
 "在当前缓冲区进入Netrw Explore
 nnoremap <silent>- :vsplit .<CR><C-w>l:q!<CR>
 
@@ -510,7 +512,7 @@ nnoremap <silent>- :vsplit .<CR><C-w>l:q!<CR>
 nnoremap <C-g> :tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
 inoremap <C-g> <Esc>:tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
 vnoremap <C-g> <Esc><Esc>:tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
-tnoremap <C-g> <Esc><Esc><C-\><C-n>:tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
+tnoremap <C-g> <C-\><C-n>:tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
 
 "新增一空白行(o下方 O上方)
 "原因是vim/gvim自带的o/O在有些情况下新增行会附带一些特殊格式/字符
@@ -538,8 +540,11 @@ vnoremap <silent>at :s/\s\+$//g<CR>:nohlsearch<CR>
 "ah:remove all head space
 vnoremap <silent>ah :s/^\s\+//g<CR>:nohlsearch<CR>
 
-"命令行模式粘贴(ctrl+v)
-cnoremap <C-r> <C-r>*
+"命令行模式粘贴(ctrl+p)
+cnoremap <C-p> <C-r>*
+"为了避免某些情况下无法在GVim/Vim内置终端中使用<Ctrl+v>进行粘贴
+"因此自定义一个快捷键<Ctrl+p>用于在终端中进行粘贴
+tnoremap<silent><C-p> <C-\><C-n>i<C-w>"*
 
 "设置宏的时候删除原先记录的宏操作
 nnoremap <silent>qa :let @a=''<CR>qa
@@ -737,10 +742,6 @@ vnoremap <silent><Tab>0 <Esc><Esc>:10 tabnext<CR>
 
 "关闭当前窗口的高亮显示(Esc)
 nnoremap <silent><Esc> :nohlsearch<CR>
-
-"为了避免某些情况下无法在GVim/Vim中使用<Ctrl+v>进行粘贴
-"因此自定义一个快捷键<Ctrl+p>用于在终端中进行粘贴
-tnoremap<silent><C-p> <Esc><Esc><C-\><C-n>i<C-w>"+
 
 "======================================
 "自动命令
