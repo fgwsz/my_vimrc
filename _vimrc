@@ -504,9 +504,9 @@ inoremap <silent><C-e> <Esc>:vsplit .<CR>
 vnoremap <silent><C-e> <Esc><Esc>:vsplit .<CR>
 tnoremap <silent><C-e> <C-\><C-n>:vsplit .<CR>
 "命令行模式，分屏窗口只显示netrw(ctrl+e)
-cnoremap <silent><C-e> :vsplit .<CR><C-w>l:q!<CR>
+cnoremap <silent><C-e> :vsplit .<CR><C-w>l:q!<CR><C-w>h
 "在当前缓冲区进入Netrw Explore
-nnoremap <silent>- :vsplit .<CR><C-w>l:q!<CR>
+nnoremap <silent>- :vsplit .<CR><C-w>l:q!<CR><C-w>h
 
 "open tab of fast grep(ctrl+g)
 nnoremap <C-g> :tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
