@@ -444,6 +444,8 @@ let g:netrw_keepdir=0
 "设置`:term[inal]`命令默认打开的终端
 if has('win32')
     set shell=powershell "'win32'系统`shell`默认值为`cmd`
+elseif has('linux')
+    set shell=/bin/bash "'linux'系统`shell`设置为`/bin/bash`
 endif
 
 "退出终端
@@ -747,6 +749,24 @@ vnoremap <silent><Tab>0 <Esc><Esc>:10 tabnext<CR>
 
 "关闭当前窗口的高亮显示(Esc)
 nnoremap <silent><Esc> :nohlsearch<CR>
+
+"打开一个新标签页,路径为终端中光标所在行的路径
+function! TabNewTerminalCurrentLinePath()
+    " 获取光标所在行的全部内容
+    let l:line=getline('.')
+    " 从当前行内容中提取路径
+    if has('win32')
+        " 从当前行中提取出`PS `和`>`之间的字符串
+        let l:path=matchstr(line,'PS \zs.*\ze\>')
+    elseif has('linux')
+        " 从当前行中提取出`:`和`$`之间的字符串
+        let l:path=matchstr(line,':\zs.*\ze\$')
+    endif
+    " 打开新标签页并跳转到路径
+    execute "tabnew " l:path
+endfunction
+nnoremap <silent><F2> :call TabNewTerminalCurrentLinePath()<CR>
+tnoremap <silent><F2> <C-\><C-n>:call TabNewTerminalCurrentLinePath()<CR>
 
 "======================================
 "自动命令
