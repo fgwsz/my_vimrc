@@ -393,12 +393,16 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认
 function! OpenFileWithSystemExplorer()
     let l:current_path=expand('%:p')
     let l:filename=expand('<cfile>',':p')
+    "使用windows explorer.exe打开光标选中的文件
     if has('win32')
+        "windows中的l:current_path是'X:\root_dir\...\parent_dir'
+        "而windows中文件夹的l:filename是'dir_name/'，即最后一个字符是'/'
+        "为了使Windows Explorer可以正常打开l:current_path.l:filename，
+        "必须去除filename末尾的'/'字符
         let l:filename=substitute(l:filename,'/','','g')
-        "使用Windows Explorer打开光标选中的文件
         execute '!explorer.exe '.l:current_path.l:filename
+    "使用linux xdg打开光标选中的文件
     elseif has('linux')
-        "使用Linux Xdg打开光标选中的文件
         execute '!xdg-open '.l:current_path.l:filename
     endif
 endfunction
