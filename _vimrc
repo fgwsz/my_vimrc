@@ -397,7 +397,7 @@ function! OpenFileWithSystemExplorer()
     if has('win32')
         "windows中的l:current_path是'X:\root_dir\...\parent_dir'
         "而windows中文件夹的l:filename是'dir_name/'，即最后一个字符是'/'
-        "为了使Windows Explorer可以正常打开l:current_path.l:filename，
+        "为了使windows explorer.exe可以正常打开l:current_path.l:filename，
         "必须去除filename末尾的'/'字符
         let l:filename=substitute(l:filename,'/','','g')
         execute '!explorer.exe '.l:current_path.l:filename
