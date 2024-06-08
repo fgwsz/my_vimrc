@@ -385,21 +385,26 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认
 
 "为什么实现如下的功能，而不直接使用Netrw的`x`功能键的原因:
 "在Vim/GVim 9.0版本中，在'win32'系统中使用`x`，无法打开/执行文件
-"在Vim/GVim 9.1版本中，修复了这一问题
-"所以为了适配'win32'系统Vim/GVim 9.0版本，实现如下功能作为`x`的代替
-"在Netrw浏览文件的时候，使用Windows Explorer打开光标选中的文件(gx)
-if has('win32')
-    "使用Windows Explorer打开光标选中的文件
-    function! OpenFileWithWindowsExplorer()
-        let l:current_path=expand('%:p')
-        let l:temp_filename=expand('<cfile>',':p')
-        let l:filename=substitute(l:temp_filename,'/','','g')
-        let l:file_path=l:current_path.l:filename
+"在Vim/GVim 8.2版本中，在'linux'系统中使用`x`，无法打开/执行文件
+"在Vim/GVim 9.1版本中(win32'系统)修复了这一问题
+"所以为了适配'win32'系统Vim/GVim 9.0版本和'linux'系统Vim/GVim 8.2版本，
+"实现如下功能作为`x`的代替
+"在Netrw浏览文件的时候，使用系统默认的Explorer打开光标选中的文件(gx)
+function! OpenFileWithSystemExplorer()
+    let l:current_path=expand('%:p')
+    let l:temp_filename=expand('<cfile>',':p')
+    let l:filename=substitute(l:temp_filename,'/','','g')
+    let l:file_path=l:current_path.l:filename
+    if has('win32')
+        "使用Windows Explorer打开光标选中的文件
         execute '!explorer.exe '.l:file_path
-    endfunction
-    "绑定Netrw打开文件的快捷键(gx)
-    nnoremap <silent>gx :call OpenFileWithWindowsExplorer()<CR>
-endif
+    elseif has('linux')
+        "使用Linux Xdg打开光标选中的文件
+        execute '!xdg-open '.l:file_path
+    endif
+endfunction
+"绑定Netrw打开文件的快捷键(gx)
+nnoremap <silent>gx :call OpenFileWithSystemExplorer()<CR>
 
 "Netrw切换文件路径的时候是否保持原有的工作目录
 "0:Netrw切换文件路径的时候，窗口的工作目录会自动更新为打开的文件路径
