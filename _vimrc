@@ -392,15 +392,14 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认
 "在Netrw浏览文件的时候，使用系统默认的Explorer打开光标选中的文件(gx)
 function! OpenFileWithSystemExplorer()
     let l:current_path=expand('%:p')
-    let l:temp_filename=expand('<cfile>',':p')
-    let l:filename=substitute(l:temp_filename,'/','','g')
-    let l:file_path=l:current_path.l:filename
+    let l:filename=expand('<cfile>',':p')
     if has('win32')
+        let l:filename=substitute(l:filename,'/','','g')
         "使用Windows Explorer打开光标选中的文件
-        execute '!explorer.exe '.l:file_path
+        execute '!explorer.exe '.l:current_path.l:filename
     elseif has('linux')
         "使用Linux Xdg打开光标选中的文件
-        execute '!xdg-open '.l:file_path
+        execute '!xdg-open '.l:current_path.l:filename
     endif
 endfunction
 "绑定Netrw打开文件的快捷键(gx)
