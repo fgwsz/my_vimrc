@@ -796,7 +796,7 @@ autocmd WinEnter * call SetSpecialCharactersDarkGrey()
 "切换当前窗口工作目录为当前打开的文件目录
 function! LCdCurrentPath()
     let l:current_path=expand('%:p:h')
-    if l:current_path
+    if isdirectory(l:current_path)
         execute 'silent lcd '.l:current_path
     endif
 endfunction
