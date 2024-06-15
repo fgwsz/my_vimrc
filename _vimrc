@@ -279,15 +279,24 @@ endfunction
 "设置状态栏显示内容
 "`%{n}*`:对其余的行使用高亮显示组User{n},直到另一个%{n}*。
 "数字{n}必须从1到9。用`%*`或`%0*`可以恢复正常的高亮显示。
-set statusline =%1*\ %{BufMode()}\  "vim当前模式
-set statusline+=%2*\ %<%F\  "路径
-set statusline+=%3*%{BufModifiable()} "是否可修改
-set statusline+=%4*%{BufModified()} "是否存在改动
-set statusline+=%0*%=\  "右对齐并添加一个空格(防止后续格式因对齐被削去临接的空格,造成显示异常)
-set statusline+=%5*%{BufType()} "文件类型
-set statusline+=%6*\ %{&fileformat}\  "操作系统
-set statusline+=%7*%{FileEncoding()} "文件编码
-set statusline+=%8*\ %c:%l/%L(%p%%)\  "光标所在位置
+"vim当前模式
+set statusline =%1*\ %{BufMode()}\ 
+"缓冲区路径
+set statusline+=%2*\ %<%F\ 
+"是否可修改
+set statusline+=%3*%{BufModifiable()}
+"是否存在改动
+set statusline+=%4*%{BufModified()}
+"右对齐并添加一个空格(防止后续格式因对齐被削去临接的空格,造成显示异常)
+set statusline+=%0*%=\ 
+"缓冲区类型
+set statusline+=%5*%{BufType()}
+"操作系统
+set statusline+=%6*\ %{&fileformat}\ 
+"文件编码
+set statusline+=%7*%{FileEncoding()}
+"光标所在位置
+set statusline+=%8*\ %c:%l/%L(%p%%)\ 
 "statusline高亮配色
 if has('gui_running')
     highlight User1 gui=bold guifg=White guibg=DarkGreen
