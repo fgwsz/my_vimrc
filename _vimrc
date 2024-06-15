@@ -21,7 +21,7 @@ set nowritebackup "表示编辑的时候不需要备份文件
 set noundofile "表示不创建撤销文件
 
 "vi兼容相关
-set nocompatible "不兼容vi模式，避免bug
+set nocompatible "不兼容vi模式,避免bug
 
 "按键可用性
 set backspace=indent,eol,start "让backspace在insert模式下可用
@@ -72,10 +72,10 @@ set number "显示绝对行号
 set nowrap "取消自动折行
 set sidescroll=1 "更加平滑的逐个字符扩展显示
 set scrolloff=999 "让编辑行自动位于屏幕中间
-set colorcolumn=80 "在第80列显示一条竖线，作为标准列宽的标识
+set colorcolumn=80 "在第80列显示一条竖线,作为标准列宽的标识
 set textwidth=0 "设置单行输入字符数量无限制
-"vim在单行字符数量超过colorcolumn数量时键入字符，可能会触发vim的自动换行操作
-"设置textwidth选项为0(字符数量无限制)，会关闭vim的自动换行操作
+"vim在单行字符数量超过colorcolumn数量时键入字符,可能会触发vim的自动换行操作
+"设置textwidth选项为0(字符数量无限制),会关闭vim的自动换行操作
 
 "高亮相关
 syntax on "开启语法高亮
@@ -87,9 +87,9 @@ set showmatch "光标移动到括号时高亮显示匹配括号
 "set cursorline "高亮显示光标当前行
 "set cursorcolumn "高亮显示光标当前列
 "设置光标所在行列高亮显示的颜色
-""highlght:用来配色的命令，包括语法高亮等个性化的配置
+""highlght:用来配色的命令,包括语法高亮等个性化的配置
 ""CursorLine/CursorColumn:当前所在的行列
-""cterm:为vim设置样式，设置为NONE表示可以自定义设置
+""cterm:为vim设置样式,设置为NONE表示可以自定义设置
 ""ctermbg:vim的背景色
 ""ctermfg:vim的前景色
 ""guibg:vim的背景色
@@ -113,13 +113,13 @@ colorscheme industry "设置配色方案为industry
 
 "缩进相关
 set tabstop=4 "设置tab键的宽度为4
-set softtabstop=4 "按下tab键时显示宽度为4，按下backspace键删除tab时删除宽度为4
+set softtabstop=4 "按下tab键时显示宽度为4,按下backspace键删除tab时删除宽度为4
 set shiftwidth=4 "缩进字符宽度为4
 set expandtab "键入tab时自动替换为空格
 
 "标签栏显示相关
 set showtabline=2 "总是显示标签栏
-"set tabpagemax=15 "设置显示标签栏数量最大为15，默认为10
+"set tabpagemax=15 "设置显示标签栏数量最大为15,默认为10
 "检查编号为n的标签页是否存在已修改未保存的缓冲区
 function! TabModified(n)
     let l:label=''
@@ -277,13 +277,13 @@ function! FileEncoding()
     endif
 endfunction
 "设置状态栏显示内容
-"`%{n}*`:对其余的行使用高亮显示组User{n}，直到另一个%{n}*。
+"`%{n}*`:对其余的行使用高亮显示组User{n},直到另一个%{n}*。
 "数字{n}必须从1到9。用`%*`或`%0*`可以恢复正常的高亮显示。
 set statusline =%1*\ %{BufMode()}\  "vim当前模式
 set statusline+=%2*\ %<%F\  "路径
 set statusline+=%3*%{BufModifiable()} "是否可修改
 set statusline+=%4*%{BufModified()} "是否存在改动
-set statusline+=%0*%=\  "右对齐并添加一个空格(防止后续格式因对齐被削去临接的空格，造成显示异常)
+set statusline+=%0*%=\  "右对齐并添加一个空格(防止后续格式因对齐被削去临接的空格,造成显示异常)
 set statusline+=%5*%{BufType()} "文件类型
 set statusline+=%6*\ %{&fileformat}\  "操作系统
 set statusline+=%7*%{FileEncoding()} "文件编码
@@ -344,7 +344,7 @@ if has('gui_running')
     set guioptions-=L "隐藏左侧滚动条
     set guioptions-=r "隐藏右侧滚动条
     set guioptions-=b "隐藏底部滚动条
-    set guioptions-=e "使用内置标签栏，而不是GUI标签栏
+    set guioptions-=e "使用内置标签栏,而不是GUI标签栏
 endif
 
 "======================================
@@ -383,21 +383,21 @@ let g:netrw_sort_by='name' "设置文件排序方式为按照名称排序(默认
 "Netrw分屏窗口最大宽度(百分比)
 "let g:netrw_winsize=25 "设置为整个vim/gvim窗口宽度的25%
 
-"为什么实现如下的功能，而不直接使用Netrw的`x`功能键的原因:
-"在Vim/GVim 9.0版本中，在'win32'系统中使用`x`，无法打开/执行文件
-"在Vim/GVim 8.2版本中，在'linux'系统中使用`x`，无法打开/执行文件
+"为什么实现如下的功能,而不直接使用Netrw的`x`功能键的原因:
+"在Vim/GVim 9.0版本中,在'win32'系统中使用`x`,无法打开/执行文件
+"在Vim/GVim 8.2版本中,在'linux'系统中使用`x`,无法打开/执行文件
 "在Vim/GVim 9.1版本中(win32'系统)修复了这一问题
-"所以为了适配'win32'系统Vim/GVim 9.0版本和'linux'系统Vim/GVim 8.2版本，
+"所以为了适配'win32'系统Vim/GVim 9.0版本和'linux'系统Vim/GVim 8.2版本,
 "实现如下功能作为`x`的代替
-"在Netrw浏览文件的时候，使用系统默认的Explorer打开光标选中的文件(gx)
+"在Netrw浏览文件的时候,使用系统默认的Explorer打开光标选中的文件(gx)
 function! OpenFileWithSystemExplorer()
     let l:current_path=expand('%:p')
     let l:filename=expand('<cfile>',':p')
     "使用windows explorer.exe打开光标选中的文件
     if has('win32')
         "windows中的l:current_path是'X:\root_dir\...\parent_dir'
-        "而windows中文件夹的l:filename是'dir_name/'，即最后一个字符是'/'
-        "为了使windows explorer.exe可以正常打开l:current_path.l:filename，
+        "而windows中文件夹的l:filename是'dir_name/',即最后一个字符是'/'
+        "为了使windows explorer.exe可以正常打开l:current_path.l:filename,
         "必须去除filename末尾的'/'字符
         let l:filename=substitute(l:filename,'/','','g')
         execute '!explorer.exe '.l:current_path.l:filename
@@ -410,8 +410,8 @@ endfunction
 nnoremap <silent>gx :call OpenFileWithSystemExplorer()<CR>
 
 "Netrw切换文件路径的时候是否保持原有的工作目录
-"0:Netrw切换文件路径的时候，窗口的工作目录会自动更新为打开的文件路径
-"1(默认):Netrw切换文件路径的时候，窗口的工作目录不会自动更新为打开的文件路径
+"0:Netrw切换文件路径的时候,窗口的工作目录会自动更新为打开的文件路径
+"1(默认):Netrw切换文件路径的时候,窗口的工作目录不会自动更新为打开的文件路径
 let g:netrw_keepdir=0
 
 "======================================
@@ -428,14 +428,14 @@ let g:netrw_keepdir=0
 "字号       14 半粗体
 
 "终端快捷键设置
-"终端粘贴<ctrl-v>和vim进入列选可视模式<ctrl-v>冲突，应替换为<ctrl-alt-v>
+"终端粘贴<ctrl-v>和vim进入列选可视模式<ctrl-v>冲突,应替换为<ctrl-alt-v>
 
-"终端光标形状跟随vim模式自动切换(存在隐性BUG，有时会导致字符显示错误)
-"实现效果：普通模式实心块状，插入模式线条状，替换模式下划线状
+"终端光标形状跟随vim模式自动切换(存在隐性BUG,有时会导致字符显示错误)
+"实现效果：普通模式实心块状,插入模式线条状,替换模式下划线状
 "&t_SI 表示插入模式
 "&t_SR 表示替换模式
 "&t_EI 表示普通模式
-""\<Esc>[6 q"用来配置光标的形状，其中6的取值可以是1~6，分别指代不同的光标样式
+""\<Esc>[6 q"用来配置光标的形状,其中6的取值可以是1~6,分别指代不同的光标样式
 "1:blinking block         闪烁的方块
 "2:solid block            不闪烁的方块
 "3:blinking underscore    闪烁的下划线
@@ -458,11 +458,11 @@ endif
 
 "退出终端
 "使用q!会把由此终端窗口打开的全部应用强制关闭之后再退出
-"使用exit可以关闭此终端窗口，并在后台继续运行原先由此终端窗口打开的应用程序
+"使用exit可以关闭此终端窗口,并在后台继续运行原先由此终端窗口打开的应用程序
 
 "中文输入相关
 "在vim中可以使用任何终端支持的输入法来输入中文
-"在gvim中(windows操作系统)请使用windows自带输入法，使用其他输入法不一定能切换中英文并输入中文
+"在gvim中(windows操作系统)请使用windows自带输入法,使用其他输入法不一定能切换中英文并输入中文
 
 "剪切板相关
 "设置vim/gvim和系统的剪切板互通
@@ -519,24 +519,24 @@ endfunction
 nnoremap <silent><C-t> :belowright terminal<CR>
 inoremap <silent><C-t> <Esc>:belowright terminal<CR>
 vnoremap <silent><C-t> <Esc><Esc>:belowright terminal<CR>
-tnoremap <silent><C-t> <C-\><C-n>:execute "silent below split ".GetTerminalCurrentLinePath()<CR>:belowright terminal<CR><C-w>k:q!<CR>
-"命令行模式，分屏窗口只显示终端(ctrl+t)
+tnoremap <silent><C-t> <C-\><C-n>:execute 'silent below split '.GetTerminalCurrentLinePath()<CR>:belowright terminal<CR><C-w>k:q!<CR>
+"命令行模式,分屏窗口只显示终端(ctrl+t)
 cnoremap <silent><C-t> :belowright terminal<CR><C-w>k:q!<CR>
 
 "终端退出insert模式进入normal模式(<C-\>n)
 tnoremap <silent><C-n> <C-\><C-n>
 
 "在当前窗口(分屏窗口)的左侧打开一个新的netrw窗口(分屏窗口)(ctrl+e)
-"为什么不直接使用`Vexplore`的原因?
-"linux bash terminal使用`*Explore`命令会重新打开一个终端,不会打开Netrw Explore
-"linux bash terminal使用`*Explore ${path}`功能正常，其中`${path}`不为空
-"linux bash terminal使用`*Explore ${path}`，其中${path}中包含用户目录`~`功能正常
-"linux 使用`*split ~`功能异常
+"为什么不使用vsplit?
+    "linux中`vsplit ~`会把`~`当成文件名,不会把`~`识别成用户目录
+"linux bash terminal使用`*Explore ${path}`注意事项
+    "`${path}`不为空时,若${path}包含`~`,会被自动识别为用户目录
+    "`${path}`为空时,`${path}`会被自动补全为`!/bin/bash`,此时会打开一个新终端,而不会打开Netrw Explore
 nnoremap <silent><C-e> :Vexplore .<CR>
 inoremap <silent><C-e> <Esc>:Vexplore .<CR>
 vnoremap <silent><C-e> <Esc><Esc>:Vexplore .<CR>
-tnoremap <silent><C-e> <C-\><C-n>:execute "Vexplore ".GetTerminalCurrentLinePath()<CR>
-"命令行模式，分屏窗口只显示netrw(ctrl+e)
+tnoremap <silent><C-e> <C-\><C-n>:execute 'silent Vexplore '.GetTerminalCurrentLinePath()<CR>
+"命令行模式,分屏窗口只显示netrw(ctrl+e)
 cnoremap <silent><C-e> :Explore .<CR>
 "在当前缓冲区进入Netrw Explore
 nnoremap <silent>- :Explore .<CR>
@@ -545,15 +545,15 @@ nnoremap <silent>- :Explore .<CR>
 nnoremap <C-g> :Texplore .<CR>:copen<CR><C-w>k:vimgrep 
 inoremap <C-g> <Esc>:Texplore .<CR>:copen<CR><C-w>k:vimgrep 
 vnoremap <C-g> <Esc><Esc>:Texplore .<CR>:copen<CR><C-w>k:vimgrep 
-tnoremap <C-g> <C-\><C-n>:execute "Texplore ".GetTerminalCurrentLinePath()<CR><C-w>k:copen<CR>:vimgrep 
+tnoremap <C-g> <C-\><C-n>:execute 'Texplore '.GetTerminalCurrentLinePath()<CR>:copen<CR><C-w>k:vimgrep 
 
 "新增一空白行(o下方 O上方)
 "原因是vim/gvim自带的o/O在有些情况下新增行会附带一些特殊格式/字符
-"这里采用"_d命令删除（不存入剪切板），而不是d剪切，是为了保护剪切板中的内容
+"这里采用"_d命令删除(不存入剪切板),而不是d剪切,是为了保护剪切板中的内容
 nnoremap <silent>o o<Esc>0"_d$a
 nnoremap <silent>O O<Esc>0"_d$a
 
-"删除可视模式中选中区域的所有换行，并将光标移动到该行行首
+"删除可视模式中选中区域的所有换行,并将光标移动到该行行首
 "an:remove all \n
 vnoremap <silent>an :s/\n//g<CR>:nohlsearch<CR>0
 
@@ -637,7 +637,7 @@ tnoremap <silent><C-m>l <C-w>L
 
 "切换到下一个标签页
 "(模仿VimiumC J)
-"不使用gt的原因:gt不是按照标签页的序号跳转的，是按照标签页打开的顺序跳转的
+"不使用gt的原因:gt不是按照标签页的序号跳转的,是按照标签页打开的顺序跳转的
 function! TabNext()
     let l:tab_count=tabpagenr('$')
     if l:tab_count==1
@@ -654,7 +654,7 @@ vnoremap <silent>J <Esc><Esc>:call TabNext()<CR>
 
 "切换到上一个标签页
 "(模仿VimiumC K)
-"不使用gT的原因:gT不是按照标签页的序号跳转的，是按照标签页打开的顺序跳转的
+"不使用gT的原因:gT不是按照标签页的序号跳转的,是按照标签页打开的顺序跳转的
 function! TabPrev()
     let l:tab_count=tabpagenr('$')
     if l:tab_count==1
@@ -672,7 +672,7 @@ vnoremap <silent>K <Esc><Esc>:call TabPrev()<CR>
 "让当前标签页在标签栏中向左移动一格(Tab+,)
 "(模仿VimiumC <<):`shift ,`是`<`,替换`shift`为`Tab`
 "不直接使用`tabmove -1`的原因:
-"如果当前标签页是标签栏最左侧的标签页，`:tabmove -1`无法左移(循环左移)
+"如果当前标签页是标签栏最左侧的标签页,`:tabmove -1`无法左移(循环左移)
 function! TabMoveLeft()
     let l:tab_count=tabpagenr('$')
     if l:tab_count==1
@@ -691,7 +691,7 @@ vnoremap <silent><Tab>, <Esc><Esc>:call TabMoveLeft()<CR>
 "让当前标签页在标签栏中向有右移动一格(Tab+.)
 "(模仿VimiumC >>):`shift .`是`>`,替换`shift`为`Tab`
 "不直接使用`tabmove +1`的原因:
-"如果当前标签页是标签栏最右侧的标签页，`:tabmove +1`无法右移(循环右移)
+"如果当前标签页是标签栏最右侧的标签页,`:tabmove +1`无法右移(循环右移)
 function! TabMoveRight()
     let l:tab_count=tabpagenr('$')
     if l:tab_count==1
@@ -731,7 +731,7 @@ vnoremap <silent><Tab>t <Esc><Esc>:tabnew<CR>:belowright terminal<CR><C-w>k:q!<C
 
 "强制关闭当前标签页(Tab+c)
 "不直接使用`:tabclose!`的原因:
-"如果当前标签栏只有一个标签页，`:tabclose!`无法关闭该标签页
+"如果当前标签栏只有一个标签页,`:tabclose!`无法关闭该标签页
 function! TabClose()
     let l:tab_count=tabpagenr('$')
     if l:tab_count>1
@@ -776,10 +776,11 @@ vnoremap <silent><Tab>0 <Esc><Esc>:10 tabnext<CR>
 "关闭当前窗口的高亮显示(Esc)
 nnoremap <silent><Esc> :nohlsearch<CR>
 
-"新建一个标签页，路径为终端中光标所在行的路径
-"为什么不使用tabnew?linux中`tabnew ~`会把`~`当成文件名，不会把`~`识别成用户目录
-nnoremap <silent><F2> :execute "silent Texplore ".GetTerminalCurrentLinePath()<CR>
-tnoremap <silent><F2> <C-\><C-n>:execute "silent Texplore ".GetTerminalCurrentLinePath()<CR>
+"新建一个标签页,路径为终端中光标所在行的路径(F2)
+"为什么不使用tabnew?
+    "linux中`tabnew ~`会把`~`当成文件名,不会把`~`识别成用户目录
+nnoremap <silent><F2> :execute 'silent Texplore '.GetTerminalCurrentLinePath()<CR>
+tnoremap <silent><F2> <C-\><C-n>:execute 'silent Texplore '.GetTerminalCurrentLinePath()<CR>
 
 "======================================
 "自动命令
