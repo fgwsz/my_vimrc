@@ -500,11 +500,26 @@ inoremap <silent><C-q> <Esc>:q!<CR>
 vnoremap <silent><C-q> <Esc><Esc>:q!<CR>
 tnoremap <silent><C-q> <C-\><C-n>:q!<CR>
 
+"得到终端中光标所在行的路径
+function! GetTerminalCurrentLinePath()
+    " 获取光标所在行的全部内容
+    let l:line=getline('.')
+    " 从当前行内容中提取路径
+    if has('win32')
+        " 从当前行中提取出`PS `和`>`之间的字符串
+        let l:current_path=matchstr(line,'PS \zs.*\ze\>')
+    elseif has('linux')
+        " 从当前行中提取出`:`和`$`之间的字符串
+        let l:current_path=matchstr(line,':\zs.*\ze\$')
+    endif
+    return l:current_path
+endfunction
+
 "在当前窗口(分屏窗口)的下方打开一个新的终端窗口(分屏窗口)(ctrl+t)
 nnoremap <silent><C-t> :belowright terminal<CR>
 inoremap <silent><C-t> <Esc>:belowright terminal<CR>
 vnoremap <silent><C-t> <Esc><Esc>:belowright terminal<CR>
-tnoremap <silent><C-t> <C-\><C-n>:belowright terminal<CR>
+tnoremap <silent><C-t> <C-\><C-n>:execute "silent below split ".GetTerminalCurrentLinePath()<CR>:belowright terminal<CR><C-w>k:q!<CR>
 "命令行模式，分屏窗口只显示终端(ctrl+t)
 cnoremap <silent><C-t> :belowright terminal<CR><C-w>k:q!<CR>
 
@@ -514,20 +529,23 @@ tnoremap <silent><C-n> <C-\><C-n>
 "在当前窗口(分屏窗口)的左侧打开一个新的netrw窗口(分屏窗口)(ctrl+e)
 "为什么不直接使用`Vexplore`的原因?
 "linux bash terminal使用`*Explore`命令会重新打开一个终端,不会打开Netrw Explore
-nnoremap <silent><C-e> :vsplit .<CR>
-inoremap <silent><C-e> <Esc>:vsplit .<CR>
-vnoremap <silent><C-e> <Esc><Esc>:vsplit .<CR>
-tnoremap <silent><C-e> <C-\><C-n>:vsplit .<CR>
+"linux bash terminal使用`*Explore ${path}`功能正常，其中`${path}`不为空
+"linux bash terminal使用`*Explore ${path}`，其中${path}中包含用户目录`~`功能正常
+"linux 使用`*split ~`功能异常
+nnoremap <silent><C-e> :Vexplore .<CR>
+inoremap <silent><C-e> <Esc>:Vexplore .<CR>
+vnoremap <silent><C-e> <Esc><Esc>:Vexplore .<CR>
+tnoremap <silent><C-e> <C-\><C-n>:execute "Vexplore ".GetTerminalCurrentLinePath()<CR>
 "命令行模式，分屏窗口只显示netrw(ctrl+e)
-cnoremap <silent><C-e> :vsplit .<CR><C-w>l:q!<CR><C-w>h
+cnoremap <silent><C-e> :Explore .<CR>
 "在当前缓冲区进入Netrw Explore
-nnoremap <silent>- :vsplit .<CR><C-w>l:q!<CR><C-w>h
+nnoremap <silent>- :Explore .<CR>
 
 "open tab of fast grep(ctrl+g)
-nnoremap <C-g> :tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
-inoremap <C-g> <Esc>:tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
-vnoremap <C-g> <Esc><Esc>:tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
-tnoremap <C-g> <C-\><C-n>:tabnew<CR>:Explore<CR>:copen<CR>:vimgrep 
+nnoremap <C-g> :Texplore .<CR>:copen<CR><C-w>k:vimgrep 
+inoremap <C-g> <Esc>:Texplore .<CR>:copen<CR><C-w>k:vimgrep 
+vnoremap <C-g> <Esc><Esc>:Texplore .<CR>:copen<CR><C-w>k:vimgrep 
+tnoremap <C-g> <C-\><C-n>:execute "Texplore ".GetTerminalCurrentLinePath()<CR><C-w>k:copen<CR>:vimgrep 
 
 "新增一空白行(o下方 O上方)
 "原因是vim/gvim自带的o/O在有些情况下新增行会附带一些特殊格式/字符
@@ -758,23 +776,10 @@ vnoremap <silent><Tab>0 <Esc><Esc>:10 tabnext<CR>
 "关闭当前窗口的高亮显示(Esc)
 nnoremap <silent><Esc> :nohlsearch<CR>
 
-"打开一个新标签页,路径为终端中光标所在行的路径
-function! TabNewTerminalCurrentLinePath()
-    " 获取光标所在行的全部内容
-    let l:line=getline('.')
-    " 从当前行内容中提取路径
-    if has('win32')
-        " 从当前行中提取出`PS `和`>`之间的字符串
-        let l:path=matchstr(line,'PS \zs.*\ze\>')
-    elseif has('linux')
-        " 从当前行中提取出`:`和`$`之间的字符串
-        let l:path=matchstr(line,':\zs.*\ze\$')
-    endif
-    " 打开新标签页并跳转到路径
-    execute "tabnew " l:path
-endfunction
-nnoremap <silent><F2> :call TabNewTerminalCurrentLinePath()<CR>
-tnoremap <silent><F2> <C-\><C-n>:call TabNewTerminalCurrentLinePath()<CR>
+"新建一个标签页，路径为终端中光标所在行的路径
+"为什么不使用tabnew?linux中`tabnew ~`会把`~`当成文件名，不会把`~`识别成用户目录
+nnoremap <silent><F2> :execute "silent Texplore ".GetTerminalCurrentLinePath()<CR>
+tnoremap <silent><F2> <C-\><C-n>:execute "silent Texplore ".GetTerminalCurrentLinePath()<CR>
 
 "======================================
 "自动命令
