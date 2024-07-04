@@ -530,7 +530,7 @@ inoremap <silent><C-t> <Esc>:belowright terminal<CR>
 vnoremap <silent><C-t> <Esc><Esc>:belowright terminal<CR>
 tnoremap <silent><C-t> <C-\><C-n>:execute 'silent below split '.GetTerminalCurrentLinePath()<CR>:belowright terminal<CR><C-w>k:q!<CR>
 "命令行模式,分屏窗口只显示终端(ctrl+t)
-cnoremap <silent><C-t> :belowright terminal<CR><C-w>k:q!<CR>
+cnoremap <silent><C-t> <Esc>:belowright terminal<CR><C-w>k:q!<CR>
 
 "终端退出insert模式进入normal模式(<C-\>n)
 tnoremap <silent><C-n> <C-\><C-n>
@@ -546,7 +546,7 @@ inoremap <silent><C-e> <Esc>:Vexplore .<CR>
 vnoremap <silent><C-e> <Esc><Esc>:Vexplore .<CR>
 tnoremap <silent><C-e> <C-\><C-n>:execute 'silent Vexplore '.GetTerminalCurrentLinePath()<CR>
 "命令行模式,分屏窗口只显示netrw(ctrl+e)
-cnoremap <silent><C-e> :Explore .<CR>
+cnoremap <silent><C-e> <Esc>:Explore .<CR>
 "在当前缓冲区进入Netrw Explore
 nnoremap <silent>- :Explore .<CR>
 
@@ -660,6 +660,12 @@ function! TabNext()
 endfunction
 nnoremap <silent>J :call TabNext()<CR>
 vnoremap <silent>J <Esc><Esc>:call TabNext()<CR>
+
+"切换到下一个标签页(Ctrl+Tab)
+nnoremap <silent><C-Tab> :call TabNext()<CR>
+vnoremap <silent><C-Tab> <Esc><Esc>:call TabNext()<CR>
+tnoremap <silent><C-Tab> <C-\><C-n>:call TabNext()<CR>
+cnoremap <silent><C-Tab> <Esc>:call TabNext()<CR>
 
 "切换到上一个标签页
 "(模仿VimiumC K)
