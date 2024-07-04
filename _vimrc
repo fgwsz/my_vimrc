@@ -241,7 +241,7 @@ function! BufMode()
     endif
 endfunction
 "得到当前缓冲区只读属性
-function BufModifiable()
+function! BufModifiable()
     if !(&modifiable)
         return ' RO '
     else
@@ -249,7 +249,7 @@ function BufModifiable()
     endif
 endfunction
 "得到当前缓冲区是否被修改属性
-function BufModified()
+function! BufModified()
     if !(&modifiable)
         return ''
     elseif !(&modified)
@@ -797,7 +797,7 @@ tnoremap <silent><F2> <C-\><C-n>:execute 'silent Texplore '.GetTerminalCurrentLi
 
 "某些配色方案下特殊字符tab(\t)/space(\s)/eol(\n\r)显示不明显
 "将tab/space/eol的前景色统一设置为深灰色
-function SetSpecialCharactersDarkGrey()
+function! SetSpecialCharactersDarkGrey()
     if has('gui_running')
         highlight MyTabSpaceEol guifg=darkgrey
     else
