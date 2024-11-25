@@ -582,8 +582,8 @@ vnoremap <silent>at :s/\s\+$//g<CR>:nohlsearch<CR>
 "ah:remove all head space
 vnoremap <silent>ah :s/^\s\+//g<CR>:nohlsearch<CR>
 
-"替换全文中文标点符号为英文标点符号
-"ac:replace all chinese symbols
+"替换全文中文标点符号为英文标点符号(alt+c)
+"<Alt+c>:replace all chinese symbols
 "！ !
 "…… ...
 "（ (
