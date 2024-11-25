@@ -582,6 +582,45 @@ vnoremap <silent>at :s/\s\+$//g<CR>:nohlsearch<CR>
 "ah:remove all head space
 vnoremap <silent>ah :s/^\s\+//g<CR>:nohlsearch<CR>
 
+"替换全文中文标点符号为英文标点符号
+"ac:replace all chinese symbols
+"， ,
+"。 .
+"！ !
+"…… ...
+"（ (
+"） )
+"—— --
+"“ \"
+"” \"
+"： :
+"； ;
+"‘ '
+"’ '
+"《 <<
+"》 >>
+"？ ?
+"、/
+function! ReplaceChineseWithEnglishSymbols()
+    execute "silent s/，/,/ge"
+    execute "silent s/。/./ge"
+    execute "silent s/……/.../ge"
+    execute "silent s/（/(/ge"
+    execute "silent s/）/)/ge"
+    execute "silent s/！/!/ge"
+    execute "silent s/——/--/ge"
+    execute "silent s/“/\"/ge"
+    execute "silent s/”/\"/ge"
+    execute "silent s/：/:/ge"
+    execute "silent s/；/;/ge"
+    execute "silent s/‘/'/ge"
+    execute "silent s/’/'/ge"
+    execute "silent s/《/<</ge"
+    execute "silent s/》/>>/ge"
+    execute "silent s/？/?/ge"
+    execute "silent s/、/\//ge"
+endfunction
+vnoremap <silent>ac :call ReplaceChineseWithEnglishSymbols()<CR>:nohlsearch<CR>
 "命令行模式粘贴(ctrl+p)
 cnoremap <C-p> <C-r>*
 "为了避免某些情况下无法在GVim/Vim内置终端中使用<Ctrl+v>进行粘贴
