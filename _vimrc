@@ -620,7 +620,7 @@ function! ReplaceChineseWithEnglishSymbols()
     execute "silent %s/？/?/g"
     execute "silent %s/、/|/g"
 endfunction
-nnoremap <silent>ac :call ReplaceChineseWithEnglishSymbols()<CR>:nohlsearch<CR>
+nnoremap <silent><A-c> :call ReplaceChineseWithEnglishSymbols()<CR>:nohlsearch<CR>
 
 "命令行模式粘贴(ctrl+p)
 cnoremap <C-p> <C-r>*
