@@ -528,7 +528,7 @@ endfunction
 nnoremap <silent><C-t> :belowright terminal<CR>
 inoremap <silent><C-t> <Esc>:belowright terminal<CR>
 vnoremap <silent><C-t> <Esc><Esc>:belowright terminal<CR>
-tnoremap <silent><C-t> <C-\><C-n>:execute 'silent below split '.GetTerminalCurrentLinePath()<CR>:belowright terminal<CR><C-w>k:q!<CR>
+tnoremap <silent><C-t> <C-\><C-n>:silent execute 'below split '.GetTerminalCurrentLinePath()<CR>:belowright terminal<CR><C-w>k:q!<CR>
 "命令行模式,分屏窗口只显示终端(ctrl+t)
 cnoremap <silent><C-t> <Esc>:belowright terminal<CR><C-w>k:q!<CR>
 
@@ -544,7 +544,7 @@ tnoremap <silent><C-n> <C-\><C-n>
 nnoremap <silent><C-e> :Vexplore .<CR>
 inoremap <silent><C-e> <Esc>:Vexplore .<CR>
 vnoremap <silent><C-e> <Esc><Esc>:Vexplore .<CR>
-tnoremap <silent><C-e> <C-\><C-n>:execute 'silent Vexplore '.GetTerminalCurrentLinePath()<CR>
+tnoremap <silent><C-e> <C-\><C-n>:silent execute 'Vexplore '.GetTerminalCurrentLinePath()<CR>
 "命令行模式,分屏窗口只显示netrw(ctrl+e)
 cnoremap <silent><C-e> <Esc>:Explore .<CR>
 "在当前缓冲区进入Netrw Explore
@@ -584,42 +584,46 @@ vnoremap <silent>ah :s/^\s\+//g<CR>:nohlsearch<CR>
 
 "替换全文中文标点符号为英文标点符号(alt+c)
 "<Alt+c>:replace all chinese symbols
-"! !
-"... ...
-"( (
-") )
-"-- --
-"" \"
-"" \"
-": :
-"; ;
-"' '
-"' '
-"<< <<
-">> >>
-", ,
-". .
-"? ?
-"||
+"！ !
+"…… ...
+"（ (
+"） )
+"—— --
+"； ;
+"： :
+"‘ '
+"’ '
+"“ \"
+"” \"
+"， ,
+"。 .
+"〈 <
+"〉 >
+"《 <<
+"》 >>
+"？ ?
+"、|
 function! ReplaceChineseWithEnglishSymbols()
-    execute "silent %s/!/!/g"
-    execute "silent %s/.../.../g"
-    execute "silent %s/(/(/g"
-    execute "silent %s/)/)/g"
-    execute "silent %s/--/--/g"
-    execute "silent %s/"/\"/g"
-    execute "silent %s/"/\"/g"
-    execute "silent %s/:/:/g"
-    execute "silent %s/;/;/g"
-    execute "silent %s/'/'/g"
-    execute "silent %s/'/'/g"
-    execute "silent %s/<</<</g"
-    execute "silent %s/>>/>>/g"
-    execute "silent %s/,/,/g"
-    execute "silent %s/././g"
-    execute "silent %s/?/?/g"
-    execute "silent %s/|/|/g"
-    execute "silent nohlsearch"
+    silent execute "%s/！/!/g"
+    silent execute "%s/……/.../g"
+    silent execute "%s/（/(/g"
+    silent execute "%s/）/)/g"
+    silent execute "%s/——/--/g"
+    silent execute "%s/；/;/g"
+    silent execute "%s/：/:/g"
+    silent execute "%s/‘/\'/g"
+    silent execute "%s/’/\'/g"
+    silent execute "%s/“/\"/g"
+    silent execute "%s/”/\"/g"
+    silent execute "%s/，/,/g"
+    silent execute "%s/。/./g"
+    silent execute "%s/〈/</g"
+    silent execute "%s/〉/>/g"
+    silent execute "%s/《/<</g"
+    silent execute "%s/》/>>/g"
+    silent execute "%s/？/?/g"
+    silent execute "%s/、/|/g"
+    silent execute "nohlsearch"
 endfunction
 nnoremap <silent><A-c> :call ReplaceChineseWithEnglishSymbols()<CR>
 inoremap <silent><A-c> <Esc>:call ReplaceChineseWithEnglishSymbols()<CR>
@@ -631,23 +635,23 @@ function! NonBlankCharactersCount() range
     " 保存当前寄存器内容
     let l:save=@z
     "复制选中区域到寄存器z,并恢复可视选择
-    silent exec 'normal! gv"zy'
+    silent execute 'normal! gv"zy'
     let l:text=@z
     "恢复寄存器z的原始内容
     let @z=l:save
-    silent exec 'normal! gv'
+    silent execute 'normal! gv'
     " 初始化计数器
     let l:cc=0
     " 遍历文本中的每个字符
     for l:char in split(l:text,'\zs')
         " 检查当前字符是否为非空白字符
-        if l:char!=''&&l:char!='\n'&&l:char!='\t'&&l:char!=' '
+        if l:char!=''&&l:char!='\n'&&l:char!='\r'&&l:char!='\t'&&l:char!=' '
             "如果是,增加计数器
             let l:cc+=1
         endif
     endfor
     " 输出统计结果,这里修改提示信息以反映统计的是非空白字符
-    echo 'Count of non-blank characters is: '
+    echo 'Count of non-blank characters is:'
     echo l:cc
 endfunc
 vnoremap <silent><F3> :call NonBlankCharactersCount()<CR>
@@ -726,7 +730,7 @@ function! TabNext()
     if l:target_tab<1
         let l:target_tab=l:tab_count
     endif
-    execute 'silent '.l:target_tab.'tabnext'
+    silent execute l:target_tab.'tabnext'
 endfunction
 nnoremap <silent>J :call TabNext()<CR>
 vnoremap <silent>J <Esc><Esc>:call TabNext()<CR>
@@ -749,7 +753,7 @@ function! TabPrev()
     if l:target_tab>l:tab_count
         let l:target_tab=1
     endif
-    execute 'silent '.l:target_tab.'tabnext'
+    silent execute l:target_tab.'tabnext'
 endfunction
 nnoremap <silent>K :call TabPrev()<CR>
 vnoremap <silent>K <Esc><Esc>:call TabPrev()<CR>
@@ -765,9 +769,9 @@ function! TabMoveLeft()
     endif
     let l:target_tab=tabpagenr()-1
     if l:target_tab<1
-        execute 'silent tabmove +'.(l:tab_count-1)
+        silent execute 'tabmove +'.(l:tab_count-1)
     else
-        execute 'silent tabmove -1'
+        silent execute 'tabmove -1'
     endif
 endfunction
 nnoremap <silent><Tab>, :call TabMoveLeft()<CR>
@@ -784,9 +788,9 @@ function! TabMoveRight()
     endif
     let l:target_tab=tabpagenr()+1
     if l:target_tab>l:tab_count
-        execute 'silent tabmove -'.(l:tab_count-1)
+        silent execute 'tabmove -'.(l:tab_count-1)
     else
-        execute 'silent tabmove +1'
+        silent execute 'tabmove +1'
     endif
 endfunction
 nnoremap <silent><Tab>. :call TabMoveRight()<CR>
@@ -820,9 +824,9 @@ vnoremap <silent><Tab>t <Esc><Esc>:tabnew<CR>:belowright terminal<CR><C-w>k:q!<C
 function! TabClose()
     let l:tab_count=tabpagenr('$')
     if l:tab_count>1
-        execute 'silent tabclose!'
+        silent execute 'tabclose!'
     else
-        execute 'silent qa!'
+        silent execute 'qa!'
     endif
 endfunction
 nnoremap <silent><Tab>c :call TabClose()<CR>
@@ -864,8 +868,8 @@ nnoremap <silent><Esc> :nohlsearch<CR>
 "新建一个标签页,路径为终端中光标所在行的路径(F2)
 "为什么不使用tabnew?
     "linux中`tabnew ~`会把`~`当成文件名,不会把`~`识别成用户目录
-nnoremap <silent><F2> :execute 'silent Texplore '.GetTerminalCurrentLinePath()<CR>
-tnoremap <silent><F2> <C-\><C-n>:execute 'silent Texplore '.GetTerminalCurrentLinePath()<CR>
+nnoremap <silent><F2> :silent execute 'Texplore '.GetTerminalCurrentLinePath()<CR>
+tnoremap <silent><F2> <C-\><C-n>:silent execute 'Texplore '.GetTerminalCurrentLinePath()<CR>
 
 "======================================
 "自动命令
@@ -888,7 +892,7 @@ autocmd WinEnter * call SetSpecialCharactersDarkGrey()
 function! LCdCurrentPath()
     let l:current_path=expand('%:p:h')
     if isdirectory(l:current_path)
-        execute 'silent lcd '.l:current_path
+        silent execute 'lcd '.l:current_path
     endif
 endfunction
 "文件打开时自动切换当前窗口工作目录为文件父目录
