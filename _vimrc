@@ -68,7 +68,7 @@ set nopaste
 "行相关
 set number "显示绝对行号
 "set relativenumber "显示相对行号
-"set wrap "自动折行：将超出屏幕范围的文本打断并显示在下一行
+"set wrap "自动折行:将超出屏幕范围的文本打断并显示在下一行
 set nowrap "取消自动折行
 set sidescroll=1 "更加平滑的逐个字符扩展显示
 set scrolloff=999 "让编辑行自动位于屏幕中间
@@ -277,8 +277,8 @@ function! FileEncoding()
     endif
 endfunction
 "设置状态栏显示内容
-"`%{n}*`:对其余的行使用高亮显示组User{n},直到另一个%{n}*。
-"数字{n}必须从1到9。用`%*`或`%0*`可以恢复正常的高亮显示。
+"`%{n}*`:对其余的行使用高亮显示组User{n},直到另一个%{n}*.
+"数字{n}必须从1到9.用`%*`或`%0*`可以恢复正常的高亮显示.
 "vim当前模式
 set statusline =%1*\ %{BufMode()}\ 
 "缓冲区路径
@@ -440,7 +440,7 @@ let g:netrw_keepdir=0
 "终端粘贴<ctrl-v>和vim进入列选可视模式<ctrl-v>冲突,应替换为<ctrl-alt-v>
 
 "终端光标形状跟随vim模式自动切换(存在隐性BUG,有时会导致字符显示错误)
-"实现效果：普通模式实心块状,插入模式线条状,替换模式下划线状
+"实现效果:普通模式实心块状,插入模式线条状,替换模式下划线状
 "&t_SI 表示插入模式
 "&t_SR 表示替换模式
 "&t_EI 表示普通模式
@@ -584,46 +584,73 @@ vnoremap <silent>ah :s/^\s\+//g<CR>:nohlsearch<CR>
 
 "替换全文中文标点符号为英文标点符号(alt+c)
 "<Alt+c>:replace all chinese symbols
-"！ !
-"…… ...
-"（ (
-"） )
-"—— --
-"“ \"
-"” \"
-"： :
-"； ;
-"‘ '
-"’ '
-"《 <<
-"》 >>
-"， ,
-"。 .
-"？ ?
-"、|
+"! !
+"... ...
+"( (
+") )
+"-- --
+"" \"
+"" \"
+": :
+"; ;
+"' '
+"' '
+"<< <<
+">> >>
+", ,
+". .
+"? ?
+"||
 function! ReplaceChineseWithEnglishSymbols()
-    execute "silent %s/！/!/g"
-    execute "silent %s/……/.../g"
-    execute "silent %s/（/(/g"
-    execute "silent %s/）/)/g"
-    execute "silent %s/——/--/g"
-    execute "silent %s/“/\"/g"
-    execute "silent %s/”/\"/g"
-    execute "silent %s/：/:/g"
-    execute "silent %s/；/;/g"
-    execute "silent %s/‘/'/g"
-    execute "silent %s/’/'/g"
-    execute "silent %s/《/<</g"
-    execute "silent %s/》/>>/g"
-    execute "silent %s/，/,/g"
-    execute "silent %s/。/./g"
-    execute "silent %s/？/?/g"
-    execute "silent %s/、/|/g"
+    execute "silent %s/!/!/g"
+    execute "silent %s/.../.../g"
+    execute "silent %s/(/(/g"
+    execute "silent %s/)/)/g"
+    execute "silent %s/--/--/g"
+    execute "silent %s/"/\"/g"
+    execute "silent %s/"/\"/g"
+    execute "silent %s/:/:/g"
+    execute "silent %s/;/;/g"
+    execute "silent %s/'/'/g"
+    execute "silent %s/'/'/g"
+    execute "silent %s/<</<</g"
+    execute "silent %s/>>/>>/g"
+    execute "silent %s/,/,/g"
+    execute "silent %s/././g"
+    execute "silent %s/?/?/g"
+    execute "silent %s/|/|/g"
     execute "silent nohlsearch"
 endfunction
 nnoremap <silent><A-c> :call ReplaceChineseWithEnglishSymbols()<CR>
 inoremap <silent><A-c> <Esc>:call ReplaceChineseWithEnglishSymbols()<CR>
 vnoremap <silent><A-c> <Esc><Esc>:call ReplaceChineseWithEnglishSymbols()<CR>
+
+"统计非空字符数量信息(F3)
+"支持unicode多字节字符
+function! NonBlankCharactersCount() range
+    " 保存当前寄存器内容
+    let l:save=@z
+    "复制选中区域到寄存器z,并恢复可视选择
+    silent exec 'normal! gv"zy'
+    let l:text=@z
+    "恢复寄存器z的原始内容
+    let @z=l:save
+    silent exec 'normal! gv'
+    " 初始化计数器
+    let l:cc=0
+    " 遍历文本中的每个字符
+    for l:char in split(l:text,'\zs')
+        " 检查当前字符是否为非空白字符
+        if l:char!=''&&l:char!='\n'&&l:char!='\t'&&l:char!=' '
+            "如果是,增加计数器
+            let l:cc+=1
+        endif
+    endfor
+    " 输出统计结果,这里修改提示信息以反映统计的是非空白字符
+    echo 'Count of non-blank characters is: '
+    echo l:cc
+endfunc
+vnoremap <silent><F3> :call NonBlankCharactersCount()<CR>
 
 "命令行模式粘贴(ctrl+p)
 cnoremap <C-p> <C-r>*
