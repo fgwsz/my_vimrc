@@ -382,7 +382,7 @@ let g:netrw_banner=1 "显示横幅
 
 "Netrw目录/文件显示模式
 "0(默认):thin 1:long 2:wide 3:tree
-let g:netrw_liststyle=0 "设置显示模式为long
+let g:netrw_liststyle=1 "设置显示模式为long
 
 "Netrw目录/文件排序方式
 "let g:netrw_sort_by='time' "设置文件排序方式为按照时间排序
