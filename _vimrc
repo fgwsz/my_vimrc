@@ -117,6 +117,10 @@ set softtabstop=4 "按下tab键时显示宽度为4,按下backspace键删除tab�
 set shiftwidth=4 "缩进字符宽度为4
 set expandtab "键入tab时自动替换为空格
 
+" 如果您仍然想用 >> 来实现这个特定行为，需要更复杂的逻辑，
+" 因为 >> 本身是递增缩进，这里不推荐直接修改 >> 的行为，
+" 而是建议使用不同的映射来避免覆盖原有功能。
+
 "标签栏显示相关
 set showtabline=2 "总是显示标签栏
 "set tabpagemax=15 "设置显示标签栏数量最大为15,默认为10
@@ -561,6 +565,19 @@ tnoremap <C-g> <C-\><C-n>:execute 'Texplore '.GetTerminalCurrentLinePath()<CR>:c
 "这里采用"_d命令删除(不存入剪切板),而不是d剪切,是为了保护剪切板中的内容
 nnoremap <silent>o o<Esc>0"_d$a
 nnoremap <silent>O O<Esc>0"_d$a
+
+"新增一个缩进深度(>>)
+"在normal模式下对空行使用>>,无法增加一个缩进深度
+"为了增加这个功能,于是重新实现>>功能,用于支持在空行增加缩进深度
+"还有一个功能的需求:在使用>>前后,保持光标在当前行的字符位置不发生改变
+"下面的I后面的4个空格和魔数4是因为:我设置的一个缩进深度为4个空格
+nnoremap <silent>>> mm:silent execute "normal I    "<CR>`m4l
+
+"减少一个缩进深度(<<)
+"vim自带的<<,在使用<<之后,会将光标的位置移动到行首第一个非空字符上
+"这个映射的目的:在使用<<前后,保持光标在当前行的字符位置不发生改变
+"下面魔数4是因为:我设置的一个缩进深度为4个空格
+nnoremap <silent><< 4hmm<<`m
 
 "删除可视模式中选中区域的所有换行,并将光标移动到该行行首
 "an:remove all \n
