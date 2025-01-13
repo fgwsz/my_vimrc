@@ -117,10 +117,6 @@ set softtabstop=4 "按下tab键时显示宽度为4,按下backspace键删除tab�
 set shiftwidth=4 "缩进字符宽度为4
 set expandtab "键入tab时自动替换为空格
 
-" 如果您仍然想用 >> 来实现这个特定行为，需要更复杂的逻辑，
-" 因为 >> 本身是递增缩进，这里不推荐直接修改 >> 的行为，
-" 而是建议使用不同的映射来避免覆盖原有功能。
-
 "标签栏显示相关
 set showtabline=2 "总是显示标签栏
 "set tabpagemax=15 "设置显示标签栏数量最大为15,默认为10
