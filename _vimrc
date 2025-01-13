@@ -572,10 +572,15 @@ nnoremap <silent>>> mm:silent execute 'normal I    '<CR>`m4l
 "减少一个缩进深度(<<)
 "vim自带的<<,在使用<<之后,会将光标的位置移动到行首第一个非空字符上
 "这个映射的目的:在使用<<前后,保持光标在当前行的字符位置不发生改变
+"下面的魔数4是因为:我设置的一个缩进深度为4个空格
 function! DeleteIndentAndPerserveCursorPosition()
     " 获取当前行第一个非空字符前的空格数
     let l:head_spaces=strlen(matchstr(getline('.'),'^\s*'))
-    silent execute 'normal! '.l:head_spaces.'hmm<<`m'
+    if l:head_spaces<4
+        silent execute 'normal! '.l:head_spaces.'hmm<<`m'
+    else
+        silent execute 'normal! 4hmm<<`m'
+    endif
 endfunction
 nnoremap <silent><< :call DeleteIndentAndPerserveCursorPosition()<CR>
 
