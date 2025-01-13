@@ -567,13 +567,17 @@ nnoremap <silent>O O<Esc>0"_d$a
 "为了增加这个功能,于是重新实现>>功能,用于支持在空行增加缩进深度
 "还有一个功能的需求:在使用>>前后,保持光标在当前行的字符位置不发生改变
 "下面的I后面的4个空格和魔数4是因为:我设置的一个缩进深度为4个空格
-nnoremap <silent>>> mm:silent execute "normal I    "<CR>`m4l
+nnoremap <silent>>> mm:silent execute 'normal I    '<CR>`m4l
 
 "减少一个缩进深度(<<)
 "vim自带的<<,在使用<<之后,会将光标的位置移动到行首第一个非空字符上
 "这个映射的目的:在使用<<前后,保持光标在当前行的字符位置不发生改变
-"下面魔数4是因为:我设置的一个缩进深度为4个空格
-nnoremap <silent><< 4hmm<<`m
+function! DeleteIndentAndPerserveCursorPosition()
+    " 获取当前行第一个非空字符前的空格数
+    let l:head_spaces=strlen(matchstr(getline('.'),'^\s*'))
+    silent execute 'normal! '.l:head_spaces.'hmm<<`m'
+endfunction
+nnoremap <silent><< :call DeleteIndentAndPerserveCursorPosition()<CR>
 
 "删除可视模式中选中区域的所有换行,并将光标移动到该行行首
 "an:remove all \n
