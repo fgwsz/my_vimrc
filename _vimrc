@@ -276,32 +276,35 @@ function! FileEncoding()
         return ''
     endif
 endfunction
-"设置状态栏显示内容
-"`%{n}*`:对其余的行使用高亮显示组User{n},直到另一个%{n}*.
-"数字{n}必须从1到9.用`%*`或`%0*`可以恢复正常的高亮显示.
-"vim当前模式
-set statusline =%1*\ %{BufMode()}\ 
-"缓冲区路径
-set statusline+=%2*\ %<%F\ 
-"是否可修改
-set statusline+=%3*%{BufModifiable()}
-"是否存在改动
-set statusline+=%4*%{BufModified()}
-"右对齐并添加一个空格(防止后续格式因对齐被削去临接的空格,造成显示异常)
-set statusline+=%0*%=\ 
-"缓冲区类型
-set statusline+=%5*%{BufType()}
-"操作系统
-set statusline+=%6*\ %{&fileformat}\ 
-"文件编码
-set statusline+=%7*%{FileEncoding()}
-"光标所在位置
-set statusline+=%8*\ %c:%l/%L(%p%%)\ 
-"是否折行显示
+"得到当前缓冲区折行属性
 function! WrapMotionStatus() abort
     return &wrap ? 'Wrap' : 'NoWrap'
 endfunction
-set statusline+=%1*\ %{WrapMotionStatus()}\ 
+"设置状态栏显示内容
+function! InitStatusLine()
+    "`%{n}*`:对其余的行使用高亮显示组User{n},直到另一个%{n}*.
+    "数字{n}必须从1到9.用`%*`或`%0*`可以恢复正常的高亮显示.
+    "vim当前模式
+    set statusline =%1*\ %{BufMode()}\ 
+    "缓冲区路径
+    set statusline+=%2*\ %<%F\ 
+    "是否可修改
+    set statusline+=%3*%{BufModifiable()}
+    "是否存在改动
+    set statusline+=%4*%{BufModified()}
+    "右对齐并添加一个空格(防止后续格式因对齐被削去临接的空格,造成显示异常)
+    set statusline+=%0*%=\ 
+    "缓冲区类型
+    set statusline+=%5*%{BufType()}
+    "操作系统
+    set statusline+=%6*\ %{&fileformat}\ 
+    "文件编码
+    set statusline+=%7*%{FileEncoding()}
+    "光标所在位置
+    set statusline+=%8*\ %c:%l/%L(%p%%)\ 
+    "是否折行显示
+    set statusline+=%1*\ %{WrapMotionStatus()}\ 
+endfunction
 "statusline高亮配色
 if has('gui_running')
     highlight User1 gui=bold guifg=White guibg=DarkGreen
@@ -927,6 +930,9 @@ autocmd BufEnter * :call LCdCurrentPath()
 
 "文件缓冲区修改(仅适用于文本替换后)自动取消当前窗口的高亮显示
 autocmd BufWrite * :nohlsearch
+
+"作用于初始窗口显示状态栏(用于修复初始窗口状态栏不显示折行属性的问题)
+autocmd VimEnter * :call InitStatusLine()
 
 "修改本文件并保存后立即生效
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
