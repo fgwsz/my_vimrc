@@ -297,6 +297,11 @@ set statusline+=%6*\ %{&fileformat}\
 set statusline+=%7*%{FileEncoding()}
 "光标所在位置
 set statusline+=%8*\ %c:%l/%L(%p%%)\ 
+"是否折行显示
+function! WrapMotionStatus() abort
+    return &wrap ? 'Wrap' : 'NoWrap'
+endfunction
+set statusline+=%1*\ %{WrapMotionStatus()}\ 
 "statusline高亮配色
 if has('gui_running')
     highlight User1 gui=bold guifg=White guibg=DarkGreen
