@@ -499,6 +499,10 @@ nnoremap <silent><C-a> gg0vG$
 inoremap <silent><C-a> <Esc>gg0vG$
 vnoremap <silent><C-a> <Esc><Esc>gg0vG$
 
+"复制一行内容,不包含行尾换行符(Y)
+nnoremap <silent>Y 0y$
+vnoremap <silent>Y 0y$
+
 "复制当前行到下一行(ctrl+d)
 nnoremap <silent><C-d> yyp
 inoremap <silent><C-d> <Esc>yypa
