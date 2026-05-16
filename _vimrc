@@ -871,8 +871,8 @@ nnoremap <silent><Tab>o :tabonly!<CR>
 vnoremap <silent><Tab>o <Esc><Esc>:tabonly!<CR>
 
 "强制关闭全部标签页(Tab+a)
-nnoremap <silent><Tab>a :qa!<CR>
-vnoremap <silent><Tab>a <Esc><Esc>:qa!<CR>
+nnoremap <silent><Tab>ac :qa!<CR>
+vnoremap <silent><Tab>ac <Esc><Esc>:qa!<CR>
 
 "跳转到编号为<number>的标签页(Tab+<number>)
 nnoremap <silent><Tab>1 :1 tabnext<CR>
