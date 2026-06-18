@@ -568,6 +568,17 @@ inoremap <C-g> <Esc>:Texplore .<CR>:copen<CR><C-w>k:vimgrep
 vnoremap <C-g> <Esc><Esc>:Texplore .<CR>:copen<CR><C-w>k:vimgrep 
 tnoremap <C-g> <C-\><C-n>:execute 'Texplore '.GetTerminalCurrentLinePath()<CR>:copen<CR><C-w>k:vimgrep 
 
+" 设置 grep 程序为 ripgrep(如果存在并可用),并禁用默认的 vimgrep
+" 安装rigpgrep的方式
+"   Windows系统安装:管理员身份打开powershell/cmd输入如下指令:
+"       choco install ripgrep
+"   Linux(Ubuntu)系统安装:打开终端输入如下指令:
+"       sudo apt install ripgrep
+if executable('rg')
+    set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+    set grepformat=%f:%l:%c:%m
+endif
+
 "新增一空白行(o下方 O上方)
 "原因是vim/gvim自带的o/O在有些情况下新增行会附带一些特殊格式/字符
 "这里采用"_d命令删除(不存入剪切板),而不是d剪切,是为了保护剪切板中的内容
