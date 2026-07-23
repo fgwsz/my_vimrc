@@ -109,7 +109,7 @@ set listchars=tab:>―,space:·,eol:↓
 
 "配色方案相关
 set background=dark "设置深色背景颜色美化
-colorscheme wildcharm "设置配色方案为wildcharm
+colorscheme peachpuff "设置配色方案为peachpuff
 
 "缩进相关
 set tabstop=4 "设置tab键的宽度为4
