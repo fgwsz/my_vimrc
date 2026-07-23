@@ -345,12 +345,12 @@ if has('gui_running')
 endif
 
 "gvim字体相关
-"设置gvim显示字体为Consolas,字号为14号
+"设置gvim显示字体为Consolas,字号为14号加粗
 if has('gui_running')
     if has('win32')||has('mac')||has('macunix')
-        set guifont=Consolas:h14
+        set guifont=Consolas:h14:b
     elseif has('linux')
-        set guifont=Consolas\ 14
+        set guifont=Consolas\ Bold\ 14
     endif
 endif
 
